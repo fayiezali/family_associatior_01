@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class FamilyAssociatiorConfig(AppConfig):
+class AccountsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'family_associatior'
+    name = 'Accounts'
