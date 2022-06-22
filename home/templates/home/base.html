@@ -1,0 +1,214 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title> My Saving</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css'           %}" >
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css'      %}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo-style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.css'              %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    
+</head>
+
+<body class="is-preload">
+
+<!-- Base.html Wrapper Start ------------------------------ -->
+<div id="wrapper">
+
+
+
+<!--Base.html Main  Start ------------------------------ -->
+<div id="main">
+
+<div class="inner">
+
+
+<!-- Base.html - Header_Page Start ------------------------------ -->
+
+<header id="header">
+<div class="logo">
+                <a
+                href="#"> My Saving 
+                </a> 
+<!--- Base.html - Title_Page Start  ----------------------------- -->
+
+<!--- Base.html - Title_Page End' ------------------------------- -->
+
+</div>
+
+</header>
+{% block Page_Title  %} 
+{% endblock Page_Title %}  
+
+
+<!--- Base.html - Messages_Contenst_Start  ---------------------- -->
+<div class="container">
+{% block messages_Contents  %}
+{% endblock messages_Contents %}  
+</div>
+<!--- Base.html - Messages_Contents_End' ----------------------- -->
+
+
+<!--- Base.html - Contents_Page Start --------------------------- -->
+<!-- <div class="container"> -->
+{% block Contents_Page %} 
+{% endblock Contents_Page %} 
+<!-- </div> -->
+<!--- Base.html - Contents_Page End ----------------------------- -->
+        
+            
+        </div>
+        </div>
+<!--Base.html Main  Start ------------------------------ -->
+
+
+<!-- Base.html - Header_Page End ------------------------------ -->
+
+
+<!-- Base.html - Sidebar  Start ------------------------------ -->
+<div id="sidebar">
+
+<div class="inner">
+
+<!-- Base.html - Search Box Start ------------------------------ -->
+            <section id="search" class="alt">
+            
+            <form action="#" method="get">
+                <input type="text" name="#" id="search" placeholder="Put Hire What You Want To Search...">
+            </form>
+            </section>
+<!-- Base.html - Search Box End ------------------------------ -->
+
+{% if  user.is_authenticated %}
+
+<p  class="mt-0">  Welcome (  {{ user.username }}  ) </p>
+<li><a href="#">(1) - Home page</a></li>
+<li><a href="#">(2) - About Us </a></li>
+<li><a href="#">(3) - All  Subscribers</a></li>
+
+
+<!--  Base.html - Menu_Page Start- ---------------------------- -->
+            <!-- Menu -->
+            <nav id="menu">
+            
+            <ul>
+                <li>
+                <span class="opener">(A) - My Acoount</span>
+                <ul>
+                    <li><a href="#">1- Password Reset</a></li>
+                    <li><a href="#">2- Password Change</a></li>
+                    <li><a href="#">3- Delete Profile</a></li>
+                    <li><a href="#"                                          >4- Contact Us</a></li>
+                    <li><a href="#">5- Logout</a></li>
+
+                </ul>
+                </li>
+                                
+                <li>
+                <span class="opener">(B) - My Profile</span>
+                <ul>
+                    <li><a href="#">1- Basic Data</a></li>
+                    <li><a href="#">2- Personal Data</a></li>
+                    <li><a href="#">3- Financial Data</a></li>
+                    <li><a href="#">4- Housing Data</a></li>
+                    <li><a href="#" href="#">5- Dues Record</a></li>
+                </ul>
+                </li>
+
+                <!-- <li>
+                <span class="opener">(C) - Dues Record</span>
+                <ul>
+                    <li><a href="{% url 'My_Monthes_Menu_URL'  %}" >Dues Record #1</a></li> 
+                    <li><a href="{% url 'dmenu' %}"> dmenu</a></li>
+                    <li><a href="#">Sub Menu #2</a></li>
+                </ul>
+                </li>
+                <li>
+                <span class="opener">(D) - Association Data</span>
+                <ul>
+                    <li><a href="#">Sub Menu #1</a></li>
+                    <li><a href="#">Sub Menu #2</a></li>
+                </ul>
+                </li> -->
+
+{% else %}
+                <li><a href="#">1- Administrator Login   </a></li>
+                <li><a href="#">2- Customer     Login</a></li>
+                <li><a href="#">3- Sign Up       </a></li>
+                <li><a href="#">4- Home Page    </a></li>
+                <li><a href="#">5- About Us     </a></li>
+
+            </ul>
+            </nav>
+            {% endif %}
+<!--  Base.html - Menu_Page Start- ---------------------------- -->
+
+    
+    <!-- {% block Pagination %}
+    
+    {% for contact in page_obj %}
+        {# Each "contact" is a Contact model object. #}
+        {{ contact.full_name|upper }}<br>
+        ...
+    {% endfor %}
+    
+    <div class="pagination">
+        <span class="step-links">
+                {% if page_obj.has_previous %}
+                <a href="?page=1"> |< FIRST</a>
+                <a href="?page={{ page_obj.previous_page_number }}"> << PREVIOUS </a>
+                {% endif %}
+    
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+    
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}"> NEXT >> </a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}"> LAST >|</a>
+                {% endif %}
+        </span>
+    </div>
+    
+    {% endblock Pagination %} 
+    -->
+
+
+<!--  Base.html - Footer_Page Start- ---------------------------- -->
+            <footer id="footer">
+            <p class="copyright">Copyright &copy; 2019 Company Name
+            <br>Designed by <a rel="nofollow" href="https://www.facebook.com/templatemo">Template Mo</a></p>
+            </footer>
+<!--  Base.html - Footer_Page End- ------------------------------ -->
+</div>
+</div>
+<!-- Base.html - Sidebar  End ------------------------------ -->
+
+</div>
+<!-- Base.html Wrapper End ------------------------------ -->
+
+
+<!-- Bootstrap core JavaScript  Start ------------------------------ -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/browser.min.js' %}"></script>
+    <script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+    <script src="{% static 'assets/js/transition.js' %}"></script>
+    <script src="{% static 'assets/js/owl-carousel.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+<!-- Bootstrap core JavaScript  Start -->
+</body>
+</body>
+</html>
