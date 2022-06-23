@@ -1,0 +1,43 @@
+
+{% extends "commons/base.html" %}  
+{% load static %}
+
+
+
+
+
+
+{% block Page_Title  %}
+
+<div class="row justify-content-center">
+<h1>Logout</h1>
+</div>
+
+{% endblock Page_Title %}  
+
+
+
+
+
+
+{% block Contents_Page %} 
+
+<div class="row justify-content-center">
+    <div class="col-5">
+    <div class="card">
+    <div class="card-body">
+    
+<h4> Logged out successfully .</h4>
+    
+<p>Thank You For Using ( Saving ) Online </p>
+
+<a href="{% url 'login'%}" role="button" style="float:lieft" class="btn btn-success">Re-Login</a><!-- Go To Login Page  -->
+
+<a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="{% url 'Index_URL' %}" class="btn btn">Go To Home Page</a> <!-- Go To Home Page -->
+
+</div>
+</div>
+</div>
+</div>
+
+{% endblock Contents_Page %} 

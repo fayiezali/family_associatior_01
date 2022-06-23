@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'crispy_forms', 
     'widget_tweaks', 
     # User Accounts Application
-    # 'accounts'
+    'accounts',
     # Project Home Pages Application
     'home',
     # 'social_django',# 04 Login With Social Media(Facebook , Instagram ,......)

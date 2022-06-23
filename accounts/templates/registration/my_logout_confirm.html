@@ -1,0 +1,45 @@
+
+{% extends "commons/base.html" %}  
+{% load static %}
+
+
+
+
+
+
+{% block Page_Title  %}
+
+<div class="row justify-content-center">
+<h1>Logout Confirm</h1>
+</div>
+
+{% endblock Page_Title %}  
+
+
+
+
+
+
+{% block Contents_Page %} 
+
+<div class="row justify-content-center">
+    <div class="col-5">
+    <div class="card">
+    <div class="card-body">
+    
+<h4> Confirmation.</h4>
+    
+<p>Are You Sure You Want To Logout From ( Saving ) Online </p>
+
+<a href="{% url 'logout'%}" role="button" style="float:lieft" class="btn btn-success">Confirm</a><!-- Exit From Home Page  -->
+<a href="{% url 'Index_URL'%}" role="button" style="float:lieft" class="btn btn-primary">Back To My Home </a><!-- Go To Home Page  -->
+
+
+<!-- <a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="{% url 'Index_URL' %}" class="btn btn">Go To Home Page</a> Go To Home Page -->
+
+</div>
+</div>
+</div>
+</div>
+
+{% endblock Contents_Page %} 

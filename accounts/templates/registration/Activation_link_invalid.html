@@ -1,0 +1,65 @@
+
+{% extends "commons/base.html" %}  
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+
+
+
+{% block Page_Title  %}
+
+<div class="row justify-content-center">
+<h1> Confirm Email Unsuccessfully </h1>
+</div>
+
+{% endblock Page_Title %}  
+
+
+
+
+
+
+{% block messages_Contents  %}
+
+<!-- ظهور رسالة للمستخدم -->
+{% if messages %} <!-- جملة شرطية للتحقق من وجود رسالة قبل عرضها-->
+	{% for message in messages %} <!-- جملة تكرار للمرور على جميع  محتويات الرسالة لعرضها كلها -->
+<!--success: هي التي تقوم بتحديد لون الرسالة اخضر -->
+<!--warning: هي التي تقوم بتحديد لون الرسالة احمر -->
+		<div  class="alert alert-success">
+			{{ message }} <!-- المتغير الذي يحمل نص الرسالة-->
+		</div>
+	{% endfor %}
+{% endif %}
+
+{% endblock messages_Contents %} 
+
+
+
+
+
+
+{% block Contents_Page %} 
+
+<div class="row justify-content-center">
+    <div class="col-4.5">
+    <div class="card">
+    <div class="card-body">
+
+<h4> Confirm Email Activation Link Is Invalid!.</h4>
+<p>Confirm Email Activation Link Is Invalid!. </p>
+
+<a href="{% url 'My_Signup_URL'%}" role="button" style="float:lieft" class="btn btn-success">Re-Signup</a><!-- Go To Login Page  -->
+
+<a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="{% url 'Index_URL' %}" class="btn btn">Go To Home Page</a> <!-- Go To Home Page -->
+
+
+
+</div>
+</div>
+</div>
+</div>
+
+{% endblock Contents_Page %} 

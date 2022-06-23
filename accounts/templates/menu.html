@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" action="{% url 'msave' %}">
+    {% csrf_token %}
+    <input type="text" placeholder="menu name :" name="menu_name"/><br/>
+    <input type="text" placeholder="menu link :" name="mn_link"/><br/>
+    <button type="submit" name="add_main_menu">Add main menu</button>
+</form>
+<table border="1">
+    <tr>
+        <th>slno</th>
+        <th>sitename</th>
+        <th>sitelink</th>
+    </tr>
+    {% for m in menu %}
+        <tr>
+            <td>{{ m.m_menu_id }}</td>
+            <td>{{ m.m_menu_name }}</td>
+
+            <td>{{ m.m_menu_link }}</td>
+        </tr>
+    {% endfor %}
+</table>
+<br>
+<br>
+<h1>-----------------------------------------SUB MENU ADD-------------------------------------------------</h1>
+
+<form method="post" action="{% url 'submenusave' %}">
+ {% csrf_token %}
+    <select name="parent">
+        <option selected="selected">select parent menu</option>
+
+        {% for m in menu %}
+            <option value="{{ m.m_menu_id }}">{{ m.m_menu_name }}</option>
+        {% endfor %}
+    </select>
+    <br/>
+    <input type="text" placeholder="menu name :" name="sub_menu_name"/><br/>
+    <input type="text" placeholder="menu link :" name="sub_menu_link"/><br/>
+    <button type="submit" name="add_sub_menu">Add sub menu</button>
+</form>
+<table border="1">
+    <tr>
+        <th>slno</th>
+        <th>parent menu id</th>
+        <th>sitename</th>
+        <th>sitelink</th>
+    </tr>
+    {% for s in submenu %}
+        <tr>
+            <td>{{s.s_menu_id }}</td>
+            <td>{{ s.m_menu_id }}</td>
+            <td>{{ s.s_menu_name }}</td>
+
+            <td>{{ s.s_menu_link }}</td>
+        </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

@@ -1,0 +1,45 @@
+
+{% extends "commons/base.html" %}  
+{% load static %}
+
+
+
+
+
+
+{% block Page_Title  %}
+
+<div class="row justify-content-center">
+<h1>My Profile Data Update Done</h1>
+</div>
+
+{% endblock Page_Title %}  
+
+
+
+
+
+
+{% block Contents_Page %} 
+
+<div class="row justify-content-center">
+    <div class="col-5">
+    <div class="card">
+    <div class="card-body">
+
+<h4>Data Saved  Successfully .</h4>
+
+<p></p>
+
+<a href="{%  url 'My_Personal_Data_Detail_ID_URL'  user.pk   %}" role="button" style="float:lieft" class="btn btn-success">Next</a> <!-- Go To Home Page  -->
+
+<a href="{% url 'Index_URL' %}" role="button" style="float:lieft" class="btn btn-info">Close</a> <!-- Go To Home Page  -->
+
+<a href="{%  url 'My_Profile_Detail_ID_URL'        user.pk   %}" role="button" style="float:lieft" class="btn btn-success">Previous</a> <!-- Go To Home Page  -->
+
+</div>
+</div>
+</div>
+</div>
+
+{% endblock Contents_Page %} 

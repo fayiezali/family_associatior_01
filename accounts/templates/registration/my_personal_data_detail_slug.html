@@ -1,0 +1,191 @@
+
+
+{% extends "commons/base.html" %}  
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+
+
+
+{% block Page_Title  %}
+
+<div class="row justify-content-center">
+<h1>Personal Data Details By Slug</h1>
+</div>
+
+{% endblock Page_Title %}  
+
+
+
+
+
+
+{% block messages_Contents  %}
+<!-- {% for copy in book.bookinstance_set.all %}
+<hr>
+<p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'd' %}text-danger{% else %}text-warning{% endif %}">{{ copy.get_status_display }}</p> -->
+
+<!-- ظهور رسالة للمستخدم -->
+{% if messages %} <!-- جملة شرطية للتحقق من وجود رسالة قبل عرضها-->
+        {% for message in messages %} <!-- جملة تكرار للمرور على جميع  محتويات الرسالة لعرضها كلها -->
+                <!--success: هي التي تقوم بتحديد لون الرسالة اخضر -->
+                <!--warning: هي التي تقوم بتحديد لون الرسالة احمر -->
+                <div  class="alert alert-success">
+                        {{ message }} <!-- المتغير الذي يحمل نص الرسالة-->
+                </div>
+        {% endfor %}
+{% endif %}
+
+{% endblock messages_Contents %}  
+
+
+
+
+{% block Contents_Page %} 
+
+<!doctype html>
+<html lang="en">
+
+<body class="bg-light">
+    
+<div class="container">
+<main>
+
+    <div class="row g-5">
+
+    <div class="col-md-7 col-lg-8">
+
+        <form class="needs-validation" novalidate>
+        <div class="row g-3">objectd is required.
+                </div>
+            </div>
+            <div class="col-12">
+                <label for="firstName" class="form-label">Image Profile</label>
+                <div class="col-sm-4">
+                </div>
+                <img src="#" alt="" width="150" height="90">
+                
+                <div class="invalid-feedback">
+                    The field is required.
+                </div>
+            </div>
+            
+            <div class="col-12">
+                <label for="firstName" class="form-label">ID Profile</label>
+                <div class="col-sm-4">
+                </div>
+                <input type="text" disabled="true" class="form-control" id="NameAssociation" placeholder="{{My_Object.id  }}" required>
+                <div class="invalid-feedback">
+                    The field is required.
+                </div>
+            </div>
+
+            <div class="col-12">
+                <label for="firstName" class="form-label">User Name</label>
+                <div class="col-sm-4">
+                </div>
+                <input type="text" disabled="true" class="form-control" id="NameAssociation" placeholder="{{ My_Object.username }}" required>
+                <div class="invalid-feedback">
+                    The field is required.
+                </div>
+            </div>
+
+
+
+                <div class="col-sm-6">
+                <label for="firstName" class="form-label">First Name</label>
+                <input type="text" disabled="true" class="form-control" id="firstName" placeholder="{{ My_Object.first_name }}" value="" required>
+                <div class="invalid-feedback">
+                    The field is required.
+                </div>
+                </div>
+
+
+
+                <div class="col-12">
+                    <label for="firstName" class="form-label">Last Name</label>
+                    <input type="text" disabled="true" class="form-control" id="firstName" placeholder="{{ My_Object.last_name }}" required>
+                    <div class="invalid-feedback">
+                        The field is required.
+                    </div>
+                </div>
+                <hr class="my-4">
+
+
+
+                <div class="col-12">
+                    <label for="address" class="form-label">Email</label>
+                    <input type="text" disabled="true" class="form-control" id="address" placeholder="{{ My_Object.email }}" required>
+                    <div class="invalid-feedback">
+                        The field is required.
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-3">
+                    <label for="zip" class="form-label">is_active</label>
+                    <input type="text" disabled="true" class="form-control" id="zip" placeholder="{{ My_Object.is_active }}" required>
+                    <div class="invalid-feedback">
+                        The field is required.
+                    </div>
+                </div>
+                </div>
+
+
+
+                <div class="col-md-3">
+                    <label for="zip" class="form-label">is_staff</label>
+                    <input type="text" disabled="true" class="form-control" id="zip" placeholder="{{ My_Object.is_staff }}" required>
+                    <div class="invalid-feedback">
+                        The field is required.
+                    </div>
+                </div>
+                </div>
+
+
+
+            <div class="col-12">
+            <label for="email" class="form-label">is_superuser </label>
+            <input type="email" disabled="true" class="form-control" id="email" placeholder="{{ My_Object.is_superuser  }}" required>
+            <div class="invalid-feedback">
+                The field is required.
+            </div>
+            </div>
+            <hr class="my-4">
+
+
+
+            <div class="col-md-6">
+                <label for="cc-number" class="form-label">date_joined </label>
+                <input type="text" disabled="true" class="form-control" id="cc-number" placeholder="{{ My_Object.date_joined  }}" required>
+                <div class="invalid-feedback">
+                    The field is required.
+                </div>
+            </div>
+            <hr class="my-4">
+
+            <div class="col-md-6">
+                <label for="cc-number" class="form-label">last_login </label>
+                <input type="text" disabled="true" class="form-control" id="cc-number" placeholder="{{ My_Object.last_login  }}" required>
+                <div class="invalid-feedback">
+                    The field is required.
+                </div>
+            </div>
+            <hr class="my-4">
+
+            <a href="{% url 'AssociationUpdateView-update-URL' object.id %}" class="btn btn-primary">Edite</a>
+            <a href="{% url 'AssociationListView-list-URL' %}" class="btn btn-warning">Cancel</a>
+            </form>
+    </div>
+    </div>
+</main>
+</body>
+</html>
+
+
+
+
+{% endblock Contents_Page %} 
