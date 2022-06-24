@@ -31,46 +31,27 @@ from django.db.models.signals import post_save # كلاس فكرته: انه ب�
 # 
 # 
 # Personal Data
-class PersonalFile_MODEL(models.Model):
-#     # متغير لحفظ رموز الجنسية
-#     SAUDI    = 'SA'
-#     BAHRAIN  = 'BA'
-#     OMAN     = 'OM'
-#     QATAR    = 'QA'
-#     KUWAIT   = 'KU'
-#     EMIRATES = 'EM'
-#     YEMEN    = 'YE'
-#     NATIONALITY_CHOICES = [
-#         (SAUDI,    'Saudi'),
-#         (BAHRAIN,  'Bahrain'),
-#         (OMAN,     'Oman'),
-#         (QATAR,    'Qatar'),
-#         (KUWAIT,   'Kuwait'),
-#         (EMIRATES, 'Emirates'),
-#         (YEMEN,    'Yemen'),
-# ]
+class ProfilesMODEL(models.Model):
 # 
-# 
-# 
-    PF_User                   = models.OneToOneField(User                         , on_delete=models.CASCADE                 , verbose_name="اسم المشترك")
-    PF_Avialable              = models.BooleanField(default=True                  , db_index=True , blank=False , null=False , verbose_name="حالة المشترك_نشط")
-    PF_Slug                   = models.SlugField(unique=False                     , db_index=True , blank=True  , null=False , verbose_name="الإسم التعريفي")
-    PF_FirstName              = models.CharField(max_length=50                    , db_index=True , blank=False , null=False , verbose_name="الإسم الأول")
-    PF_FatherName             = models.CharField(max_length=50                    , db_index=True , blank=False , null=False , verbose_name="إسم الاب")
-    PF_GrandFatherName        = models.CharField(max_length=50                    , db_index=True , blank=False , null=False , verbose_name="إسم الجد")
-    PF_FamilyName             = models.CharField(max_length=50                    , db_index=True , blank=False , null=False , verbose_name="إسم العائلة")
-    PF_Photo                  = models.ImageField(upload_to='PersonaFile_Photo/'  , db_index=True , blank=False , null=False , verbose_name="الصورة الشخصية"      ,default='Default_Image.png')
-    PF_Mobile                 = models.CharField(max_length=10                    , db_index=True , blank=False , null=False , verbose_name="الجوال")
-    PF_Address                = models.CharField(max_length=100                   , db_index=True , blank=False , null=False ,verbose_name="العنوان")
-    PF_Notes                  = models.CharField(max_length=100                   , db_index=True , blank=True  , null=True  , verbose_name="الملاحظات")
+    P_User                   = models.OneToOneField(User                         , on_delete=models.CASCADE                 , verbose_name="اسم المشترك")
+    P_Avialable              = models.BooleanField(default=True                  , db_index=True , blank=False , null=False , verbose_name="حالة المشترك_نشط")
+    P_Slug                   = models.SlugField(unique=False                     , db_index=True , blank=True  , null=False , verbose_name="الإسم التعريفي")
+    P_FirstName              = models.CharField(max_length=50                    , db_index=True , blank=False , null=False , verbose_name="الإسم الأول")
+    P_FatherName             = models.CharField(max_length=50                    , db_index=True , blank=False , null=False , verbose_name="إسم الاب")
+    P_GrandFatherName        = models.CharField(max_length=50                    , db_index=True , blank=False , null=False , verbose_name="إسم الجد")
+    P_FamilyName             = models.CharField(max_length=50                    , db_index=True , blank=False , null=False , verbose_name="إسم العائلة")
+    P_Photo                  = models.ImageField(upload_to='PersonaFile_Photo/'  , db_index=True , blank=False , null=False , verbose_name="الصورة الشخصية"      ,default='Default_Image.png')
+    P_Mobile                 = models.CharField(max_length=10                    , db_index=True , blank=False , null=False , verbose_name="الجوال")
+    P_Address                = models.CharField(max_length=100                   , db_index=True , blank=False , null=False ,verbose_name="العنوان")
+    P_Notes                  = models.CharField(max_length=100                   , db_index=True , blank=True  , null=True  , verbose_name="الملاحظات")
 # #
     # 'admin'عرض إسم الحقل في صفحة
     def __str__(self):
-        return str(self.PF_User)
+        return str(self.P_User)
     # 
     # 'Z-A' ترتيب تنازلي
     class Meta:
-        ordering = ['PF_User'] 
+        ordering = ['P_User'] 
 ##
     # create_profile: للمستخدم الجديد "profile"دالة تقوم بإنشاء
     # sender: هي فانكش/دالة تقوم بمتابعة الملف الذي ترتبط به فبمجرد قيام الملف المرتبطة به بحدث ما تقوم بتفيذ الكود الموجود فيها 
@@ -79,18 +60,18 @@ class PersonalFile_MODEL(models.Model):
     # user:
     # ['instance']: هي البيانات التي تسم إستقبالها
     # post_save:  ""   ""  يتم تنفيذ  حدث اخر بعده  "Save" كلاس فكرته: ان بمجرد تنفيذ عملية الحفظ 
-    def create_personal_file(sender, **kwargs):
+    def create_profiles(sender, **kwargs):
         if kwargs['created']: #'created' إذا كان هناك بيانات تم إستقبالها اطبع هذه الكلمة
-            PersonalFile_MODEL.objects.create(PF_User=kwargs['instance']) #التي أستقبلتها "'instance'"جديد بناء على  معلومات المستخدم "PersonalData_MODEL" قم بإنشاء ملف 
+            ProfilesMODEL.objects.create(P_User=kwargs['instance']) #التي أستقبلتها "'instance'"جديد بناء على  معلومات المستخدم "PersonalData_MODEL" قم بإنشاء ملف 
     # "" "user"والمستخدم  "post_save" الربط بين الفانكشن 
-    post_save.connect(create_personal_file , sender=User)
+    post_save.connect(create_profiles , sender=User)
 # 
 # 
 # 
 # 
 #
 # Financial Statements
-class  FinancialStatements_MODEL(models.Model):
+class  FinancialStatementsMODEL(models.Model):
     # # متغير لحفظ رموز طريقة الدقع'
     # CASH     = 'CA'
     # CHECK    = 'CH'
@@ -126,7 +107,7 @@ class  FinancialStatements_MODEL(models.Model):
     # post_save:  ""   ""  يتم تنفيذ  حدث اخر بعده  "Save" كلاس فكرته: ان بمجرد تنفيذ عملية الحفظ 
     def create_financial_statements(sender, **kwargs):
         if kwargs['created']: #'created' إذا كان هناك بيانات تم إستقبالها اطبع هذه الكلمة
-            FinancialStatements_MODEL.objects.create(FS_User=kwargs['instance']) #التي أستقبلتها "'instance'"جديد بناء على  معلومات المستخدم "PersonalData_MODEL" قم بإنشاء ملف 
+            FinancialStatementsMODEL.objects.create(FS_User=kwargs['instance']) #التي أستقبلتها "'instance'"جديد بناء على  معلومات المستخدم "PersonalData_MODEL" قم بإنشاء ملف 
     # "" "user"والمستخدم  "post_save" الربط بين الفانكشن 
     post_save.connect(create_financial_statements , sender=User)
 #
@@ -216,7 +197,7 @@ class  FinancialStatements_MODEL(models.Model):
     # ]
 
 # Comprehensive Record
-class  DatesReceivingPayments_MODEL(models.Model):
+class  DatesReceivingMoneyPaymentsMODEL(models.Model):
     # Variable To Save The Number Of Months
     CHOOSE_MONTH_NUMBER = '00'
     JAN                 = '01'
@@ -285,19 +266,19 @@ class  DatesReceivingPayments_MODEL(models.Model):
     (All                ,  '00-All_______________Al-Kol-(00)')  ,
     ]
     # 
-    DRP_User                       = models.ForeignKey(User         , on_delete=models.CASCADE                                                       , verbose_name="اسم المشترك")
-    DRP_DateReceivigPayments_Long  = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="موعد إستلام المال - بالشهر"     , choices=MONTH_NAME , default='Please Choose ' , help_text='Required Field')    
-    DRP_DateReceivigPayments_Short = models.DateField(                                                    db_index=True , blank=True   , null=True   , verbose_name="موعد إستلام المال - بالتاريخ"                                                                , help_text='Required Field')
-    DRP_Notes                      = models.CharField(max_length=100                                     , db_index=True , blank=True   , null=True   , verbose_name="الملاحظات")    
+    DRP_User                             = models.ForeignKey(User         , on_delete=models.CASCADE                                                       , verbose_name="اسم المشترك")
+    DRP_DateReceivigMoneyPayments_Long   = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="موعد إستلام المال - بالشهر"     , choices=MONTH_NAME , default='Please Choose ' , help_text='Required Field')    
+    DRP_DateReceivigMoneyPayments_Short  = models.DateField(                                                    db_index=True , blank=True   , null=True   , verbose_name="موعد إستلام المال - بالتاريخ"                                                                , help_text='Required Field')
+    DRP_Notes                            = models.CharField(max_length=100                                     , db_index=True , blank=True   , null=True   , verbose_name="الملاحظات")    
     
     # 
     # Display The Name Of This Field In The Admin Page
     def __str__(self):
-        return str(self.DRP_DateReceivigPayments_Long)
+        return str(self.DRP_DateReceivigMoneyPayments_Long)
     # 
     # Arrange The Fields In Ascending Order 'Z-A'
     class Meta:
-        ordering = ['DRP_DateReceivigPayments_Long'] 
+        ordering = ['DRP_DateReceivigMoneyPayments_Long'] 
 #
 #
 #

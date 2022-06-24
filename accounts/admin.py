@@ -34,16 +34,16 @@ from accounts.models import * #  استيراد كل المودل/الجداول
 ##########################################################################
 #
 # Personal File
-@admin.register(PersonalFile_MODEL)
-class PersonalFile_ADMIN(admin.ModelAdmin): # The class has been inherited as an addict in order to make a modification / customization 
+@admin.register(ProfilesMODEL)
+class ProfilesADMIN(admin.ModelAdmin): # The class has been inherited as an addict in order to make a modification / customization 
         # Automatically Fill In Slug Field From Variable (FullName)
         FullName = {
-        "PF_Slug": # Slug Field
+        "P_Slug": # Slug Field
         [
-        'PF_FirstName'       , 
-        'PF_FatherName'      ,
-        'PF_GrandFatherName' ,
-        'PF_FamilyName'
+        'P_FirstName'       , 
+        'P_FatherName'      ,
+        'P_GrandFatherName' ,
+        'P_FamilyName'
         ]
         } # ملئ حقل السلاق تلقائياَمن بيانات حقل اﻷسم الاول+الاب+الجد+العائلة
         prepopulated_fields = FullName
@@ -51,24 +51,24 @@ class PersonalFile_ADMIN(admin.ModelAdmin): # The class has been inherited as an
         #
         # Add a Filter Box
         list_filter = (
-        'PF_User'     , 
-        'PF_Mobile'
+        'P_User'     , 
+        'P_Mobile'
         )
         #
         #
         # Show Fields a List
         list_display = (
-        'PF_User'                  , 
-        'PF_Slug'                  ,
-        'PF_Avialable'             , 
-        'PF_FirstName'             ,
-        'PF_FatherName'            ,
-        'PF_GrandFatherName'       ,
-        'PF_FamilyName'            ,
-        'PF_Photo'                 ,
-        'PF_Mobile'                ,
-        'PF_Address'               ,
-        'PF_Notes'
+        'P_User'                  , 
+        'P_Slug'                  ,
+        'P_Avialable'             , 
+        'P_FirstName'             ,
+        'P_FatherName'            ,
+        'P_GrandFatherName'       ,
+        'P_FamilyName'            ,
+        'P_Photo'                 ,
+        'P_Mobile'                ,
+        'P_Address'               ,
+        'P_Notes'
         )
         #
         #
@@ -77,29 +77,29 @@ class PersonalFile_ADMIN(admin.ModelAdmin): # The class has been inherited as an
         (None, 
         {
         'fields': (
-        'PF_User'              ,
-        'PF_Slug'              ,
-        'PF_Avialable'         ,
-        'PF_FirstName'         ,
-        'PF_FatherName'        ,
-        'PF_GrandFatherName'   ,
-        'PF_FamilyName'        ,
-        'PF_Address'           
+        'P_User'              ,
+        'P_Slug'              ,
+        'P_Avialable'         ,
+        'P_FirstName'         ,
+        'P_FatherName'        ,
+        'P_GrandFatherName'   ,
+        'P_FamilyName'        ,
+        'P_Address'           
         )
         }
         ),
         ('Advanced', {
         'classes': ('collapse',),
         'fields': (
-        'PF_Photo'            ,
-        'PF_Notes'    
+        'P_Photo'            ,
+        'P_Notes'    
         )
         }
         ),
         )
 # 
 # Financial Statements
-@admin.register(FinancialStatements_MODEL)
+@admin.register(FinancialStatementsMODEL)
 class FinancialStatements_ADMIN(admin.ModelAdmin): # The class has been inherited as an addict in order to make a modification / customization 
         #
         # Add aFilter Box
@@ -147,27 +147,27 @@ class FinancialStatements_ADMIN(admin.ModelAdmin): # The class has been inherite
 # 
 # 
 # Dates Receiving Payments
-@admin.register(DatesReceivingPayments_MODEL)
-class DatesReceivingPayments_ADMIN(admin.ModelAdmin):  # The class has been inherited as an addict in order to make a modification / customization 
+@admin.register(DatesReceivingMoneyPaymentsMODEL)
+class DatesReceivingMoneyPayments_ADMIN(admin.ModelAdmin):  # The class has been inherited as an addict in order to make a modification / customization 
         #
         # Add aFilter Box
         list_filter = (
         'DRP_User'      , 
-        'DRP_DateReceivigPayments_Long'   ,
-        'DRP_DateReceivigPayments_Short'
+        'DRP_DateReceivigMoneyPayments_Long'   ,
+        'DRP_DateReceivigMoneyPayments_Short'
         )
         #
         #
         # Show Fields a List
         list_display = (
         'DRP_User'     , 
-        'DRP_DateReceivigPayments_Long'   , 
-        'DRP_DateReceivigPayments_Short'  , 
+        'DRP_DateReceivigMoneyPayments_Long'   , 
+        'DRP_DateReceivigMoneyPayments_Short'  , 
         'DRP_Notes'
         )
         #
         # search list
-        search_fields = ['DRP_DateReceivigPayments_Long']
+        search_fields = ['DRP_DateReceivigMoneyPayments_Long']
     
         #
         # Add Data In Different Sections
@@ -175,8 +175,8 @@ class DatesReceivingPayments_ADMIN(admin.ModelAdmin):  # The class has been inhe
         (None, {
         'fields': (
         'DRP_User'                        , 
-        'DRP_DateReceivigPayments_Long'   , 
-        'DRP_DateReceivigPayments_Short'  
+        'DRP_DateReceivigMoneyPayments_Long'   , 
+        'DRP_DateReceivigMoneyPayments_Short'  
         )
         }
         ),
