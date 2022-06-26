@@ -8,8 +8,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title> My Saving</title>
-
+    <title> Family Fssociatior</title>
+    
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css'           %}" >
 
@@ -40,7 +40,7 @@
 <header id="header">
 <div class="logo">
                 <a
-                href="#"> My Saving 
+                href="{% url 'index_page_URL' %}"> Family Fssociatior 
                 </a> 
 <!--- Base.html - Title_Page Start  ----------------------------- -->
 
@@ -94,8 +94,8 @@
 {% if  user.is_authenticated %}
 
 <p  class="mt-0">  Welcome (  {{ user.username }}  ) </p>
-<li><a href="#">(1) - Home page</a></li>
-<li><a href="#">(2) - About Us </a></li>
+<li><a href="{% url 'index_page_URL'     %}">(1) - Home page</a></li>
+<li><a href="{% url 'about_page_URL'     %}">(2) - About Us </a></li>
 <li><a href="#">(3) - All  Subscribers</a></li>
 
 
@@ -107,11 +107,11 @@
                 <li>
                 <span class="opener">(A) - My Acoount</span>
                 <ul>
-                    <li><a href="#">1- Password Reset</a></li>
-                    <li><a href="#">2- Password Change</a></li>
+                    <li><a href="{% url 'password_reset'  %}">1- Password Reset</a></li>
+                    <li><a href="{% url 'password_change' %}">2- Password Change</a></li>
                     <li><a href="#">3- Delete Profile</a></li>
-                    <li><a href="#"                                          >4- Contact Us</a></li>
-                    <li><a href="#">5- Logout</a></li>
+                    <li><a href="#">4- Contact Us</a></li>
+                    <li><a href="{% url 'logout' %}">5- Logout</a></li>
 
                 </ul>
                 </li>
@@ -126,8 +126,8 @@
                     <li><a href="#" href="#">5- Dues Record</a></li>
                 </ul>
                 </li>
-
-                <!-- <li>
+                {% comment %}
+                <li>
                 <span class="opener">(C) - Dues Record</span>
                 <ul>
                     <li><a href="{% url 'My_Monthes_Menu_URL'  %}" >Dues Record #1</a></li> 
@@ -141,15 +141,14 @@
                     <li><a href="#">Sub Menu #1</a></li>
                     <li><a href="#">Sub Menu #2</a></li>
                 </ul>
-                </li> -->
-
+                </li>
+                {% endcomment %}
 {% else %}
-                <li><a href="#">1- Administrator Login   </a></li>
-                <li><a href="#">2- Customer     Login</a></li>
-                <li><a href="#">3- Sign Up       </a></li>
-                <li><a href="#">4- Home Page    </a></li>
-                <li><a href="#">5- About Us     </a></li>
-
+<li><a href="{% url 'admin:login'           %}">1- Administrator Login </a></li>
+<li><a href="{% url 'login'                 %}">2- Customer      Login </a></li>
+<li><a href="{% url 'SignupURL'             %}">3- Sign Up             </a></li>
+<li><a href="{% url 'index_page_URL'        %}">4- Home Page           </a></li>
+<li><a href="{% url 'about_page_URL'        %}">5- About Us            </a></li>
             </ul>
             </nav>
             {% endif %}

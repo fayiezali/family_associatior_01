@@ -1,5 +1,5 @@
 
-{% extends "home/base.html" %}  
+{% extends "commons/base.html" %}  
 {% load static %}
 {% load crispy_forms_tags %}
 
@@ -37,8 +37,8 @@
 </form>
 </div>
 </div>
-<p  class="mt-4"> Have You Lost The Password? <a  class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="#" > Forgot Password? </a> </p>
-<p class="mt-1"> Create New Accounts  <a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="{% url 'SignupURL' %}" > Signup </a> </p>
+<p  class="mt-4"> Have You Lost The Password? <a  class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="{% url 'password_reset' %}" > Forgot Password? </a> </p>
+<p class="mt-1"> Create New Accounts  <a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="{% url 'My_Signup_URL' %}" > Signup </a> </p>
 </div>
 </div>
 

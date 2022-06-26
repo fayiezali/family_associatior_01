@@ -13,7 +13,7 @@
 {% block Page_Title  %}
 
 <div class="row justify-content-center">
-<h1>Step (1) My Profile Data</h1>
+<h1>Step (2) My Personal Data</h1>
 </div>
 
 {% endblock Page_Title %}  
@@ -117,64 +117,81 @@
 
         <div class="card shadow-sm">
           <div class="card-header bg-transparent border-0">
-            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Basic Information</h3>
+            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Personal Information</h3>
           </div>
           <div class="card-body pt-0">
             <table class="table table-bordered">
               <tr>
-                <th width="30%">Profile ID</th>
+                <th width="30%">Personal ID</th>
                 <td width="2%">:</td>
                 <td>{{ My_Object.id }}</td>
               </tr>
               <tr>
-                <th width="30%">User Name</th>
+                <th width="30%">Customer Name</th>
                 <td width="2%">:</td>
-                <td>{{ My_Object.username }}</td>
+                <td>{{ My_Object.PER_User }}</td>
+              </tr>
+              <tr>
+                <th width="30%">Avialable</th>
+                <td width="2%">:</td>
+                <td>{{ My_Object.FER_Avialable }}</td>
+              </tr>
+              <tr>
+                <th width="30%">Slug</th>
+                <td width="2%">:</td>
+                <td>{{ My_Object.FER_Slug }}</td>
               </tr>
               <tr>
                 <th width="30%">First Name</th>
                 <td width="2%">:</td>
-                <td>{{ My_Object.first_name }}</td>
+                <td>{{ My_Object.PER_FirstName }}</td>
               </tr>
               <tr>
-                <th width="30%">Last Name</th>
+                <th width="30%">Father Name</th>
                 <td width="2%">:</td>
-                <td>{{ My_Object.last_name }}</td>
+                <td>{{ My_Object.PER_FatherName }}</td>
               </tr>
               <tr>
-                <th width="30%">Email Address</th>
+                <th width="30%">Grand Father Name</th>
                 <td width="2%">:</td>
-                <td>{{ My_Object.email }}</td>
+                <td>{{ My_Object.PER_GrandFatherName }}</td>
               </tr>
               <tr>
-                <th width="30%">Active Status</th>
+                <th width="30%">Family Name</th>
                 <td width="2%">:</td>
-                <td>{{ My_Object.is_active }}</td>
+                <td>{{My_Object.FamilyName }}</td>
               </tr>
               <tr>
-                <th width="30%">Staff Status</th>
+                <th width="30%">Image Personal</th>
                 <td width="2%">:</td>
-                <td>{{ My_Object.is_staff }}</td>
+                <td>{{ My_Object.PER_ImgePersonal }}</td>
               </tr>
               <tr>
-                <th width="30%">Superuser Status</th>
+                <th width="30%">ID Number</th>
                 <td width="2%">:</td>
-                <td>{{My_Object.is_superuser }}</td>
+                <td>{{ My_Object.PER_IdNumber }}</td>
               </tr>
               <tr>
-                <th width="30%">Joined Date</th>
+                <th width="30%">Nationality</th>
                 <td width="2%">:</td>
-                <td>{{ My_Object.date_joined }}</td>
+                <td>{{ My_Object.PER_Nationality }}</td>
               </tr>
               <tr>
-                <th width="30%">Last Login</th>
+                <th width="30%">Mobile</th>
                 <td width="2%">:</td>
-                <td>{{ My_Object.last_login }}</td>
+                <td>{{ My_Object.PER_Mobile }}</td>
+              </tr>
+
+              <tr>
+                <th width="30%">Data Joined</th>
+                <td width="2%">:</td>
+                <td>{{ My_Object.PER_Data_Joined }}</td>
               </tr>
 
             </table>
           </div>
         </div>
+
 
       </div>
     </div>
@@ -184,14 +201,13 @@
   </div>
 		</div>
     </div>
-    <a href="{%  url 'My_Personal_Data_Detail_ID_URL' My_Object.id   %}" role="button" style="float:lieft" class="btn btn-success">Next</a> <!-- Go To Home Page  -->
+    <a href="{%  url 'My_Housing_Data_Detail_ID_URL' My_Object.id   %}" role="button" style="float:lieft" class="btn btn-success">Next</a> <!-- Go To Home Page  -->
 
-    <a href="{% url 'my_profile_update_URL' My_Object.id %}" class="btn btn-primary">Edite</a>
+    <a href="{% url 'My_Personal_Data_Update_URL' My_Object.id     %}" class="btn btn-primary">Edite</a>
     
-    <a href="{%  url 'Index_URL'    %}" role="button" style="float:lieft" class="btn btn-info">Close</a> <!-- Go To Home Page  -->
-    <!-- <a href="{%  url 'Index_URL'    %}" role="button" style="float:lieft" class="btn btn-warning">Close</a> Go To Home Page  -->
+    <a href="{% url 'index_page_URL' %}" role="button" style="float:lieft" class="btn btn-info">Close</a> <!-- Go To Home Page  -->
 
-
+    <a href="{% url 'My_Profile_Detail_ID_URL' user.pk         %}" role="button" style="float:lieft" class="btn btn-success">Previous</a> <!-- Go To Home Page  -->
 
 </section>
 

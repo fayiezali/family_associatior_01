@@ -4,19 +4,11 @@ from django.contrib.auth.models import User # إستيراد اسم المستخ
 # 
 from accounts.models import * #  استيراد كل المودل/الجداول من التطبيق المطلوب
 # 
-#
-# 
-# 
-# 
-# 
 """Important Note:
 (fields) & (fieldsets) This Properties Can Not Be Put Together
 # Controlling Which fields are Displayed and Laid Out
 # fields = [('ASS_NameAssociation', 'ASS_Slug' ), 'ASS_AssociationLogo' , 'ASS_Address' ,('ASS_Mobile' , 'ASS_Phone') , 'ASS_Email' , 'ASS_BankAccount']
 """
-#
-#
-#
 #
 ##########################################################################
 # *** Add The Child Table Inside The Parent Table ***
@@ -100,7 +92,7 @@ class ProfilesADMIN(admin.ModelAdmin): # The class has been inherited as an addi
 # 
 # Financial Statements
 @admin.register(FinancialStatementsMODEL)
-class FinancialStatements_ADMIN(admin.ModelAdmin): # The class has been inherited as an addict in order to make a modification / customization 
+class FinancialStatementsADMIN(admin.ModelAdmin): # The class has been inherited as an addict in order to make a modification / customization 
         #
         # Add aFilter Box
         list_filter = (
@@ -148,7 +140,7 @@ class FinancialStatements_ADMIN(admin.ModelAdmin): # The class has been inherite
 # 
 # Dates Receiving Payments
 @admin.register(DatesReceivingMoneyPaymentsMODEL)
-class DatesReceivingMoneyPayments_ADMIN(admin.ModelAdmin):  # The class has been inherited as an addict in order to make a modification / customization 
+class DatesReceivingMoneyPaymentsADMIN(admin.ModelAdmin):  # The class has been inherited as an addict in order to make a modification / customization 
         #
         # Add aFilter Box
         list_filter = (

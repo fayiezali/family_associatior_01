@@ -13,7 +13,7 @@
 {% block Page_Title  %}
 
 <div class="row justify-content-center">
-<h1>Step (2) My Personal Data</h1>
+<h1>Step (4) My Housing Data</h1>
 </div>
 
 {% endblock Page_Title %}  
@@ -117,80 +117,50 @@
 
         <div class="card shadow-sm">
           <div class="card-header bg-transparent border-0">
-            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Personal Information</h3>
+            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Housing Information</h3>
           </div>
           <div class="card-body pt-0">
             <table class="table table-bordered">
               <tr>
-                <th width="30%">Personal ID</th>
+                <th width="30%">Housing ID</th>
                 <td width="2%">:</td>
                 <td>{{ My_Object.id }}</td>
               </tr>
               <tr>
                 <th width="30%">Customer Name</th>
                 <td width="2%">:</td>
-                <td>{{ My_Object.PER_User }}</td>
+                <td>{{ My_Object.HOU_User }}</td>
               </tr>
               <tr>
-                <th width="30%">Avialable</th>
+                <th width="30%">Region</th>
                 <td width="2%">:</td>
-                <td>{{ My_Object.FER_Avialable }}</td>
+                <td>{{ My_Object.HOU_Region }}</td>
               </tr>
               <tr>
-                <th width="30%">Slug</th>
+                <th width="30%">City</th>
                 <td width="2%">:</td>
-                <td>{{ My_Object.FER_Slug }}</td>
+                <td>{{ My_Object.HOU_City }}</td>
               </tr>
               <tr>
-                <th width="30%">First Name</th>
+                <th width="30%">District</th>
                 <td width="2%">:</td>
-                <td>{{ My_Object.PER_FirstName }}</td>
+                <td>{{ My_Object.HOU_District }}</td>
               </tr>
               <tr>
-                <th width="30%">Father Name</th>
+                <th width="30%">Home Address</th>
                 <td width="2%">:</td>
-                <td>{{ My_Object.PER_FatherName }}</td>
+                <td>{{ My_Object.HOU_HomeAddress }}</td>
               </tr>
               <tr>
-                <th width="30%">Grand Father Name</th>
+                <th width="30%">Current Word</th>
                 <td width="2%">:</td>
-                <td>{{ My_Object.PER_GrandFatherName }}</td>
-              </tr>
-              <tr>
-                <th width="30%">Family Name</th>
-                <td width="2%">:</td>
-                <td>{{My_Object.FamilyName }}</td>
-              </tr>
-              <tr>
-                <th width="30%">Image Personal</th>
-                <td width="2%">:</td>
-                <td>{{ My_Object.PER_ImgePersonal }}</td>
-              </tr>
-              <tr>
-                <th width="30%">ID Number</th>
-                <td width="2%">:</td>
-                <td>{{ My_Object.PER_IdNumber }}</td>
-              </tr>
-              <tr>
-                <th width="30%">Nationality</th>
-                <td width="2%">:</td>
-                <td>{{ My_Object.PER_Nationality }}</td>
-              </tr>
-              <tr>
-                <th width="30%">Mobile</th>
-                <td width="2%">:</td>
-                <td>{{ My_Object.PER_Mobile }}</td>
-              </tr>
-
-              <tr>
-                <th width="30%">Data Joined</th>
-                <td width="2%">:</td>
-                <td>{{ My_Object.PER_Data_Joined }}</td>
+                <td>{{ My_Object.HOU_CurrentWork }}</td>
               </tr>
 
             </table>
           </div>
         </div>
+
 
 
       </div>
@@ -201,13 +171,16 @@
   </div>
 		</div>
     </div>
-    <a href="{%  url 'My_Housing_Data_Detail_ID_URL' My_Object.id   %}" role="button" style="float:lieft" class="btn btn-success">Next</a> <!-- Go To Home Page  -->
+    <a href="{% url 'index_page_URL'%}" role="button" style="float:lieft" class="btn btn-success">Finish</a> <!-- Go To Home Page  -->
 
-    <a href="{% url 'My_Personal_Data_Update_URL' My_Object.id     %}" class="btn btn-primary">Edite</a>
+    <a href="{% url 'My_Housing_Data_Update_URL' My_Object.pk %}" class="btn btn-primary">Edite</a>
     
-    <a href="{% url 'Index_URL' %}" role="button" style="float:lieft" class="btn btn-info">Close</a> <!-- Go To Home Page  -->
+    <a href="{% url 'index_page_URL' %}" role="button" style="float:lieft" class="btn btn-info">Close</a> <!-- Go To Home Page  -->
 
-    <a href="{% url 'My_Profile_Detail_ID_URL' user.pk         %}" role="button" style="float:lieft" class="btn btn-success">Previous</a> <!-- Go To Home Page  -->
+    <a href="{%  url 'My_Financial_Data_Detail_ID_URL' user.pk %}" role="button" style="float:lieft" class="btn btn-success">Previous</a> <!-- Go To Home Page  -->
+
+    
+    <!-- <a href="{% url 'My_Profile_ListView_Search_URL' %}" class="btn btn-warning">Cancel</a> -->
 
 </section>
 

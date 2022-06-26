@@ -24,6 +24,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 #
+urlpatterns += [
+    path('accounts/', include('accounts.urls')), # This Path I was Created From My App
+]
+#
 # Path App Public_Pages 
 urlpatterns += [
     path(''        , views.IndexPage.as_view(), name='index_page_URL'),

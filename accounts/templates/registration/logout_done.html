@@ -1,5 +1,5 @@
 
-{% extends "commons/base.html" %}  
+{% extends "home/base.html" %}  
 {% load static %}
 
 
@@ -29,11 +29,11 @@
     
 <h4> Logged out successfully .</h4>
     
-<p>Thank You For Using ( Saving ) Online </p>
+<p>Thank You For Using ( Family Fssociatior ) Online </p>
 
 <a href="{% url 'login'%}" role="button" style="float:lieft" class="btn btn-success">Re-Login</a><!-- Go To Login Page  -->
 
-<a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="{% url 'Index_URL' %}" class="btn btn">Go To Home Page</a> <!-- Go To Home Page -->
+<a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="{% url 'index_page_URL' %}" class="btn btn">Go To Home Page</a> <!-- Go To Home Page -->
 
 </div>
 </div>
