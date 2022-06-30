@@ -32,5 +32,11 @@ class AboutPage(TemplateView):
     # The Page HTML to Display
     template_name = "home/about_page.html"  
 #
+# Display Them Contact Page
+class ContactPage(TemplateView):
+    #
+    # The Page HTML to Display
+    template_name = "home/contact_page.html"  
+#
 #
 #

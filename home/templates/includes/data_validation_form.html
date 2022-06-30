@@ -1,0 +1,125 @@
+{% load widget_tweaks %}
+
+
+{% if form.non_field_errors%}
+        
+            <div class="alert alert-danger" role="alerts">
+            {%for error in form.non_field_errors%}
+                <p {%if forloop.last%} class="mb-0" {%endif%}>{{error}}</p>
+                <p {%if forloop.last%} class="mb-0" {%endif%}>Please Enter a Correct (Usser Name) and (Password). Note That Both Fields May be Case-Sensitive.</p>
+                <p {%if forloop.last%} class="mb-0" {%endif%}>Put The Required Message Here.</p>
+
+            {%endfor%}
+            </div>
+            
+        {%endif%}
+        
+        {% for field in form %}
+            <div class="form-group">
+                    {{field.label_tag}}
+                    {%if form.is_bound%}
+            {%if field.errors%}
+            {% render_field field class="form-control is-invalid" %}
+                {%for error in field.errors%}
+            <div class="invalid-feedback"><a>This Field Is Required *</a></div>
+
+                {%endfor%}
+            {%else%}
+                    {% render_field field class="form-control is-valid" %}
+            {%endif%}
+        {%else%}
+                {% render_field field class="form-control" %}
+        {%endif%}
+            </div>
+        {%if field.help_text%}
+        <small class="form-text text-muted"> {{field.help_text}}</small>
+            {%endif%}
+            {% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %}
+<form enctype="multipart/form-data" " method="post" novalidate>
+    {% csrf_token %}
+        {% if form.non_field_errors%}
+        
+            <div class="alert alert-danger" role="alerts">
+            {%for error in form.non_field_errors%}
+                <p {%if forloop.last%} class="mb-0" {%endif%}>{{error}}</p>
+                <p {%if forloop.last%} class="mb-0" {%endif%}>Please Enter a Correct (Usser Name) and (Password). Note That Both Fields May be Case-Sensitive.</p>
+                <p {%if forloop.last%} class="mb-0" {%endif%}>Put The Required Message Here.</p>
+
+            {%endfor%}
+            </div>
+            
+        {%endif%}
+        
+        {% for field in form %}
+            <div class="form-group">
+                    {{field.label_tag}}
+                    {%if form.is_bound%}
+            {%if field.errors%}
+            {% render_field field class="form-control is-invalid" %}
+                {%for error in field.errors%}
+            <div class="invalid-feedback">{{error}}</div>
+                {%endfor%}
+            {%else%}
+                    {% render_field field class="form-control is-valid" %}
+            {%endif%}
+        {%else%}
+                {% render_field field class="form-control" %}
+        {%endif%}
+            </div>
+        {%if field.help_text%}
+        <small class="form-text text-muted"> {{field.help_text}}</small>
+            {%endif%}
+            {% endfor %}
+            <br>
+            
+            
+            <button type="submit" class="btn btn-success">Ok</button>
+            <a href="{% url 'AssociationListView-list-URL' %}" class="btn btn-info">Cancel</a>
+</form>
+{% endcomment %}

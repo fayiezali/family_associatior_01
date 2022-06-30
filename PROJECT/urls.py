@@ -30,8 +30,9 @@ urlpatterns += [
 #
 # Path App Public_Pages 
 urlpatterns += [
-    path(''        , views.IndexPage.as_view(), name='index_page_URL'),
-    path('about/'  , views.AboutPage.as_view(), name='about_page_URL'),
+    path(''          , views.IndexPage.as_view(),   name='index_pageURL'),
+    path('about/'    , views.AboutPage.as_view(),   name='about_pageURL'),
+    path('contact/'  , views.ContactPage.as_view(), name='contact_pageURL'),
     
 ] 
 #

@@ -1,0 +1,56 @@
+{% extends "home/base.html" %}  
+{% load static %}
+
+
+
+
+
+{% block Page_Title  %}
+
+<div class="row justify-content-center">
+<h2> Contact Us</h2>
+</div>
+
+{% endblock Page_Title %}  
+
+
+
+
+
+{% block Profile_Image  %}
+<img  src="{% static 'Profile_Image.jpg' %}"  width="" height="280"> 
+{% endblock Profile_Image %}  
+
+
+
+
+
+
+
+{% block messages_Contents  %}
+
+<!-- ظهور رسالة للمستخدم -->
+{% if messages %} <!-- جملة شرطية للتحقق من وجود رسالة قبل عرضها-->
+    {% for message in messages %} <!-- جملة تكرار للمرور على جميع  محتويات الرسالة لعرضها كلها -->
+<!--success: هي التي تقوم بتحديد لون الرسالة اخضر -->
+<!--warning: هي التي تقوم بتحديد لون الرسالة احمر -->
+        <div  class="alert alert-success">
+            {{ message }} <!-- المتغير الذي يحمل نص الرسالة-->
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% endblock messages_Contents %} 
+
+
+
+
+
+
+
+{% block Contents_Page %} 
+
+<img  src="{% static 'Coning_Soon.png' %}" alt="" width="1500" height="560">  
+
+{% endblock Contents_Page %} 
+

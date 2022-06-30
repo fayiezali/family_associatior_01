@@ -30,14 +30,17 @@
 
 <form enctype="multipart/form-data"  method="post" novalidate>
         {% csrf_token %} 
-        {{ form|crispy }}
+        {% comment %} {{ form|crispy }} {% endcomment %}
+        
+        {% include  "includes/data_validation_form.html" %} 
+            
             <button type="submit" class="btn btn-success">Login</button>  
             <!-- Go To Home Page HTML-->
-            <a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="{% url 'index_page_URL' %}" class="btn btn">Go To Home Page</a> 
+            <a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="{% url 'index_pageURL' %}" class="btn btn">Go To Home Page</a> 
 </form>
 </div>
 </div>
-<p  class="mt-4"> Have You Lost The Password? <a  class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="#" > Forgot Password? </a> </p>
+<p  class="mt-4"> Have You Lost The Password? <a  class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="{% url 'password_reset' %}" > Forgot Password? </a> </p>
 <p class="mt-1"> Create New Accounts  <a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="{% url 'SignupURL' %}" > Signup </a> </p>
 </div>
 </div>

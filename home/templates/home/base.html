@@ -40,7 +40,7 @@
 <header id="header">
 <div class="logo">
                 <a
-                href="{% url 'index_page_URL' %}"> Family Fssociatior 
+                href="{% url 'index_pageURL' %}"> Family Fssociatior 
                 </a> 
 <!--- Base.html - Title_Page Start  ----------------------------- -->
 
@@ -94,9 +94,10 @@
 {% if  user.is_authenticated %}
 
 <p  class="mt-0">  Welcome (  {{ user.username }}  ) </p>
-<li><a href="{% url 'index_page_URL'     %}">(1) - Home page</a></li>
-<li><a href="{% url 'about_page_URL'     %}">(2) - About Us </a></li>
-<li><a href="#">(3) - All  Subscribers</a></li>
+<li><a href="{% url 'index_pageURL'           %}">(1) - Home page</a></li>
+<li><a href="{% url 'ProfileListViewSearchURL' %}">(2) - All  Subscribers</a></li>
+<li><a href="{% url 'about_pageURL'           %}">(3) - About Us </a></li>
+<li><a href="{% url 'contact_pageURL'         %}">(4) - Contact Us </a></li>
 
 
 <!--  Base.html - Menu_Page Start- ---------------------------- -->
@@ -105,25 +106,24 @@
             
             <ul>
                 <li>
-                <span class="opener">(A) - My Acoount</span>
+                <span class="opener">(A) - Acoount</span>
                 <ul>
-                    <li><a href="{% url 'password_reset'  %}">1- Password Reset</a></li>
-                    <li><a href="{% url 'password_change' %}">2- Password Change</a></li>
-                    <li><a href="#">3- Delete Profile</a></li>
-                    <li><a href="#">4- Contact Us</a></li>
-                    <li><a href="{% url 'logout' %}">5- Logout</a></li>
+                    <li><a href="{% url 'password_reset'          %}">1- Password Reset</a></li>
+                    <li><a href="{% url 'password_change'         %}">2- Password Change</a></li>
+                    <li><a href="{% url 'ProfileDeleteURL' user.pk %}">3- Delete Profile</a></li>
+                    <li><a href="{% url 'contact_pageURL'         %}">4- Contact Us</a></li>
+                    <li><a href="{% url 'logout'                  %}">5- Logout</a></li>
 
                 </ul>
                 </li>
                                 
                 <li>
-                <span class="opener">(B) - My Profile</span>
+                <span class="opener">(B) - Profile</span>
                 <ul>
-                    <li><a href="#">1- Basic Data</a></li>
-                    <li><a href="#">2- Personal Data</a></li>
-                    <li><a href="#">3- Financial Data</a></li>
-                    <li><a href="#">4- Housing Data</a></li>
-                    <li><a href="#" href="#">5- Dues Record</a></li>
+                    <li><a href="{% url 'ProfileDetailIdURL' user.pk %}">1- My Profile</a></li>
+                    <li><a href="#">2- Financial Statements Data</a></li>
+                    <li><a href="#">3- Dates Receiving Money Payments Data</a></li>
+                    <li><a href="#">4- Dues Record</a></li>
                 </ul>
                 </li>
                 {% comment %}
@@ -147,8 +147,8 @@
 <li><a href="{% url 'admin:login'           %}">1- Administrator Login </a></li>
 <li><a href="{% url 'login'                 %}">2- Customer      Login </a></li>
 <li><a href="{% url 'SignupURL'             %}">3- Sign Up             </a></li>
-<li><a href="{% url 'index_page_URL'        %}">4- Home Page           </a></li>
-<li><a href="{% url 'about_page_URL'        %}">5- About Us            </a></li>
+<li><a href="{% url 'index_pageURL'        %}">4- Home Page           </a></li>
+<li><a href="{% url 'about_pageURL'        %}">5- About Us            </a></li>
             </ul>
             </nav>
             {% endif %}

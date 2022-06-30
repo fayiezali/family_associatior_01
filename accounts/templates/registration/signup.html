@@ -30,10 +30,14 @@
     
 <form enctype="multipart/form-data" method="post" novalidate>
     {% csrf_token %} <!-- Django encrypts Data -->
-    {{ form|crispy }}
+    {% comment %} {{ form|crispy }} {% endcomment %}
+    
+        <!-- Required Form + Data Validation -->
+        {% include  "includes/data_validation_form.html" %} 
+        
     <button type="submit" class="btn btn-success">Signup</button>
     <!-- Go To Home Page HTML-->
-    <a href="#" class="btn btn-info">Cancel</a>
+    <a href="{% url 'index_pageURL' %}" class="btn btn-info">Cancel</a>
         
 
 </form>
