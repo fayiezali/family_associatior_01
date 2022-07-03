@@ -1,5 +1,5 @@
 
-{% extends "commons/base.html" %}  
+{% extends "home/base.html" %}  
 {% load static %}
 
 
@@ -31,8 +31,8 @@
     
 <p>Are You Sure You Want To Logout From ( Saving ) Online </p>
 
-<a href="{% url 'logout'%}" role="button" style="float:lieft" class="btn btn-success">Confirm</a><!-- Exit From Home Page  -->
-<a href="{% url 'index_pageURL'%}" role="button" style="float:lieft" class="btn btn-primary">Back To My Home </a><!-- Go To Home Page  -->
+<a href="{% url 'logout'%}" role="button" style="float:lieft" class="btn btn-success">( Yes ) Confirm Checkout</a><!-- Exit From Home Page  -->
+<a href="{% url 'index_pageURL'%}" role="button" style="float:lieft" class="btn btn-primary">( No ) Back To My Home </a><!-- Go To Home Page  -->
 
 
 <!-- <a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="{% url 'index_pageURL' %}" class="btn btn">Go To Home Page</a> Go To Home Page -->
