@@ -168,7 +168,9 @@
     </div>
     <a href="{% url 'DatesReceivingMoneyPaymetsDetailIdURL' user.pk %} " role="button" style="float:lieft" class="btn btn-success">Next</a> <!-- Go To Home Page  -->
     
-    <a href="#" class="btn btn-primary">Edite</a>
+    <a href="{% url 'FinancialStatementsUpdateURL' user.pk %}" class="btn btn-primary">Edite</a>
+    
+    <a href="{% url 'index_pageURL' %}" role="button" style="float:lieft" class="btn btn-info">Close</a> <!-- Go To Home Page  -->
     
     <a href="{% url 'PersonalDetailIdURL' user.pk %}" role="button" style="float:lieft" class="btn btn-success">Previous</a> <!-- Go To Home Page  -->
 

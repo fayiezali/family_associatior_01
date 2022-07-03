@@ -1,19 +1,20 @@
 from django.db import models
 #
 from typing import ClassVar
-# 
+#
 from django.contrib.auth.models import User # إستيراد اسم المستخدم
-# 
+#
 from django.urls import reverse  # To generate URLS by reversing URL patterns
 #
 from django.db.models.signals import post_save # كلاس فكرته: انه بمجرد تنفيذ عملية الحفظ يقوم مباشرة بتنفيذ عملية اخرى بعده
-#####
+from django.utils.text import slugify
+####################################
 # (1)Personal Data
 class PersonalsMODEL(models.Model):
-# 
+#
     P_User                   = models.OneToOneField(User                         , on_delete=models.CASCADE                 , verbose_name="اسم المشترك")
     P_Avialable              = models.BooleanField(default=True                  , db_index=True , blank=False , null=False , verbose_name="حالة المشترك_نشط")
-    P_Slug                   = models.SlugField(unique=False                     , db_index=True , blank=True  , null=False , verbose_name="الإسم التعريفي")
+    slug                     = models.SlugField(unique=False                     , db_index=True , blank=True  , null=False , verbose_name="الإسم التعريفي")
     P_FirstName              = models.CharField(max_length=50                    , db_index=True , blank=False , null=False , verbose_name="الإسم الأول")
     P_FatherName             = models.CharField(max_length=50                    , db_index=True , blank=False , null=False , verbose_name="إسم الاب")
     P_GrandFatherName        = models.CharField(max_length=50                    , db_index=True , blank=False , null=False , verbose_name="إسم الجد")
@@ -26,55 +27,61 @@ class PersonalsMODEL(models.Model):
     # 'admin'عرض إسم الحقل في صفحة
     def __str__(self):
         return str(self.P_User)
-    # 
+    #
     # 'Z-A' ترتيب تنازلي
     class Meta:
-        ordering = ['P_User'] 
+        ordering = ['P_User']
 #
     # create_profile: للمستخدم الجديد "profile"دالة تقوم بإنشاء
-    # sender: هي فانكش/دالة تقوم بمتابعة الملف الذي ترتبط به فبمجرد قيام الملف المرتبطة به بحدث ما تقوم بتفيذ الكود الموجود فيها 
-    # **kwargs: "Type" وﻻ نوعها "size" فانكش تقوم  بإستقبال المعلومات (المجهولة) التي لايعرف  حجمها 
+    # sender: هي فانكش/دالة تقوم بمتابعة الملف الذي ترتبط به فبمجرد قيام الملف المرتبطة به بحدث ما تقوم بتفيذ الكود الموجود فيها
+    # **kwargs: "Type" وﻻ نوعها "size" فانكش تقوم  بإستقبال المعلومات (المجهولة) التي لايعرف  حجمها
     # ['created']:الكلمة التي سوف يتم طباعتها إذا تم إستقبال بيانات
     # user:
     # ['instance']: هي البيانات التي تسم إستقبالها
-    # post_save:  ""   ""  يتم تنفيذ  حدث اخر بعده  "Save" كلاس فكرته: ان بمجرد تنفيذ عملية الحفظ 
+    # post_save:  ""   ""  يتم تنفيذ  حدث اخر بعده  "Save" كلاس فكرته: ان بمجرد تنفيذ عملية الحفظ
     def create_personal(sender, **kwargs):
         if kwargs['created']: #'created' إذا كان هناك بيانات تم إستقبالها اطبع هذه الكلمة
-            PersonalsMODEL.objects.create(P_User=kwargs['instance']) #التي أستقبلتها "'instance'"جديد بناء على  معلومات المستخدم "PersonalData_MODEL" قم بإنشاء ملف 
-    # "" "user"والمستخدم  "post_save" الربط بين الفانكشن 
+            PersonalsMODEL.objects.create(P_User=kwargs['instance']) #التي أستقبلتها "'instance'"جديد بناء على  معلومات المستخدم "PersonalData_MODEL" قم بإنشاء ملف
+    # "" "user"والمستخدم  "post_save" الربط بين الفانكشن
     post_save.connect(create_personal , sender=User)
-#####
-# (2) Financial Statements
+    #
+    # Auto Save Slug 
+    def save(self , *args , **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.P_User.username)
+        super(PersonalsMODEL , self).save(*args , **kwargs)
+###############################################  
+# (2) Financial Statements``
 class  FinancialStatementsMODEL(models.Model):
-    # 
+    #
     FS_User                    = models.OneToOneField(User      , on_delete=models.CASCADE                                                       , verbose_name="اسم المشترك")
     FS_SubscriptionAmount      = models.DecimalField(default=50 , max_digits=8 , decimal_places=2   , db_index=True , blank=False  , null=False  , verbose_name="مبلغ الإشتراك")
     FS_NumberPaymentsDue       = models.IntegerField(default=1                                      , db_index=True , blank=False  , null=False  , verbose_name="عدد الدفعات")
     FS_BankName                = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="إسم البنك")
     FS_BankAccount             = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="الحساب البنكي - الآيبان")
     FS_Notes                   = models.CharField(max_length=100                                    , db_index=True , blank=True   , null=True   , verbose_name="الملاحظات")
-    # 
+    #
     # 'admin'عرض إسم الحقل في صفحة
     def __str__(self):
         return str(self.FS_User)
-    # 
+    #
     # 'Z-A' ترتيب تنازلي
     class Meta:
-        ordering = ['FS_User'] 
+        ordering = ['FS_User']
 # #
     # create_profile: للمستخدم الجديد "profile"دالة تقوم بإنشاء
-    # sender: هي فانكش/دالة تقوم بمتابعة الملف الذي ترتبط به فبمجرد قيام الملف المرتبطة به بحدث ما تقوم بتفيذ الكود الموجود فيها 
-    # **kwargs: "Type" وﻻ نوعها "size" فانكش تقوم  بإستقبال المعلومات (المجهولة) التي لايعرف  حجمها 
+    # sender: هي فانكش/دالة تقوم بمتابعة الملف الذي ترتبط به فبمجرد قيام الملف المرتبطة به بحدث ما تقوم بتفيذ الكود الموجود فيها
+    # **kwargs: "Type" وﻻ نوعها "size" فانكش تقوم  بإستقبال المعلومات (المجهولة) التي لايعرف  حجمها
     # ['created']:الكلمة التي سوف يتم طباعتها إذا تم إستقبال بيانات
     # user:
     # ['instance']: هي البيانات التي تسم إستقبالها
-    # post_save:  ""   ""  يتم تنفيذ  حدث اخر بعده  "Save" كلاس فكرته: ان بمجرد تنفيذ عملية الحفظ 
+    # post_save:  ""   ""  يتم تنفيذ  حدث اخر بعده  "Save" كلاس فكرته: ان بمجرد تنفيذ عملية الحفظ
     def create_financial_statements(sender, **kwargs):
         if kwargs['created']: #'created' إذا كان هناك بيانات تم إستقبالها اطبع هذه الكلمة
-            FinancialStatementsMODEL.objects.create(FS_User=kwargs['instance']) #التي أستقبلتها "'instance'"جديد بناء على  معلومات المستخدم "PersonalData_MODEL" قم بإنشاء ملف 
-    # "" "user"والمستخدم  "post_save" الربط بين الفانكشن 
+            FinancialStatementsMODEL.objects.create(FS_User=kwargs['instance']) #التي أستقبلتها "'instance'"جديد بناء على  معلومات المستخدم "PersonalData_MODEL" قم بإنشاء ملف
+    # "" "user"والمستخدم  "post_save" الربط بين الفانكشن
     post_save.connect(create_financial_statements , sender=User)
-#####
+#######################################################
 # (3)Comprehensive Record
 class  DatesReceivingMoneyPaymentsMODEL(models.Model):
     # Variable To Save The Number Of Months
@@ -92,7 +99,7 @@ class  DatesReceivingMoneyPaymentsMODEL(models.Model):
     NOV                 = '11'
     DEC                 = '12'
 
-    # The Number Of Months 
+    # The Number Of Months
     MONTH_NUMBER = [
     (CHOOSE_MONTH_NUMBER ,  'Choose The Month Number'),
     (JAN                 ,                       '01'),
@@ -108,10 +115,10 @@ class  DatesReceivingMoneyPaymentsMODEL(models.Model):
     (NOV                 ,                       '11'),
     (DEC                 ,                       '12'),
     ]
-    # 
+    #
     #
     # Variable To Save The Month Code
-    # The Data Will be Saved in the Database 
+    # The Data Will be Saved in the Database
     JANUARY             = '01-January__Jumada Al-Awwal-(05)'
     FEBRUARY            = '02-February_Jumada Al-Thani-(06)'
     MARCH               = '03-March______________Rajab-(07)'
@@ -126,7 +133,7 @@ class  DatesReceivingMoneyPaymentsMODEL(models.Model):
     DECEMBER            = '12-December___Rabi Al-Thani-(04)'
     All                 = '00-All_______________Al-Kol-(00)'
 
-    
+
     # List Of The Names Of The Months
     # This Data Will Be shown In the Menu
     MONTH_NAME = [
@@ -144,29 +151,29 @@ class  DatesReceivingMoneyPaymentsMODEL(models.Model):
     (DECEMBER           ,  '12-December___Rabi Al-Thani-(04)')  ,
     (All                ,  '00-All_______________Al-Kol-(00)')  ,
     ]
-    # 
+    #
     DRMP_User                              = models.ForeignKey(User         , on_delete=models.CASCADE                                                       , verbose_name="اسم المشترك")
-    DRMP_DateReceivingMoneyPayments_Long   = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="موعد إستلام المال - بالشهر"     , choices=MONTH_NAME , default='Please Choose' , help_text='Required Field')    
+    DRMP_DateReceivingMoneyPayments_Long   = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="موعد إستلام المال - بالشهر"     , choices=MONTH_NAME , default='Please Choose' , help_text='Required Field')
     DRMP_DateReceivingMoneyPayments_Short  = models.DateField(                                                    db_index=True , blank=True   , null=True   , verbose_name="موعد إستلام المال - بالتاريخ"                                                   , help_text='Required Field')
-    DRMP_Notes                             = models.CharField(max_length=100                                    , db_index=True , blank=True   , null=True   , verbose_name="الملاحظات")    
-    # 
+    DRMP_Notes                             = models.CharField(max_length=100                                    , db_index=True , blank=True   , null=True   , verbose_name="الملاحظات")
+    #
     # Display The Name Of This Field In The Admin Page
     def __str__(self):
         return str(self.DRMP_DateReceivingMoneyPayments_Long)
-    # 
+    #
     # Arrange The Fields In Ascending Order 'Z-A'
     class Meta:
-        ordering = ['DRMP_DateReceivingMoneyPayments_Short'] 
+        ordering = ['DRMP_DateReceivingMoneyPayments_Short']
 #
     # create_profile: للمستخدم الجديد "profile"دالة تقوم بإنشاء
-    # sender: هي فانكش/دالة تقوم بمتابعة الملف الذي ترتبط به فبمجرد قيام الملف المرتبطة به بحدث ما تقوم بتفيذ الكود الموجود فيها 
-    # **kwargs: "Type" وﻻ نوعها "size" فانكش تقوم  بإستقبال المعلومات (المجهولة) التي لايعرف  حجمها 
+    # sender: هي فانكش/دالة تقوم بمتابعة الملف الذي ترتبط به فبمجرد قيام الملف المرتبطة به بحدث ما تقوم بتفيذ الكود الموجود فيها
+    # **kwargs: "Type" وﻻ نوعها "size" فانكش تقوم  بإستقبال المعلومات (المجهولة) التي لايعرف  حجمها
     # ['created']:الكلمة التي سوف يتم طباعتها إذا تم إستقبال بيانات
     # user:
     # ['instance']: هي البيانات التي تسم إستقبالها
-    # post_save:  ""   ""  يتم تنفيذ  حدث اخر بعده  "Save" كلاس فكرته: ان بمجرد تنفيذ عملية الحفظ 
+    # post_save:  ""   ""  يتم تنفيذ  حدث اخر بعده  "Save" كلاس فكرته: ان بمجرد تنفيذ عملية الحفظ
     def create_dates_receiving_money_payments(sender, **kwargs):
         if kwargs['created']: #'created' إذا كان هناك بيانات تم إستقبالها اطبع هذه الكلمة
-            DatesReceivingMoneyPaymentsMODEL.objects.create(DRMP_User=kwargs['instance']) #التي أستقبلتها "'instance'"جديد بناء على  معلومات المستخدم "PersonalData_MODEL" قم بإنشاء ملف 
-    # "" "user"والمستخدم  "post_save" الربط بين الفانكشن 
+            DatesReceivingMoneyPaymentsMODEL.objects.create(DRMP_User=kwargs['instance']) #التي أستقبلتها "'instance'"جديد بناء على  معلومات المستخدم "PersonalData_MODEL" قم بإنشاء ملف
+    # "" "user"والمستخدم  "post_save" الربط بين الفانكشن
     post_save.connect(create_dates_receiving_money_payments , sender=User)

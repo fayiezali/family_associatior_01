@@ -6,24 +6,17 @@ from accounts import views # This Views I Created It
 # AUTHENTICATION:-------------------------------------------------------------------------------------------------------
 # Login - Logout - Logout Confirm - Logout Done (1) Login (1)
 urlpatterns = [
-        # Login In System 
+        # Login In System
         # This Was Created By django
-        path('login/'                                   , auth_views.LoginView.as_view(),
-        name='login'),
-        #
+        path('login/'                                   , auth_views.LoginView.as_view()         , name='login'),
         # Exit From System
         # thies Was Created By Django
-        path('logout/'                                  , auth_views.LogoutView.as_view(), 
-        name='logout'),
-        #
-        # Logout Confirme 
+        path('logout/'                                  , auth_views.LogoutView.as_view()        , name='logout'),
+        # Logout Confirme
         # This is me created by me
-        path('logout_confirm/'                          , views.LogoutConfirmClass.as_view(),
-        name='LogoutConfirmURL'), 
-        #
+        path('logout_confirm/'                          , views.LogoutConfirmClass.as_view()     , name='LogoutConfirmURL'),
         # Checkout Confirmed Successfull
-        path('logout_done/'                             , views.LogoutDoneClass.as_view(),
-        name='LogoutDoneURL'), 
+        path('logout_done/'                             , views.LogoutDoneClass.as_view()        , name='LogoutDoneURL'),
 ]
 # Change Password - Password Change Done (2)
 urlpatterns += [
@@ -46,7 +39,7 @@ urlpatterns += [
         # The URL To Redirect To After a Successful Password Reset Request
         # thies Was Created By Django
         path('password-reset/'                         , auth_views.PasswordResetView.as_view(
-        template_name='registration/password_resetHTML.html', # The Name Of a Template To Display For The View Use 
+        template_name='registration/password_resetHTML.html', # The Name Of a Template To Display For The View Use
         subject_template_name='registration/password_reset_subject.txt',
         success_url= reverse_lazy('password_reset_done')), # Redirect To URL Address
         name='password_reset'), # Name URL pattern
@@ -72,24 +65,24 @@ urlpatterns += [
 # PROFILE DATA:-------------------------------------------------------------------------------------------------------
 urlpatterns += [
         # Signup And Confirm Registration With Email
-        path('signup/'                            , views.SignupCLASS.as_view()                       , name='SignupURL'), 
+        path('signup/'                            , views.SignupCLASS.as_view()                       , name='SignupURL'),
         # Active Registration Withe Email.
-        path('activate/<uidb64>/<token>/'         , views.ActivateCLASS.as_view()                     , name='ActivateURL'),  
+        path('activate/<uidb64>/<token>/'         , views.ActivateCLASS.as_view()                     , name='ActivateURL'),
         # View  Record Details  By (ID)
         path('profile_detail_id/<int:pk>/'        , views.ProfileDetailIdCLASS.as_view()              , name='ProfileDetailIdURL'),
         # Update Record
         path('profile_update/<int:pk>/'           , views.ProfileUpdateCLASS.as_view()                , name='ProfileUpdateURL'),
         # Checkout Confirmed Successfull
-        path('profile_update_done/'               , views.ProfileUpdateDoneCLASS.as_view()            , name='ProfileUpdateDoneURL'), 
+        path('profile_update_done/'               , views.ProfileUpdateDoneCLASS.as_view()            , name='ProfileUpdateDoneURL'),
         # Delete Record
         path('profile_delete/<int:pk>/delete/'    , views.ProfileDeleteCLASS.as_view()                , name='ProfileDeleteURL'),
         # Checkout Confirmed Successfull
-        path('profile_delete_done/'               , views.ProfileDeleteDoneCLASS.as_view()            , name='ProfileDeleteDoneURL'), 
-        # View a List Of The Records 
+        path('profile_delete_done/'               , views.ProfileDeleteDoneCLASS.as_view()            , name='ProfileDeleteDoneURL'),
+        # View a List Of The Records
         path('profile_list/'                      , views.ProfileListViewSearchCLASS.as_view()        , name='ProfileListViewSearchURL'),
 #*****************************************************************************************************
 #       ## View Record Details By (slug)
-#       # path('my_profile_detail_sluIDg/<slug:slug>/' , views.My_Profile_Detail_Slug.as_view()       , name='My_Profile_Detail_Slug_URL'), 
+#       # path('my_profile_detail_sluIDg/<slug:slug>/' , views.My_Profile_Detail_Slug.as_view()       , name='My_Profile_Detail_Slug_URL'),
 #       # Delete Multiple Records Select
 #       # path('Profile_delete/<int:pk>/delete/'    , views.My_Profile_Delete_Multiple_Select.as_view() , name='My_Profile_Delete_Multiple_Select_URL'),
 #*****************************************************************************************************
@@ -106,9 +99,9 @@ urlpatterns += [
         # Update Record
         path('personal_update/<int:pk>/'            , views.PersonalDataUpdateCLASS.as_view()         , name='PersonalDataUpdateURL'),
         # # Checkout Confirmed Successfull
-        path('personal_data_update_done/'           , views.PersonalDataUpdateDoneCLASS.as_view()     , name='PersonalDataUpdateDoneURL'), 
+        path('personal_data_update_done/'           , views.PersonalDataUpdateDoneCLASS.as_view()     , name='PersonalDataUpdateDoneURL'),
         # # Checkout Confirmed Successfull
-        # path('my_personal_delete_done/'           , views.My_Profile_Delete_Done.as_view()          , name='My_Profile_Delete_Done_URL'), 
+        # path('my_personal_delete_done/'           , views.My_Profile_Delete_Done.as_view()          , name='My_Profile_Delete_Done_URL'),
 ]
 # FINANCIAL STATEMENTS DATA:-------------------------------------------------------------------------------------------------------
 urlpatterns += [
@@ -117,7 +110,7 @@ urlpatterns += [
         # Update Record
         path('financial_statements_update/<int:pk>/'    , views.FinancialStatementsUpdateCLASS.as_view()       , name='FinancialStatementsUpdateURL'),
         # Checkout Confirmed Successfull
-        path('financial_statements_update_done/'        , views.FinancialStatementsUpdateDoneCLASS.as_view()   , name='FinancialStatementsUpdateDoneURL'), 
+        path('financial_statements_update_done/'        , views.FinancialStatementsUpdateDoneCLASS.as_view()   , name='FinancialStatementsUpdateDoneURL'),
 ]
 # DATES RECEIVING MONEY PAYMENTS DATA:-------------------------------------------------------------------------------------------------------
 urlpatterns += [
@@ -126,13 +119,13 @@ urlpatterns += [
         # Update Record
         path('dates_receiving_money_payments_update/<int:pk>/'     , views.DatesReceivingMoneyPamentsUpdateCLASS.as_view()         , name='DatesReceivingMoneyPamentsUpdateURL'),
         # Checkout Confirmed Successfull
-        path('dates_receiving_money_payments_update_done/'         , views.DatesReceivingMoneyPamentsUpdateDoneCLASS.as_view()     , name='DatesReceivingMoneyPamentsUpdateDoneURL'), 
+        path('dates_receiving_money_payments_update_done/'         , views.DatesReceivingMoneyPamentsUpdateDoneCLASS.as_view()     , name='DatesReceivingMoneyPamentsUpdateDoneURL'),
 ]
 #
 #
 # # DUES RECORD:----------------------------------------------------------------------------------------
 # urlpatterns +=[
-#         # View a List Of The Dues Record 
+#         # View a List Of The Dues Record
 #         path('my_dues_record_list/'                      , views.My_Dues_Record_ListView_Search.as_view()       , name='My_Dues_Record_ListView_Search_URL'),
 #         path('accounts/'                          , views.My_Monthes_Menu.as_view()                      , name='My_Monthes_Menu_URL'),
 #         #*********************************************************************************

@@ -19,7 +19,7 @@ from django.urls import reverse_lazy , reverse
 from django.db.models import Q # new
 from django.http import JsonResponse
 from django.contrib import messages
-from accounts.models import PersonalsMODEL , FinancialStatementsMODEL , DatesReceivingMoneyPaymentsMODEL  
+from accounts.models import PersonalsMODEL , FinancialStatementsMODEL , DatesReceivingMoneyPaymentsMODEL
 UserModel = get_user_model()
 #
 #
@@ -76,14 +76,14 @@ class ActivateCLASS(View):
         if user is not None and default_token_generator.check_token(user, token):
             user.is_active = True # User Activation
             user.save() # Data Save
-            # Show Confirm Email Registration Form And Dysplay Message For Successful Operation 
+            # Show Confirm Email Registration Form And Dysplay Message For Successful Operation
             return render(request, 'registration/confirm_email_registration_done.html', {'message': f'A confirmation email has been sent to {user.email}. Please confirm to finish registering'})
         else:
             # Show Activation Link Invalid Form For Unsuccessful Operation
             return render(request, 'registration/activation_link_invalid.html')
 #
 # Display List Record
-class ProfileListViewSearchCLASS(LoginRequiredMixin , ListView):    
+class ProfileListViewSearchCLASS(LoginRequiredMixin , ListView):
     paginate_by = 4  # if pagination is desired
     template_name = 'registration/profile_list.html'# The Page HTML to Display
     context_object_name = 'queryset_users_list_CONTEXT'
@@ -95,13 +95,13 @@ class ProfileListViewSearchCLASS(LoginRequiredMixin , ListView):
         if query:
             # Save Search Results In a Variable
             queryset_users_list_CONTEXT = User.objects.filter( Q(id__icontains=query)|Q(first_name__icontains=query)|Q(last_name__icontains=query)|Q(email__icontains=query)|Q(is_active__icontains=query)
-            
+
             # Q(id__icontains=query)          |# ID Number
             # Q(first_name__icontains=query)  |# First Name
             # Q(last_name__icontains=query)   |# Last Name
             # Q(email__icontains=query)       | # Email
             # Q(is_active__icontains=query)    # User Is Active
-            
+
         )
         return queryset_users_list_CONTEXT  # Send Search Results To The Disired  Page HTML
     ##
@@ -111,7 +111,7 @@ class ProfileListViewSearchCLASS(LoginRequiredMixin , ListView):
         context_CONTEXT['now'] =  timezone.now()
         return context_CONTEXT # Send This Data To The Required Page HTML
 #
-# # class My_Profile_ListView_Search(LoginRequiredMixin , TemplateView):    
+# # class My_Profile_ListView_Search(LoginRequiredMixin , TemplateView):
 # # #     paginate_by = 4  # if pagination is desired
 # #     template_name = 'registration/my_profile_list.html'# The Page HTML to Display
 # #     context_object_name = 'queryset_users_list'
@@ -148,8 +148,8 @@ class ProfileListViewSearchCLASS(LoginRequiredMixin , ListView):
 #     #     return object_list  # Send Search Results To The Disired  Page HTML
 #         #
 # # # Django - multiple models(table) in one view - Stack Overflow
-# # class My_Profile_ListView_Search_01(LoginRequiredMixin , ListView):    
-# #     context_object_name = 'home_list'    
+# # class My_Profile_ListView_Search_01(LoginRequiredMixin , ListView):
+# #     context_object_name = 'home_list'
 # #     template_name = 'contacts/index.html'
 # #     queryset = Individual.objects.all()
 
@@ -181,14 +181,14 @@ class ProfileUpdateCLASS(UpdateView):
         template_name = 'registration/profile_update.html'# The Page HTML to Display
         success_url = reverse_lazy('ProfileUpdateDoneURL')# Go to This Page After Successful Operation
         fields = [ # Fields Table
-            'username', 
+            'username',
             'first_name',
             'last_name',
             'email',
             # 'last_login',
-            # 'is_superuser', 
-            # 'is_staff', 
-            # 'is_active', 
+            # 'is_superuser',
+            # 'is_staff',
+            # 'is_active',
             # 'date_joined',
             ]
 #
@@ -243,17 +243,17 @@ class PersonalDataUpdateCLASS(UpdateView):
         template_name = 'registration/personal_update.html'# The Page HTML to Display
         success_url = reverse_lazy('PersonalDataUpdateDoneURL')# Go to This Page After Successful Operation
         fields = [ # Fields Table
-            
-            'P_User'                  ,
-            'P_Avialable'             , 
-            'P_Slug'                  ,  
+
+            # 'P_User'                ,
+            'P_Avialable'             ,
+            'slug'                  ,
             'P_FirstName'             ,
             'P_GrandFatherName'       ,
-            'P_FamilyName'            , 
-            'P_Photo'          , 
-            'P_Mobile'              ,
-            'P_Address'           ,
-            'P_Notes'                ,
+            'P_FamilyName'            ,
+            'P_Photo'                 ,
+            'P_Mobile'                ,
+            'P_Address'               ,
+            'P_Notes'                 ,
             ]
 #
 # Display The my_Profile_delete_done Page
@@ -276,12 +276,12 @@ class FinancialStatementsUpdateCLASS(UpdateView):
         template_name = 'registration/financial_statement_update.html'# The Page HTML to Display
         success_url = reverse_lazy('FinancialStatementsUpdateDoneURL')# Go to This Page After Successful Operation
         fields = [ # Fields Table
-            ''             
-            'FS_User'               ,
-            'FS_SubscriptionAmount' ,       
-            'FS_NumberPaymentsDue'  ,                            
-            'FS_BankName'           ,                                
-            'FS_BankAccount'        ,      
+            ''
+            # 'FS_User'               ,
+            'FS_SubscriptionAmount' ,
+            'FS_NumberPaymentsDue'  ,
+            'FS_BankName'           ,
+            'FS_BankAccount'        ,
             'FS_Notes'              ,
             ]
 #
@@ -307,14 +307,14 @@ class DatesReceivingMoneyPamentsUpdateCLASS(UpdateView):
         template_name = 'registration/dates_receiving_money_paments_update.html'# The Page HTML to Display
         success_url = reverse_lazy('DatesReceivingMoneyPamentsUpdateDoneURL')# Go to This Page After Successful Operation
         fields = [ # Fields Table
-            'DRMP_User'                              ,
-            'DRMP_DateReceivingMoneyPayments_Long'   , 
-            'DRMP_DateReceivingMoneyPayments_Short'  , 
+            # 'DRMP_User'                              ,
+            'DRMP_DateReceivingMoneyPayments_Long'   ,
+            'DRMP_DateReceivingMoneyPayments_Short'  ,
             'DRMP_Notes'                             ,
             ]
 #
 #
-# Display Dates Receiving Money Paments Udate Done 
+# Display Dates Receiving Money Paments Udate Done
 class DatesReceivingMoneyPamentsUpdateDoneCLASS(TemplateView):
     template_name = 'registration/dates_receiving_money_paments_update_done.html' # The Page HTML to Display
 #
@@ -322,7 +322,7 @@ class DatesReceivingMoneyPamentsUpdateDoneCLASS(TemplateView):
 #
 #
 #
-# class My_Dues_Record_ListView_Search(LoginRequiredMixin , TemplateView):    
+# class My_Dues_Record_ListView_Search(LoginRequiredMixin , TemplateView):
 # #     paginate_by = 4  # if pagination is desired
 #     template_name = 'registration/my_dues_record_list.html'# The Page HTML to Display
 #     # context_object_name = 'queryset_dues_record_list'
@@ -333,23 +333,23 @@ class DatesReceivingMoneyPamentsUpdateDoneCLASS(TemplateView):
 #         # verify that The Searvh Tool Is Not Empty Of Data
 #         if query:
 #             context = super().get_context_data(**kwargs)
-#             # Fill in the list from the database  
+#             # Fill in the list from the database
 #             context['queryset_monthes_menu'] = Monthes_Menu_MODEL.objects.all()
-#             # Display Data After Filtering 
+#             # Display Data After Filtering
 #             context['queryset_dues_record_list']    = Association_Months_MODEL.objects.filter(AM_MonthName__icontains=query)
 
 #             return context
 #         else:
 #             context = super().get_context_data(**kwargs)
-#             # Fill in the list from the database 
+#             # Fill in the list from the database
 #             context['queryset_monthes_menu'] = Monthes_Menu_MODEL.objects.all()
 #             #Display All Data
-#             context['queryset_dues_record_list']    = Association_Months_MODEL.objects.all() 
-#             return context        
+#             context['queryset_dues_record_list']    = Association_Months_MODEL.objects.all()
+#             return context
 # #
 # #
 # # # Search Withe Dynamic Menu
-# class My_Monthes_Menu(LoginRequiredMixin , ListView):    
+# class My_Monthes_Menu(LoginRequiredMixin , ListView):
 #     # paginate_by = 4  # if pagination is desired
 #     template_name = 'registration/my_dues_record_list.html'# The Page HTML to Display
 #     context_object_name = 'queryset_monthes_menu'

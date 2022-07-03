@@ -1,5 +1,5 @@
 
-{% extends "commons/base.html" %}  
+{% extends "home/base.html" %}  
 {% load static %}
 {% load crispy_forms_tags %}
 
@@ -49,7 +49,7 @@
         {% include  "includes/data_validation_form.html" %} 
                 
                 <button type="submit" class="btn btn-success">Update</button>
-                <a href="{% url 'My_Financial_Data_Detail_ID_URL' user.pk %}" class="btn btn-info">Cancel</a>
+                <a href="{% url 'FinancialStatementsDetailIdURL' user.pk %}" class="btn btn-info">Cancel</a>
 </form>
 
 {% endblock Contents_Page %} 

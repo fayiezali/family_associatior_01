@@ -30,7 +30,7 @@ from accounts.models import * #  استيراد كل المودل/الجداول
 class PersonalsADMIN(admin.ModelAdmin): # The class has been inherited as an addict in order to make a modification / customization 
         # Automatically Fill In Slug Field From Variable (FullName)
         FullName = {
-        "P_Slug": # Slug Field
+        "slug": # Slug Field
         [
         'P_FirstName'       , 
         'P_FatherName'      ,
@@ -51,7 +51,7 @@ class PersonalsADMIN(admin.ModelAdmin): # The class has been inherited as an add
         # Show Fields a List
         list_display = (
         'P_User'                  , 
-        'P_Slug'                  ,
+        'slug'                  ,
         'P_Avialable'             , 
         'P_FirstName'             ,
         'P_FatherName'            ,
@@ -70,7 +70,7 @@ class PersonalsADMIN(admin.ModelAdmin): # The class has been inherited as an add
         {
         'fields': (
         'P_User'              ,
-        'P_Slug'              ,
+        'slug'              ,
         'P_Avialable'         ,
         'P_FirstName'         ,
         'P_FatherName'        ,

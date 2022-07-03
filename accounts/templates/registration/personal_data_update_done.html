@@ -31,11 +31,11 @@
 
 <p></p>
 
-<a href="" role="button" style="float:lieft" class="btn btn-success">Next</a> <!-- Go To Home Page  -->
+<a href="{% url 'FinancialStatementsDetailIdURL' user.pk %}" role="button" style="float:lieft" class="btn btn-success">Next</a> <!-- Go To Home Page  -->
 
-<a href="" role="button" style="float:lieft" class="btn btn-success">Previous</a> <!-- Go To Home Page  -->
+<a href="{% url 'ProfileDetailIdURL' user.pk %}" role="button" style="float:lieft" class="btn btn-success">Previous</a> <!-- Go To Home Page  -->
 
-<a href="{% url 'index_pageURL'%}" role="button" style="float:lieft" class="btn btn-info">Finish</a> <!-- Go To Home Page  -->
+<a href="{% url 'index_pageURL'%}" role="button" style="float:lieft" class="btn btn-info">Close</a> <!-- Go To Home Page  -->
 
 
 </div>

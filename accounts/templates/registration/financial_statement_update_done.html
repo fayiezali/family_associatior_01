@@ -1,5 +1,5 @@
 
-{% extends "commons/base.html" %}  
+{% extends "home/base.html" %}  
 {% load static %}
 
 
@@ -31,11 +31,11 @@
 
 <p></p>
 
-<a href="{% url 'My_Housing_Data_Detail_ID_URL' user.pk%}" role="button" style="float:lieft" class="btn btn-success">Next</a> <!-- Go To Home Page  -->
+<a href="{% url 'DatesReceivingMoneyPaymetsDetailIdURL'  user.pk%}" role="button" style="float:lieft" class="btn btn-success">Next</a> <!-- Go To Home Page  -->
 
-<a href="{%  url 'My_Personal_Data_Detail_ID_URL' My_Object.id   %}" role="button" style="float:lieft" class="btn btn-success">Previous</a> <!-- Go To Home Page  -->
+<a href="{% url 'FinancialStatementsDetailIdURL'        user.pk %}" role="button" style="float:lieft" class="btn btn-success">Previous</a> <!-- Go To Home Page  -->
 
-<a href="{% url 'index_pageURL' %}" role="button" style="float:lieft" class="btn btn-info">Finish</a>
+<a href="{% url 'index_pageURL'                                 %}" role="button" style="float:lieft" class="btn btn-info">Close</a>
 
 
 </div>

@@ -39,7 +39,7 @@
 		this.options = $.extend({}, Owl.Defaults, options);
 
 		/**
-		 * Plugin element.
+		 * slugin element.
 		 * @public
 		 */
 		this.$element = $(element);
@@ -51,10 +51,10 @@
 		this._handlers = {};
 
 		/**
-		 * References to the running plugins of this carousel.
+		 * References to the running slugins of this carousel.
 		 * @protected
 		 */
-		this._plugins = {};
+		this._slugins = {};
 
 		/**
 		 * Currently suppressed events to prevent them from being retriggered.
@@ -89,7 +89,7 @@
 		this._breakpoint = null;
 
 		/**
-		 * Current width of the plugin element.
+		 * Current width of the slugin element.
 		 */
 		this._width = null;
 
@@ -107,7 +107,7 @@
 
 		/**
 		 * Merge values of all items.
-		 * @todo Maybe this could be part of a plugin.
+		 * @todo Maybe this could be part of a slugin.
 		 * @protected
 		 */
 		this._mergers = [];
@@ -163,9 +163,9 @@
 			this._handlers[handler] = $.proxy(this[handler], this);
 		}, this));
 
-		$.each(Owl.Plugins, $.proxy(function(key, plugin) {
-			this._plugins[key.charAt(0).toLowerCase() + key.slice(1)]
-				= new plugin(this);
+		$.each(Owl.slugins, $.proxy(function(key, slugin) {
+			this._slugins[key.charAt(0).toLowerCase() + key.slice(1)]
+				= new slugin(this);
 		}, this));
 
 		$.each(Owl.Workers, $.proxy(function(priority, worker) {
@@ -258,10 +258,10 @@
 	};
 
 	/**
-	 * Contains all registered plugins.
+	 * Contains all registered slugins.
 	 * @public
 	 */
-	Owl.Plugins = {};
+	Owl.slugins = {};
 
 	/**
 	 * List of workers involved in the update process.
@@ -1462,8 +1462,8 @@
 			this.off(window, 'resize', this._handlers.onThrottledResize);
 		}
 
-		for (var i in this._plugins) {
-			this._plugins[i].destroy();
+		for (var i in this._slugins) {
+			this._slugins[i].destroy();
 		}
 
 		this.$stage.children('.cloned').remove();
@@ -1561,9 +1561,9 @@
 		);
 
 		if (!this._supress[name]) {
-			$.each(this._plugins, function(name, plugin) {
-				if (plugin.onTrigger) {
-					plugin.onTrigger(event);
+			$.each(this._slugins, function(name, slugin) {
+				if (slugin.onTrigger) {
+					slugin.onTrigger(event);
 				}
 			});
 
@@ -1711,8 +1711,8 @@
 	};
 
 	/**
-	 * The jQuery Plugin for the Owl Carousel
-	 * @todo Navigation plugin `next` and `prev`
+	 * The jQuery slugin for the Owl Carousel
+	 * @todo Navigation slugin `next` and `prev`
 	 * @public
 	 */
 	$.fn.owlCarousel = function(option) {
@@ -1747,7 +1747,7 @@
 	};
 
 	/**
-	 * The constructor for the jQuery Plugin
+	 * The constructor for the jQuery slugin
 	 * @public
 	 */
 	$.fn.owlCarousel.Constructor = Owl;
@@ -1755,7 +1755,7 @@
 })(window.Zepto || window.jQuery, window, document);
 
 /**
- * AutoRefresh Plugin
+ * AutoRefresh slugin
  * @version 2.3.4
  * @author Artus Kolanowski
  * @author David Deutsch
@@ -1764,8 +1764,8 @@
 ;(function($, window, document, undefined) {
 
 	/**
-	 * Creates the auto refresh plugin.
-	 * @class The Auto Refresh Plugin
+	 * Creates the auto refresh slugin.
+	 * @class The Auto Refresh slugin
 	 * @param {Owl} carousel - The Owl Carousel
 	 */
 	var AutoRefresh = function(carousel) {
@@ -1847,7 +1847,7 @@
 	};
 
 	/**
-	 * Destroys the plugin.
+	 * Destroys the slugin.
 	 */
 	AutoRefresh.prototype.destroy = function() {
 		var handler, property;
@@ -1862,12 +1862,12 @@
 		}
 	};
 
-	$.fn.owlCarousel.Constructor.Plugins.AutoRefresh = AutoRefresh;
+	$.fn.owlCarousel.Constructor.slugins.AutoRefresh = AutoRefresh;
 
 })(window.Zepto || window.jQuery, window, document);
 
 /**
- * Lazy Plugin
+ * Lazy slugin
  * @version 2.3.4
  * @author Bartosz Wojciechowski
  * @author David Deutsch
@@ -1876,8 +1876,8 @@
 ;(function($, window, document, undefined) {
 
 	/**
-	 * Creates the lazy plugin.
-	 * @class The Lazy Plugin
+	 * Creates the lazy slugin.
+	 * @class The Lazy slugin
 	 * @param {Owl} carousel - The Owl Carousel
 	 */
 	var Lazy = function(carousel) {
@@ -1998,7 +1998,7 @@
 	};
 
 	/**
-	 * Destroys the plugin.
+	 * Destroys the slugin.
 	 * @public
 	 */
 	Lazy.prototype.destroy = function() {
@@ -2012,12 +2012,12 @@
 		}
 	};
 
-	$.fn.owlCarousel.Constructor.Plugins.Lazy = Lazy;
+	$.fn.owlCarousel.Constructor.slugins.Lazy = Lazy;
 
 })(window.Zepto || window.jQuery, window, document);
 
 /**
- * AutoHeight Plugin
+ * AutoHeight slugin
  * @version 2.3.4
  * @author Bartosz Wojciechowski
  * @author David Deutsch
@@ -2026,8 +2026,8 @@
 ;(function($, window, document, undefined) {
 
 	/**
-	 * Creates the auto height plugin.
-	 * @class The Auto Height Plugin
+	 * Creates the auto height slugin.
+	 * @class The Auto Height slugin
 	 * @param {Owl} carousel - The Owl Carousel
 	 */
 	var AutoHeight = function(carousel) {
@@ -2145,12 +2145,12 @@
 		}
 	};
 
-	$.fn.owlCarousel.Constructor.Plugins.AutoHeight = AutoHeight;
+	$.fn.owlCarousel.Constructor.slugins.AutoHeight = AutoHeight;
 
 })(window.Zepto || window.jQuery, window, document);
 
 /**
- * Video Plugin
+ * Video slugin
  * @version 2.3.4
  * @author Bartosz Wojciechowski
  * @author David Deutsch
@@ -2159,8 +2159,8 @@
 ;(function($, window, document, undefined) {
 
 	/**
-	 * Creates the video plugin.
-	 * @class The Video Plugin
+	 * Creates the video slugin.
+	 * @class The Video slugin
 	 * @param {Owl} carousel - The Owl Carousel
 	 */
 	var Video = function(carousel) {
@@ -2458,7 +2458,7 @@
 	};
 
 	/**
-	 * Destroys the plugin.
+	 * Destroys the slugin.
 	 */
 	Video.prototype.destroy = function() {
 		var handler, property;
@@ -2473,12 +2473,12 @@
 		}
 	};
 
-	$.fn.owlCarousel.Constructor.Plugins.Video = Video;
+	$.fn.owlCarousel.Constructor.slugins.Video = Video;
 
 })(window.Zepto || window.jQuery, window, document);
 
 /**
- * Animate Plugin
+ * Animate slugin
  * @version 2.3.4
  * @author Bartosz Wojciechowski
  * @author David Deutsch
@@ -2487,8 +2487,8 @@
 ;(function($, window, document, undefined) {
 
 	/**
-	 * Creates the animate plugin.
-	 * @class The Navigation Plugin
+	 * Creates the animate slugin.
+	 * @class The Navigation slugin
 	 * @param {Owl} scope - The Owl Carousel
 	 */
 	var Animate = function(scope) {
@@ -2581,7 +2581,7 @@
 	};
 
 	/**
-	 * Destroys the plugin.
+	 * Destroys the slugin.
 	 * @public
 	 */
 	Animate.prototype.destroy = function() {
@@ -2595,12 +2595,12 @@
 		}
 	};
 
-	$.fn.owlCarousel.Constructor.Plugins.Animate = Animate;
+	$.fn.owlCarousel.Constructor.slugins.Animate = Animate;
 
 })(window.Zepto || window.jQuery, window, document);
 
 /**
- * Autoplay Plugin
+ * Autoplay slugin
  * @version 2.3.4
  * @author Bartosz Wojciechowski
  * @author Artus Kolanowski
@@ -2611,8 +2611,8 @@
 ;(function($, window, document, undefined) {
 
 	/**
-	 * Creates the autoplay plugin.
-	 * @class The Autoplay Plugin
+	 * Creates the autoplay slugin.
+	 * @class The Autoplay slugin
 	 * @param {Owl} scope - The Owl Carousel
 	 */
 	var Autoplay = function(carousel) {
@@ -2630,7 +2630,7 @@
 		this._call = null;
 
 		/**
-		 * Depending on the state of the plugin, this variable contains either
+		 * Depending on the state of the slugin, this variable contains either
 		 * the start time of the timer or the current timer value if it's
 		 * paused. Since we start in a paused state we initialize the timer
 		 * value.
@@ -2814,7 +2814,7 @@
 	};
 
 	/**
-	 * Destroys the plugin.
+	 * Destroys the slugin.
 	 */
 	Autoplay.prototype.destroy = function() {
 		var handler, property;
@@ -2829,12 +2829,12 @@
 		}
 	};
 
-	$.fn.owlCarousel.Constructor.Plugins.autoplay = Autoplay;
+	$.fn.owlCarousel.Constructor.slugins.autoplay = Autoplay;
 
 })(window.Zepto || window.jQuery, window, document);
 
 /**
- * Navigation Plugin
+ * Navigation slugin
  * @version 2.3.4
  * @author Artus Kolanowski
  * @author David Deutsch
@@ -2844,8 +2844,8 @@
 	'use strict';
 
 	/**
-	 * Creates the navigation plugin.
-	 * @class The Navigation Plugin
+	 * Creates the navigation slugin.
+	 * @class The Navigation slugin
 	 * @param {Owl} carousel - The Owl Carousel.
 	 */
 	var Navigation = function(carousel) {
@@ -2857,7 +2857,7 @@
 		this._core = carousel;
 
 		/**
-		 * Indicates whether the plugin is initialized or not.
+		 * Indicates whether the slugin is initialized or not.
 		 * @protected
 		 * @type {Boolean}
 		 */
@@ -2985,7 +2985,7 @@
 	};
 
 	/**
-	 * Initializes the layout of the plugin and extends the carousel.
+	 * Initializes the layout of the slugin and extends the carousel.
 	 * @protected
 	 */
 	Navigation.prototype.initialize = function() {
@@ -3051,7 +3051,7 @@
 	};
 
 	/**
-	 * Destroys the plugin.
+	 * Destroys the slugin.
 	 * @protected
 	 */
 	Navigation.prototype.destroy = function() {
@@ -3236,12 +3236,12 @@
 		}
 	};
 
-	$.fn.owlCarousel.Constructor.Plugins.Navigation = Navigation;
+	$.fn.owlCarousel.Constructor.slugins.Navigation = Navigation;
 
 })(window.Zepto || window.jQuery, window, document);
 
 /**
- * Hash Plugin
+ * Hash slugin
  * @version 2.3.4
  * @author Artus Kolanowski
  * @author David Deutsch
@@ -3251,8 +3251,8 @@
 	'use strict';
 
 	/**
-	 * Creates the hash plugin.
-	 * @class The Hash Plugin
+	 * Creates the hash slugin.
+	 * @class The Hash slugin
 	 * @param {Owl} carousel - The Owl Carousel
 	 */
 	var Hash = function(carousel) {
@@ -3343,7 +3343,7 @@
 	};
 
 	/**
-	 * Destroys the plugin.
+	 * Destroys the slugin.
 	 * @public
 	 */
 	Hash.prototype.destroy = function() {
@@ -3359,12 +3359,12 @@
 		}
 	};
 
-	$.fn.owlCarousel.Constructor.Plugins.Hash = Hash;
+	$.fn.owlCarousel.Constructor.slugins.Hash = Hash;
 
 })(window.Zepto || window.jQuery, window, document);
 
 /**
- * Support Plugin
+ * Support slugin
  *
  * @version 2.3.4
  * @author Vivid Planet Software GmbH
