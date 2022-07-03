@@ -1,0 +1,51 @@
+
+{% extends "home/base.html" %}  
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+
+
+
+{% block Page_Title  %}
+
+<div class="row justify-content-center">
+<h1>Signup</h1>
+</div>
+
+{% endblock Page_Title %}  
+
+
+
+
+
+
+{% block Contents_Page %} 
+
+<div class="row justify-content-center">
+    <div class="col-4.5">
+    <div class="card">
+    <div class="card-body">   
+    
+<form enctype="multipart/form-data" method="post" novalidate>
+    {% csrf_token %} <!-- Django encrypts Data -->
+    {% comment %} {{ form|crispy }} {% endcomment %}
+    
+        <!-- Required Form + Data Validation -->
+        {% include  "includes/data_validation_form.html" %} 
+        
+    <button type="submit" class="btn btn-success">Signup</button>
+    <!-- Go To Home Page HTML-->
+    <a href="{% url 'index_pageURL' %}" class="btn btn-info">Cancel</a>
+        
+
+</form>
+</div>
+</div>
+</div>
+</div>
+
+{% endblock Contents_Page %} 
+
+

@@ -9,7 +9,7 @@ from django.urls import reverse  # To generate URLS by reversing URL patterns
 from django.db.models.signals import post_save # كلاس فكرته: انه بمجرد تنفيذ عملية الحفظ يقوم مباشرة بتنفيذ عملية اخرى بعده
 #####
 # (1)Personal Data
-class ProfilesMODEL(models.Model):
+class PersonalsMODEL(models.Model):
 # 
     P_User                   = models.OneToOneField(User                         , on_delete=models.CASCADE                 , verbose_name="اسم المشترك")
     P_Avialable              = models.BooleanField(default=True                  , db_index=True , blank=False , null=False , verbose_name="حالة المشترك_نشط")
@@ -38,11 +38,11 @@ class ProfilesMODEL(models.Model):
     # user:
     # ['instance']: هي البيانات التي تسم إستقبالها
     # post_save:  ""   ""  يتم تنفيذ  حدث اخر بعده  "Save" كلاس فكرته: ان بمجرد تنفيذ عملية الحفظ 
-    def create_profiles(sender, **kwargs):
+    def create_personal(sender, **kwargs):
         if kwargs['created']: #'created' إذا كان هناك بيانات تم إستقبالها اطبع هذه الكلمة
-            ProfilesMODEL.objects.create(P_User=kwargs['instance']) #التي أستقبلتها "'instance'"جديد بناء على  معلومات المستخدم "PersonalData_MODEL" قم بإنشاء ملف 
+            PersonalsMODEL.objects.create(P_User=kwargs['instance']) #التي أستقبلتها "'instance'"جديد بناء على  معلومات المستخدم "PersonalData_MODEL" قم بإنشاء ملف 
     # "" "user"والمستخدم  "post_save" الربط بين الفانكشن 
-    post_save.connect(create_profiles , sender=User)
+    post_save.connect(create_personal , sender=User)
 #####
 # (2) Financial Statements
 class  FinancialStatementsMODEL(models.Model):
@@ -145,16 +145,28 @@ class  DatesReceivingMoneyPaymentsMODEL(models.Model):
     (All                ,  '00-All_______________Al-Kol-(00)')  ,
     ]
     # 
-    DRP_User                             = models.ForeignKey(User         , on_delete=models.CASCADE                                                       , verbose_name="اسم المشترك")
-    DRP_DateReceivigMoneyPayments_Long   = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="موعد إستلام المال - بالشهر"     , choices=MONTH_NAME , default='Please Choose ' , help_text='Required Field')    
-    DRP_DateReceivigMoneyPayments_Short  = models.DateField(                                                    db_index=True , blank=True   , null=True   , verbose_name="موعد إستلام المال - بالتاريخ"                                                                , help_text='Required Field')
-    DRP_Notes                            = models.CharField(max_length=100                                     , db_index=True , blank=True   , null=True   , verbose_name="الملاحظات")    
+    DRMP_User                              = models.ForeignKey(User         , on_delete=models.CASCADE                                                       , verbose_name="اسم المشترك")
+    DRMP_DateReceivingMoneyPayments_Long   = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="موعد إستلام المال - بالشهر"     , choices=MONTH_NAME , default='Please Choose' , help_text='Required Field')    
+    DRMP_DateReceivingMoneyPayments_Short  = models.DateField(                                                    db_index=True , blank=True   , null=True   , verbose_name="موعد إستلام المال - بالتاريخ"                                                   , help_text='Required Field')
+    DRMP_Notes                             = models.CharField(max_length=100                                    , db_index=True , blank=True   , null=True   , verbose_name="الملاحظات")    
     # 
     # Display The Name Of This Field In The Admin Page
     def __str__(self):
-        return str(self.DRP_DateReceivigMoneyPayments_Long)
+        return str(self.DRMP_DateReceivingMoneyPayments_Long)
     # 
     # Arrange The Fields In Ascending Order 'Z-A'
     class Meta:
-        ordering = ['DRP_DateReceivigMoneyPayments_Long'] 
+        ordering = ['DRMP_DateReceivingMoneyPayments_Short'] 
 #
+    # create_profile: للمستخدم الجديد "profile"دالة تقوم بإنشاء
+    # sender: هي فانكش/دالة تقوم بمتابعة الملف الذي ترتبط به فبمجرد قيام الملف المرتبطة به بحدث ما تقوم بتفيذ الكود الموجود فيها 
+    # **kwargs: "Type" وﻻ نوعها "size" فانكش تقوم  بإستقبال المعلومات (المجهولة) التي لايعرف  حجمها 
+    # ['created']:الكلمة التي سوف يتم طباعتها إذا تم إستقبال بيانات
+    # user:
+    # ['instance']: هي البيانات التي تسم إستقبالها
+    # post_save:  ""   ""  يتم تنفيذ  حدث اخر بعده  "Save" كلاس فكرته: ان بمجرد تنفيذ عملية الحفظ 
+    def create_dates_receiving_money_payments(sender, **kwargs):
+        if kwargs['created']: #'created' إذا كان هناك بيانات تم إستقبالها اطبع هذه الكلمة
+            DatesReceivingMoneyPaymentsMODEL.objects.create(DRMP_User=kwargs['instance']) #التي أستقبلتها "'instance'"جديد بناء على  معلومات المستخدم "PersonalData_MODEL" قم بإنشاء ملف 
+    # "" "user"والمستخدم  "post_save" الربط بين الفانكشن 
+    post_save.connect(create_dates_receiving_money_payments , sender=User)

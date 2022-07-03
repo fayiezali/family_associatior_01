@@ -26,8 +26,8 @@ from accounts.models import * #  استيراد كل المودل/الجداول
 ##########################################################################
 #
 # Personal File
-@admin.register(ProfilesMODEL)
-class ProfilesADMIN(admin.ModelAdmin): # The class has been inherited as an addict in order to make a modification / customization 
+@admin.register(PersonalsMODEL)
+class PersonalsADMIN(admin.ModelAdmin): # The class has been inherited as an addict in order to make a modification / customization 
         # Automatically Fill In Slug Field From Variable (FullName)
         FullName = {
         "P_Slug": # Slug Field
@@ -144,38 +144,38 @@ class DatesReceivingMoneyPaymentsADMIN(admin.ModelAdmin):  # The class has been 
         #
         # Add aFilter Box
         list_filter = (
-        'DRP_User'      , 
-        'DRP_DateReceivigMoneyPayments_Long'   ,
-        'DRP_DateReceivigMoneyPayments_Short'
+        'DRMP_User'      , 
+        'DRMP_DateReceivingMoneyPayments_Long'   ,
+        'DRMP_DateReceivingMoneyPayments_Short'
         )
         #
         #
         # Show Fields a List
         list_display = (
-        'DRP_User'     , 
-        'DRP_DateReceivigMoneyPayments_Long'   , 
-        'DRP_DateReceivigMoneyPayments_Short'  , 
-        'DRP_Notes'
+        'DRMP_User'     , 
+        'DRMP_DateReceivingMoneyPayments_Long'   , 
+        'DRMP_DateReceivingMoneyPayments_Short'  , 
+        'DRMP_Notes'
         )
         #
         # search list
-        search_fields = ['DRP_DateReceivigMoneyPayments_Long']
-    
+        search_fields = ['DRMP_DateReceivingMoneyPayments_Long']
+
         #
         # Add Data In Different Sections
         fieldsets = (
         (None, {
         'fields': (
-        'DRP_User'                        , 
-        'DRP_DateReceivigMoneyPayments_Long'   , 
-        'DRP_DateReceivigMoneyPayments_Short'  
+        'DRMP_User'                        , 
+        'DRMP_DateReceivingMoneyPayments_Long'   , 
+        'DRMP_DateReceivingMoneyPayments_Short'  
         )
         }
         ),
         ('Advanced', {
         'classes': ('collapse',) ,
         'fields': (
-        'DRP_Notes',
+        'DRMP_Notes',
         )
         }
         ),

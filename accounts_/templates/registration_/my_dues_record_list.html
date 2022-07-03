@@ -1,0 +1,986 @@
+
+
+{% extends "commons/base.html" %}  
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+
+
+
+
+{% block Page_Title  %}
+<h1>List Dues Record</h1>
+<!-- <!-- <h1>{{ now }}</h1> -- > -->
+{% endblock Page_Title %}  
+
+
+
+
+
+
+{% block messages_Contents  %}
+
+<!-- ظهور رسالة للمستخدم -->
+{% if messages %} <!-- جملة شرطية للتحقق من وجود رسالة قبل عرضها-->
+        {% for message in messages %} <!-- جملة تكرار للمرور على جميع  محتويات الرسالة لعرضها كلها -->
+                <!--success: هي التي تقوم بتحديد لون الرسالة اخضر -->
+                <!--warning: هي التي تقوم بتحديد لون الرسالة احمر -->
+                <div  class="alert alert-success">
+                        {{ message }} <!-- المتغير الذي يحمل نص الرسالة-->
+                </div>
+        {% endfor %}
+{% endif %}
+
+	<!-- Delete Modal HTML Start -->
+	<div id="Delete_Messages_Modal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">						
+						<h4 class="modal-title">Delete Employee</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">					
+						<p>Are you sure you want to delete these Records?</p>
+						<p class="text-warning"><small>This action cannot be undone.</small></p>
+					</div>
+                    {% for object_list_item in object_list %} 
+
+					<div class="modal-footer">
+					
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input  href="#" type="submit" class="btn btn-danger" value="Delete">
+					</div>
+					{% endfor %}
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Delete Modal HTML End -->
+
+{% endblock messages_Contents %}  
+
+
+
+
+
+
+{% block Contents_Page %} 
+
+<br>
+
+
+<!-- Base.html  - Normal Menu - Search Withe Menu Start ---------------------------- -->
+
+<!-- <div class="d-sm-flex align-items-left  mb-4">
+<section id="search" class="alt"> 
+    <div class="row"> -->
+        <form action="{% url 'My_Dues_Record_ListView_Search_URL' %}" method="get">
+            <label>Month</label>
+                <select name="search_tool" >
+                    <option value = "01-January__Jumada Al-Awwal-(05)">01-January__Jumada Al-Awwal-(05)</option>
+                    <option value = "02-February_Jumada Al-Thani-(06)">02-February_Jumada Al-Thani-(06)</option>
+                    <option value = "03-March______________Rajab-(07)">03-March______________Rajab-(07)</option>
+                    <option value = "04-April_____________Shaban-(08)">04-April_____________Shaban-(08)</option>
+                    <option value = "05-May______________Ramadan-(09)">05-May______________Ramadan-(09)</option>
+                    <option value = "06-June_____________Shawwal-(10)">06-June_____________Shawwal-(10)</option>
+                    <option value = "07-July__________Dhul-Qadah-(11)">07-July__________Dhul-Qadah-(11)</option>
+                    <option value = "08-August_______Dhul-Hijjah-(12)">08-August_______Dhul-Hijjah-(12)</option>
+                    <option value = "09-September_______Muharram-(01)">09-September_______Muharram-(01)</option>
+                    <option value = "10-October____________Safar-(02)">10-October____________Safar-(02)</option>
+                    <option value = "11-November___Rabi Al-Awwal-(03)">11-November___Rabi Al-Awwal-(03)</option>
+                    <option value = "12-December___Rabi Al-Thani-(04)">12-December___Rabi Al-Thani-(04)</option>
+                    <option value = ""                                >00-All_______________Al-Kol-(00)</option>
+            <input type="submit" value="OK"/>
+        </form>        
+    <!-- </div>
+</section> 
+</div> -->
+
+<!-- Base.html  - Normal Menu - Search Withe Menu End ---------------------------- -->
+
+<!-- Base.html  - Dynamic Menu - Search Withe Menu Start ---------------------------- -->
+
+<div class="d-sm-flex align-items-left  mb-4">
+    <section id="search" class="alt"> 
+        <div class="row">
+            <form action="{% url 'My_Dues_Record_ListView_Search_URL' %}"  method="get">
+                {% csrf_token %}
+                <label>Month</label>
+                    <select name="search_tool">
+                    
+                        <option value = ""              >00-All_______________Al-Kol-(00)</option>
+                        {% for item in queryset_monthes_menu %}
+                        <option  value ="{{ item.MM_MonthName }}">{{ item.MM_MonthName }}</option>
+                        {% endfor %}             
+                        <input type="submit" value="OK" />
+            </form>        
+        </div>
+    </section> 
+</div>
+<!-- Base.html  - Dynamic Menu - Search Withe Menu End ---------------------------- -->
+
+
+<!-- Content Row -->
+<div class="row">
+
+  <div class="col-md-0">
+      <div class="card shadow mb-4">
+          <div class="card-body">
+              <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                  <div class="row">
+                  </div>
+                  <div class="row">
+                      <div class="col-sm-12">
+                          <table class="table-responsive-xl table table-hover table-striped table-bordered dataTable" id="dataTable" width="100%"
+                                 cellspacing="0" role="grid" aria-describedby="dataTable_info">
+                              <thead>                              
+                                  <tr role="row">
+                                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                      colspan="1" aria-label="" style="">Select
+                                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                      colspan="1" aria-label="" style="">Nonth Number
+                                  </th>
+                                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                      colspan="1" aria-label="" style="">Nonth Name
+                                  </th>
+                                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                      colspan="1" aria-label="" style="">User Name
+                                  </th>
+                                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                      colspan="1" aria-label="" style="">Date share Received
+                                  </th>
+                                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                      colspan="1" aria-label="" style="">Share Valeue
+                                  </th>
+                                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                      colspan="1" aria-label="" style="">Number Shares
+                                  </th>
+                                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                      colspan="1" aria-label="" style="">Deserved Amount
+                                  </th>
+                                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                      colspan="1" aria-label="" style="">Notes
+                                  </th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              {% for object_list_item in queryset_dues_record_list %} 
+
+                              <tr role="row">
+                                  <td class="text-center">
+                                      <div class="custom-control-lg custom-control custom-checkbox">
+                                          <input name="checkbox_select_item_for_delete" type="checkbox" class="custom-control-input form-control-lg" data-id="{{ object_list_item.pk}}" id="check{{ object_list_item.pk }}">
+                                          <label class="custom-control-label" for="check{{ object_list_item.pk }}"></label>
+                                      </div>
+                                  </td>
+                                <td>{{ object_list_item.pk  }}</td> 
+                                <td>{{ object_list_item.AM_MonthName }}</td>
+                                <td>{{ object_list_item.AM_User }}</td>
+                                <td>{{ object_list_item.AM_DateShareReceived }}</td>
+                                <td>{{ object_list_item.AM_ShareValue }}</td>
+                                <td>{{ object_list_item.AM_NumberShares }}</td>
+                                <td>{{ object_list_item.AM_DeservedAmount }}</td>
+                                <td>{{ object_list_item.AM_Notes }}</td>
+
+                              </tr>
+                              {% endfor %}
+
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+            <!--Pagination Start -->
+            
+                  <div class="row">
+                      <div class="col-12 ">
+                          <div class="pagination">
+                              <span class="step-links">
+                                  {% if page_obj.has_previous %}
+                                      <a href="?page=1">&laquo; first</a>
+                                      <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                                  {% endif %}
+
+                                  <span class="current">
+                                      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                                  </span>
+
+                                  {% if page_obj.has_next %}
+                                      <a href="?page={{ page_obj.next_page_number }}">next</a>
+                                      <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                                  {% endif %}
+                              </span>
+                          </div>
+                      </div>
+                  </div>
+            <!--Pagination End -->
+              </div>
+          </div>
+      </div>
+
+  </div>
+
+</div>
+
+{% endblock Contents_Page %} 
+
+
+
+
+
+
+
+
+
+{% comment %}
+<!-- Content Row -->
+<div class="row">
+
+    <div class="col-md-0">
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                    <div class="row">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table-responsive-xl table table-hover table-striped table-bordered dataTable" id="dataTable" width="100%"
+                                   cellspacing="0" role="grid" aria-describedby="dataTable_info">
+                                <thead>                              
+                                    <tr role="row">
+                                    <!-- <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                        colspan="1" aria-label="" style="">Select
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">Actions
+                                  </th> -->
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                        colspan="1" aria-label="" style="">ID User
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                        colspan="1" aria-label="" style="">Image
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                      colspan="1" aria-label="" style="">CUstomer
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                      colspan="1" aria-label="" style="">Avialable
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                      colspan="1" aria-label="" style="">Slug
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                      colspan="1" aria-label="" style="">First Name
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                      colspan="1" aria-label="" style="">Father Name
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                      colspan="1" aria-label="" style="">Grand Father Name
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                      colspan="1" aria-label="" style="">Family Name
+                                    </th>
+                                    <!-- <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                      colspan="1" aria-label="" style="">Image Personal
+                                    </th> -->
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                      colspan="1" aria-label="" style="">ID Number
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                      colspan="1" aria-label="" style="">Nationality
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                      colspan="1" aria-label="" style="">Mobile Number
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                      colspan="1" aria-label="" style="">Socia Status Married
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                      colspan="1" aria-label="" style="">Social Status Unmarried
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                      colspan="1" aria-label="" style="">Date Joined
+                                    </th>
+  
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for object_list_personal_data_item in personal_data %} 
+
+                                <tr role="row">
+                                    <!-- <td class="text-center">
+                                        <div class="custom-control-lg custom-control custom-checkbox">
+                                            <input name="checkbox_select_item_for_delete" type="checkbox" class="custom-control-input form-control-lg" data-id="{{ object_list_item.pk}}" id="check{{ object_list_item.pk }}">
+                                            <label class="custom-control-label" for="check{{ object_list_item.pk }}"></label>
+                                        </div>
+                                    </td> -->
+                                    <!-- <td>
+                                      <div class="dropdown">
+                                          <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                              <i class="dw dw-more"></i>
+                                          </a>
+                                          <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                              <a class="dropdown-item" href="{% url 'My_Profile_Detail_ID_URL' object_list_item.id  %}"><i class="dw dw-eye"></i> View</a>
+                                              <a class="dropdown-item" href="{% url 'my_profile_update_URL'    object_list_item.id  %}"><i class="dw dw-edit2"></i> Edit</a>
+                                              <a class="dropdown-item" href="{% url 'My_Profile_delete_URL'    object_list_item.id  %}"><i class="dw dw-delete-3"></i> Delete</a>
+                                              <a class="dropdown-item" href="Delete_Messages_Modal"><i class="dw dw-delete-3"></i> Delete</a>
+                                          </div>
+                                      </div>
+                                  </td> -->
+                                  <td>{{ object_list_personal_data_item.pk  }}</td> 
+                                  <td><img src="{{ object_list_personal_data_item.PER_ImgePersonal.url}}" alt="" width="150" height="90"></td>
+                                  <td>{{ object_list_personal_data_item.PER_Customer  }}</td> 
+                                  <td>{{ object_list_personal_data_item.PER_Avialable }}</td>
+                                  <td>{{ object_list_personal_data_item.FER_Slug }}</td>
+                                  <td>{{ object_list_personal_data_item.PER_FirstName }}</td>
+                                  <td>{{ object_list_personal_data_item.PER_FatherName }}</td>
+                                  <td>{{ object_list_personal_data_item.PER_GrandFatherName }}</td>
+                                  <td>{{ object_list_personal_data_item.PER_FamilyName }}</td>
+                                  <td>{{ object_list_personal_data_item.PER_IdNumber  }}</td> 
+                                  <td>{{ object_list_personal_data_item.PER_Nationality }}</td>
+                                  <td>{{ object_list_personal_data_item.PER_Mobile }}</td>
+                                  <td>{{ object_list_personal_data_item.PER_SocialStatusMarried }}</td>
+                                  <td>{{ object_list_personal_data_item.PER_SocialStatusUnmarried }}</td>
+                                  <td>{{ object_list_personal_data_item.PER_Date_joined }}</td>
+                                  <!-- ---------- -->
+                                </tr>
+                                {% endfor %}
+  
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+              <!--Pagination Start -->
+              
+                    <div class="row">
+                        <div class="col-12 ">
+                            <div class="pagination">
+                                <span class="step-links">
+                                    {% if page_obj.has_previous %}
+                                        <a href="?page=1">&laquo; first</a>
+                                        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                                    {% endif %}
+  
+                                    <span class="current">
+                                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                                    </span>
+  
+                                    {% if page_obj.has_next %}
+                                        <a href="?page={{ page_obj.next_page_number }}">next</a>
+                                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+              <!--Pagination End -->
+                </div>
+            </div>
+        </div>
+  
+    </div>
+  
+  </div>
+
+
+  {% endcomment %}
+
+{% comment %}
+                <div>
+                <a  href="{% url 'My_Signup_URL' %}" role="button" style="float:right" class="btn btn-success">Add New</a><!-- إضافة سجل جديد -->
+                <br>
+                <br>
+                </div>
+                <br>
+                <table class="table table-bordered" class="data-table table nowrap">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>ID User</th>
+                                <th>User Name</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email Address</th>
+                                <th>Active Status</th>
+                                <th>Staff Status</th>
+                                <th>Superuser Status</th>
+                                <th>Date Joined</th>
+                                <th>Last Login</th>
+                                <th>Actions</th>
+                                <th>Select</th>
+                
+                            </tr>
+                        </thead>
+                
+                {%  if object_list %}  <!--conditional Statement to Check For Data -->
+                <!--
+                Loop To Pass through All The Data to Be displayed
+                -->
+                {% for object_list_item in object_list %} 
+                
+                <tr>
+                <td><img src="{{ object_list_item.ASS_AssociationLogo.url}}" alt="" width="150" height="90"></td>
+                <!-- <td><a href="{{ object_list_item.get_absolute_url }}">{{ object_list_item.ASS_NameAssociation }}</a> ({{object_list_item.ASS_Phone}})</td> This Link Is From The Database and usls.py File -->
+                <td>{{ object_list_item.id }}</td>
+                <td>{{ object_list_item.username }}</td>
+                <td>{{ object_list_item.first_name }}</td>
+                <td>{{ object_list_item.last_name }}</td>
+                <td>{{ object_list_item.email }}</td>
+                <td>{{ object_list_item.is_active }}</td>
+                <td>{{ object_list_item.is_staff }}</td>
+                <td>{{ object_list_item.is_superuser }}</td>
+                <td>{{ object_list_item.date_joined }}</td>
+                <td>{{ object_list_item.last_login }}</td>
+                
+                <td>
+                    <div class="dropdown">
+                        <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                            <i class="dw dw-more"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                            <a class="dropdown-item" href="{% url 'My_Profile_Detail_ID_URL' object_list_item.id  %}"><i class="dw dw-eye"></i> View</a>
+                            <a class="dropdown-item" href="{% url 'my_profile_update_URL'    object_list_item.id  %}"><i class="dw dw-edit2"></i> Edit</a>
+                            <a class="dropdown-item" href="{% url 'My_Profile_delete_URL'    object_list_item.id  %}"><i class="dw dw-delete-3"></i> Delete</a>
+                        </div>
+                    </div>
+                </td>
+                
+                
+                </tr>
+                {% endfor %}
+                {% else %}
+                    <h4>There are No Data.</h4>
+                {% endif %} 
+                </table>
+{% endcomment %}
+
+{% comment %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bootstrap CRUD Data Table for Database with Modal Form</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  <body>
+    <div class="container">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+						<h2>Manage <b>Employees</b></h2>
+					</div>
+					<div class="col-sm-6">
+						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
+						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
+					</div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+						<th>
+							<span class="custom-checkbox">
+								<input type="checkbox" id="selectAll">
+								<label for="selectAll"></label>
+							</span>
+						</th>
+                        <th>Name</th>
+                        <th>Email</th>
+						<th>Address</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+						<td>
+							<span class="custom-checkbox">
+								<input type="checkbox" id="checkbox1" name="options[]" value="1">
+								<label for="checkbox1"></label>
+							</span>
+						</td>
+                        <td>Thomas Hardy</td>
+                        <td>thomashardy@mail.com</td>
+						<td>89 Chiaroscuro Rd, Portland, USA</td>
+                        <td>(171) 555-2222</td>
+                        <td>
+                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    <tr>
+						<td>
+							<span class="custom-checkbox">
+								<input type="checkbox" id="checkbox2" name="options[]" value="1">
+								<label for="checkbox2"></label>
+							</span>
+						</td>
+                        <td>Dominique Perrier</td>
+                        <td>dominiqueperrier@mail.com</td>
+						<td>Obere Str. 57, Berlin, Germany</td>
+                        <td>(313) 555-5735</td>
+                        <td>
+                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        </td>
+                    </tr>
+					<tr>
+						<td>
+							<span class="custom-checkbox">
+								<input type="checkbox" id="checkbox3" name="options[]" value="1">
+								<label for="checkbox3"></label>
+							</span>
+						</td>
+                        <td>Maria Anders</td>
+                        <td>mariaanders@mail.com</td>
+						<td>25, rue Lauriston, Paris, France</td>
+                        <td>(503) 555-9931</td>
+                        <td>
+                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    <tr>
+						<td>
+							<span class="custom-checkbox">
+								<input type="checkbox" id="checkbox4" name="options[]" value="1">
+								<label for="checkbox4"></label>
+							</span>
+						</td>
+                        <td>Fran Wilson</td>
+                        <td>franwilson@mail.com</td>
+						<td>C/ Araquil, 67, Madrid, Spain</td>
+                        <td>(204) 619-5731</td>
+                        <td>
+                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        </td>
+                    </tr>					
+					<tr>
+						<td>
+							<span class="custom-checkbox">
+								<input type="checkbox" id="checkbox5" name="options[]" value="1">
+								<label for="checkbox5"></label>
+							</span>
+						</td>
+                        <td>Martin Blank</td>
+                        <td>martinblank@mail.com</td>
+						<td>Via Monte Bianco 34, Turin, Italy</td>
+                        <td>(480) 631-2097</td>
+                        <td>
+                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        </td>
+                    </tr> 
+                </tbody>
+            </table>
+			<div class="clearfix">
+                <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+                <ul class="pagination">
+                    <li class="page-item disabled"><a href="#">Previous</a></li>
+                    <li class="page-item"><a href="#" class="page-link">1</a></li>
+                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                    <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                    <li class="page-item"><a href="#" class="page-link">4</a></li>
+                    <li class="page-item"><a href="#" class="page-link">5</a></li>
+                    <li class="page-item"><a href="#" class="page-link">Next</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+	<!-- Edit Modal HTML -->
+	<div id="addEmployeeModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">						
+						<h4 class="modal-title">Add Employee</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">					
+						<div class="form-group">
+							<label>Name</label>
+							<input type="text" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Email</label>
+							<input type="email" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Address</label>
+							<textarea class="form-control" required></textarea>
+						</div>
+						<div class="form-group">
+							<label>Phone</label>
+							<input type="text" class="form-control" required>
+						</div>					
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-success" value="Add">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Edit Modal HTML Start -->
+	<div id="editEmployeeModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">						
+						<h4 class="modal-title">Edit Employee</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">					
+						<div class="form-group">
+							<label>Name</label>
+							<input type="text" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Email</label>
+							<input type="email" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Address</label>
+							<textarea class="form-control" required></textarea>
+						</div>
+						<div class="form-group">
+							<label>Phone</label>
+							<input type="text" class="form-control" required>
+						</div>					
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-info" value="Save">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Edit Modal HTML End -->
+	
+	<!-- Delete Modal HTML Start -->
+	<div id="deleteEmployeeModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">						
+						<h4 class="modal-title">Delete Employee</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">					
+						<p>Are you sure you want to delete these Records?</p>
+						<p class="text-warning"><small>This action cannot be undone.</small></p>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-danger" value="Delete">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Delete Modal HTML End -->
+</body>
+</html>
+{% endcomment %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="main-container">
+    <div class="pd-ltr-20">
+        <div class="card-box pd-20 height-100-p mb-30">
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <img src="vendors/images/banner-img.png" alt="">
+                </div>
+            
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-3 mb-30">
+                <div class="card-box height-100-p widget-style1">
+                    <div class="d-flex flex-wrap align-items-center">
+                        <div class="progress-data">
+                            <div id="chart"></div>
+                        </div>
+                        <div class="widget-data">
+                            <div class="h4 mb-0">2020</div>
+                            <div class="weight-600 font-14">Contact</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 mb-30">
+                <div class="card-box height-100-p widget-style1">
+                    <div class="d-flex flex-wrap align-items-center">
+                        <div class="progress-data">
+                            <div id="chart2"></div>
+                        </div>
+                        <div class="widget-data">
+                            <div class="h4 mb-0">400</div>
+                            <div class="weight-600 font-14">Deals</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 mb-30">
+                <div class="card-box height-100-p widget-style1">
+                    <div class="d-flex flex-wrap align-items-center">
+                        <div class="progress-data">
+                            <div id="chart3"></div>
+                        </div>
+                        <div class="widget-data">
+                            <div class="h4 mb-0">350</div>
+                            <div class="weight-600 font-14">Campaign</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 mb-30">
+                <div class="card-box height-100-p widget-style1">
+                    <div class="d-flex flex-wrap align-items-center">
+                        <div class="progress-data">
+                            <div id="chart4"></div>
+                        </div>
+                        <div class="widget-data">
+                            <div class="h4 mb-0">$6060</div>
+                            <div class="weight-600 font-14">Worth</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-8 mb-30">
+                <div class="card-box height-100-p pd-20">
+                    <h2 class="h4 mb-20">Activity</h2>
+                    <div id="chart5"></div>
+                </div>
+            </div>
+            <div class="col-xl-4 mb-30">
+                <div class="card-box height-100-p pd-20">
+                    <h2 class="h4 mb-20">Lead Target</h2>
+                    <div id="chart6"></div>
+                </div>
+            </div>
+        </div>
+        <div class="card-box mb-30">
+            <h2 class="h4 pd-20">Best Selling Products</h2>
+            <table class="data-table table nowrap">
+                <thead>
+                    <tr>
+                        <th class="table-plus datatable-nosort">Product</th>
+                        <th>Name</th>
+                        <th>Color</th>
+                        <th>Size</th>
+                        <th>Price</th>
+                        <th>Oty</th>
+                        <th class="datatable-nosort">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="table-plus">
+                            <img src="vendors/images/product-1.jpg" width="70" height="70" alt="">
+                        </td>
+                        <td>
+                            <h5 class="font-16">Shirt</h5>
+                            by John Doe
+                        </td>
+                        <td>Black</td>
+                        <td>M</td>
+                        <td>$1000</td>
+                        <td>1</td>
+                        <td>
+                            <div class="dropdown">
+                                <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                    <i class="dw dw-more"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                    <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
+                                    <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
+                                    <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-plus">
+                            <img src="vendors/images/product-2.jpg" width="70" height="70" alt="">
+                        </td>
+                        <td>
+                            <h5 class="font-16">Boots</h5>
+                            by Lea R. Frith
+                        </td>
+                        <td>brown</td>
+                        <td>9UK</td>
+                        <td>$900</td>
+                        <td>1</td>
+                        <td>
+                            <div class="dropdown">
+                                <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                    <i class="dw dw-more"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                    <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
+                                    <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
+                                    <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-plus">
+                            <img src="vendors/images/product-3.jpg" width="70" height="70" alt="">
+                        </td>
+                        <td>
+                            <h5 class="font-16">Hat</h5>
+                            by Erik L. Richards
+                        </td>
+                        <td>Orange</td>
+                        <td>M</td>
+                        <td>$100</td>
+                        <td>4</td>
+                        <td>
+                            <div class="dropdown">
+                                <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                    <i class="dw dw-more"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                    <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
+                                    <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
+                                    <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-plus">
+                            <img src="vendors/images/product-4.jpg" width="70" height="70" alt="">
+                        </td>
+                        <td>
+                            <h5 class="font-16">Long Dress</h5>
+                            by Renee I. Hansen
+                        </td>
+                        <td>Gray</td>
+                        <td>L</td>
+                        <td>$1000</td>
+                        <td>1</td>
+                        <td>
+                            <div class="dropdown">
+                                <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                    <i class="dw dw-more"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                    <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
+                                    <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
+                                    <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-plus">
+                            <img src="vendors/images/product-5.jpg" width="70" height="70" alt="">
+                        </td>
+                        <td>
+                            <h5 class="font-16">Blazer</h5>
+                            by Vicki M. Coleman
+                        </td>
+                        <td>Blue</td>
+                        <td>M</td>
+                        <td>$1000</td>
+                        <td>1</td>
+                        <td>
+                            <div class="dropdown">
+                                <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                    <i class="dw dw-more"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                    <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
+                                    <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
+                                    <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="footer-wrap pd-20 mb-20 card-box">
+            DeskApp - Bootstrap 4 Admin Template By <a href="https://github.com/dropways" target="_blank">Ankit Hingarajiya</a>
+        </div>
+    </div>
+</div>

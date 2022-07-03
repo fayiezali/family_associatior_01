@@ -1,0 +1,209 @@
+ 
+
+
+{% extends "commons/base.html" %}  
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+
+
+
+{% block Page_Title  %}
+
+<div class="row justify-content-center">
+<h1>Step (3) My Financial Data </h1>
+</div>
+
+{% endblock Page_Title %}  
+
+
+
+
+
+{% block messages_Contents  %}
+
+{% comment %}
+<!-- {% for copy in book.bookinstance_set.all %}
+<hr>
+<p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'd' %}text-danger{% else %}text-warning{% endif %}">{{ copy.get_status_display }}</p> -->
+{% endcomment %}
+
+<!-- ظهور رسالة للمستخدم -->
+{% if messages %} <!-- جملة شرطية للتحقق من وجود رسالة قبل عرضها-->
+        {% for message in messages %} <!-- جملة تكرار للمرور على جميع  محتويات الرسالة لعرضها كلها -->
+                <!--success: هي التي تقوم بتحديد لون الرسالة اخضر -->
+                <!--warning: هي التي تقوم بتحديد لون الرسالة احمر -->
+                <div  class="alert alert-success">
+                        {{ message }} <!-- المتغير الذي يحمل نص الرسالة-->
+                </div>
+        {% endfor %}
+{% endif %}
+
+{% endblock messages_Contents %}  
+
+
+
+
+{% block Contents_Page %} 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Profile Details By ID</title>
+
+    <meta name="author" content="Codeconvey" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet"><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css'>
+
+    <!--Only for demo purpose - no need to add.-->
+    <link rel="stylesheet" href="css/demo.css" />
+    
+	    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+		
+<div class="ScriptTop">
+    <div class="rt-container">
+        <div class="col-rt-4" id="float-right">
+ 
+            <!-- Ad Here -->
+            
+        </div>
+    </div>
+</div>
+
+<header class="ScriptHeader">
+    <div class="rt-container">
+    </div>
+</header>
+
+<section>
+    <div class="rt-container">
+          <div class="col-rt-12">
+              <div class="Scriptcontent">
+              
+<!-- Student Profile -->
+<div class="student-profile py-4">
+  <div class="container">
+    <div class="row">
+    
+    
+    
+      <div class="col-lg-4">
+        <div class="card shadow-sm">
+          <div class="card-header bg-transparent text-center">
+            <img class="profile_img" src="https://source.unsplash.com/600x300/?student" alt="student dp">
+
+            <h3>{{ My_Object.username }}</h3>
+          </div>
+          <div class="card-body">
+            <p class="mb-0"><strong class="pr-1">Student ID:</strong>321000001</p>
+            <p class="mb-0"><strong class="pr-1">Class:</strong>4</p>
+            <p class="mb-0"><strong class="pr-1">Section:</strong>A</p>
+          </div>
+        </div>
+      </div>
+      
+      
+      
+      
+      <div class="col-lg-8">
+
+
+        <div class="card shadow-sm">
+          <div class="card-header bg-transparent border-0">
+            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Financial Information</h3>
+          </div>
+          <div class="card-body pt-0">
+            <table class="table table-bordered">
+              <tr>
+                <th width="30%">Financial ID</th>
+                <td width="2%">:</td>
+                <td>{{ My_Object.id }}</td>
+              </tr>
+              <tr>
+                <th width="30%">Customer</th>
+                <td width="2%">:</td>
+                <td>{{ My_Object.FIN_User }}</td>
+              </tr>
+              <tr>
+                <th width="30%">Share Value</th>
+                <td width="2%">:</td>
+                <td>{{ My_Object.FIN_ShareValue }}</td>
+              </tr>
+              <tr>
+                <th width="30%">Number Shares</th>
+                <td width="2%">:</td>
+                <td>{{ My_Object.FIN_NumberShares }}</td>
+              </tr>
+              <tr>
+                <th width="30%">Bank Name</th>
+                <td width="2%">:</td>
+                <td>{{ My_Object.FIN_BankName }}</td>
+              </tr>
+              <tr>
+                <th width="30%">Method Payment Cash</th>
+                <td width="2%">:</td>
+                <td>{{ My_Object.FIN_MethodPaymentCash }}</td>
+              </tr>
+              <tr>
+                <th width="30%">Method Payment Check</th>
+                <td width="2%">:</td>
+                <td>{{ My_Object.FIN_MethodPaymentCheck }}</td>
+              </tr>
+              <tr>
+                <th width="30%">Method Payment Transfer</th>
+                <td width="2%">:</td>
+                <td>{{My_Object.FIN_MethodPaymentTransfer }}</td>
+              </tr>
+              <tr>
+                <th width="30%">Method Payment</th>
+                <td width="2%">:</td>
+                <td>{{ My_Object.FIN_MethodPayment }}</td>
+              </tr>
+              <tr>
+                <th width="30%">Salary Disbursement Date</th>
+                <td width="2%">:</td>
+                <td>{{ My_Object.FIN_SalaryDisbursementDate }}</td>
+              </tr>
+              <tr>
+                <th width="30%">Date Share Received</th>
+                <td width="2%">:</td>
+                <td>{{ My_Object.FIN_DateShareReceived }}</td>
+              </tr>
+
+            </table>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- partial -->
+  </div>
+		</div>
+    </div>
+    <a href="{%  url 'My_Housing_Data_Detail_ID_URL' My_Object.id   %}" role="button" style="float:lieft" class="btn btn-success">Next</a> <!-- Go To Home Page  -->
+
+    <a href="{% url 'My_Financial_Data_Update_URL' My_Object.id %}" class="btn btn-primary">Edite</a>
+    
+    <a href="{% url 'My_Personal_Data_Detail_ID_URL' My_Object.id %}" role="button" style="float:lieft" class="btn btn-success">Previous</a> <!-- Go To Home Page  -->
+
+
+</section>
+
+
+    <!-- Analytics -->
+
+	</body>
+</html>
+
+
+{% endblock Contents_Page %} 

@@ -19,8 +19,9 @@ from django.urls import reverse_lazy , reverse
 from django.db.models import Q # new
 from django.http import JsonResponse
 from django.contrib import messages
-from accounts.models import ProfilesMODEL , FinancialStatementsMODEL , DatesReceivingMoneyPaymentsMODEL  
+from accounts.models import PersonalsMODEL , FinancialStatementsMODEL , DatesReceivingMoneyPaymentsMODEL  
 UserModel = get_user_model()
+#
 #
 #
 ########## Profile Users:-############################################################
@@ -28,15 +29,10 @@ UserModel = get_user_model()
 class LogoutConfirmClass(TemplateView):
     template_name = 'registration/logout_confirm.html' # The Page HTML to Display
 #
-#
-#
 # Display Them About Page
 class LogoutDoneClass(TemplateView):
     template_name = 'registration/logout_done.html' # The Page HTML to Display
 #
-#
-#
-# 
 # Register On The site And Create a Profile
 class SignupCLASS(View):
     form_class = SignUpForm # Form for Entering New User Data
@@ -69,8 +65,6 @@ class SignupCLASS(View):
             # Reload The Form  Registration Agin
             return render(request, self.template_name, {'form': form})
 #
-#
-#
 # Activate E-mail
 class ActivateCLASS(View):
     def get(self, request, uidb64  , token):
@@ -87,11 +81,6 @@ class ActivateCLASS(View):
         else:
             # Show Activation Link Invalid Form For Unsuccessful Operation
             return render(request, 'registration/activation_link_invalid.html')
-#
-#
-#
-#
-#
 #
 # Display List Record
 class ProfileListViewSearchCLASS(LoginRequiredMixin , ListView):    
@@ -154,7 +143,7 @@ class ProfileListViewSearchCLASS(LoginRequiredMixin , ListView):
 #     #         # Q(last_name__icontains=query)   |# Last Name
 #     #         # Q(email__icontains=query)       | # Email
 #     #         # Q(is_active__icontains=query)    # User Is Active
-            
+
 #     #     )
 #     #     return object_list  # Send Search Results To The Disired  Page HTML
 #         #
@@ -179,16 +168,12 @@ class ProfileListViewSearchCLASS(LoginRequiredMixin , ListView):
 #     context_object_name = 'My_Object' # Data To Be Sent To Page HTML
 #     template_name = 'registration/my_profile_detail_slug.html'# The Page HTML to Display
 #
-#
-#
 # Display Detail Record By: ID
 class ProfileDetailIdCLASS(LoginRequiredMixin , DetailView):
     model = User # Data Table
     slug_field = 'pk' # Filter Field Use 'PK"
     context_object_name = 'My_Object' # Data To Be Sent To Page HTML
     template_name = 'registration/profile_detail_id.html'# The Page HTML to Display
-#
-#
 #
 # Update Profile.
 class ProfileUpdateCLASS(UpdateView):
@@ -207,157 +192,136 @@ class ProfileUpdateCLASS(UpdateView):
             # 'date_joined',
             ]
 #
-#
-#
 # Display The my_Profile_delete_done Page
 class ProfileUpdateDoneCLASS(TemplateView):
     template_name = 'registration/profile_update_done.html' # The Page HTML to Display
-
+#
 # Delete Record.
 class ProfileDeleteCLASS(LoginRequiredMixin  , DeleteView):
     model = User # Data Table
     template_name = 'registration/profile_confirm_delete.html' # The Page HTML to Display
     success_url = reverse_lazy('ProfileDeleteDoneURL') # Go to This Page After Successful Operation
 #
-#
-#
 # Display The my_Profile_delete_done Page
 class ProfileDeleteDoneCLASS(TemplateView):
     template_name = 'registration/profile_delete_done.html' # The Page HTML to Display
 #
-#
-#
-class My_Profile_Delete_Multiple_Select(LoginRequiredMixin, ListView):
-    context_object_name = 'entry_list' # Data List To Send Page HTML
-    paginate_by =  5
-    model = User # Table Name In Database
-    template_name = "portfolios/entry_list.html" # Page HTML Containing The Data List
+# class My_Profile_Delete_Multiple_Select(LoginRequiredMixin, ListView):
+#     context_object_name = 'entry_list' # Data List To Send Page HTML
+#     paginate_by =  5
+#     model = User # Table Name In Database
+#     template_name = "portfolios/entry_list.html" # Page HTML Containing The Data List
 
-    def get_queryset(self):
-        return User.objects.filter(created_by=self.request.user).order_by('-pk')
+#     def get_queryset(self):
+#         return User.objects.filter(created_by=self.request.user).order_by('-pk')
 
-    def post(self, request, *args, **kwargs):
-        ids = self.request.POST.get('ids', "")
-        # ids if string like "1,2,3,4"
-        ids = ids.split(",")
-        try:
-            # Check ids are valid numbers
-            ids = map(int, ids)
-        except ValueError as e:
-            return JsonResponse(status=400)
-        # delete items
-        self.model.objects.filter(id__in=ids).delete()
-        return JsonResponse({"status": "ok"}, status=204)
-#
-#
-#
-#
-#
+#     def post(self, request, *args, **kwargs):
+#         ids = self.request.POST.get('ids', "")
+#         # ids if string like "1,2,3,4"
+#         ids = ids.split(",")
+#         try:
+#             # Check ids are valid numbers
+#             ids = map(int, ids)
+#         except ValueError as e:
+#             return JsonResponse(status=400)
+#         # delete items
+#         self.model.objects.filter(id__in=ids).delete()
+#         return JsonResponse({"status": "ok"}, status=204)
 #
 # ########## Personal Data:-############################################################
-# ## Display Detail Record By: ID
-# class My_Personal_Data_Detail_ID(LoginRequiredMixin , DetailView):
-#     model = PersonalData_MODEL # Data Table
-#     slug_field = 'pk' # Filter Field Use 'PK"
-#     context_object_name = 'My_Object' # Data To Be Sent To Page HTML
-#     template_name = 'registration/my_personal_data_detail_ID.html'# The Page HTML to Display
-# #
-# #
+## Display Detail Record By: ID
+class PersonalDetailIdCLASS(LoginRequiredMixin , DetailView):
+    model = PersonalsMODEL # Data Table
+    slug_field = 'pk' # Filter Field Use 'PK"
+    context_object_name = 'My_Object' # Data To Be Sent To Page HTML
+    template_name = 'registration/personal_detail_id.html'# The Page HTML to Display
+#
+#
 # # Update Profile.
-# class My_Personal_Data_Update(UpdateView):
-#         model = PersonalData_MODEL # Data Table
-#         template_name = 'registration/my_personal_Update.html'# The Page HTML to Display
-#         success_url = reverse_lazy('My_Personal_Data_Update_Done_URL')# Go to This Page After Successful Operation
-#         fields = [ # Fields Table
+class PersonalDataUpdateCLASS(UpdateView):
+        model = PersonalsMODEL # Data Table
+        template_name = 'registration/personal_update.html'# The Page HTML to Display
+        success_url = reverse_lazy('PersonalDataUpdateDoneURL')# Go to This Page After Successful Operation
+        fields = [ # Fields Table
             
-#             'PER_User'              ,
-#             'PER_Avialable'             , 
-#             'FER_Slug'                  ,  
-#             'PER_FirstName'             ,
-#             'PER_GrandFatherName'       ,
-#             'PER_FamilyName'             , 
-#             'PER_ImgePersonal'          , 
-#             'PER_IdNumber'              ,
-#             'PER_Nationality'           ,
-#             'PER_Mobile'                ,
-#             ]
-# #
-# #
-# # Display The my_Profile_delete_done Page
-# class My_Personal_Data_Update_Done(TemplateView):
-#     template_name = 'registration/my_personal_data_update_done.html' # The Page HTML to Display
-# #
-# #
-# #
-# #
-# #
-# #
-# ########## Financial Data:-############################################################
-# ## Display Detail Record By: ID
-# class My_Financial_Data_Detail_ID(LoginRequiredMixin , DetailView):
-#     model = FinancialData_MODEL # Data Table
-#     slug_field = 'pk' # Filter Field Use 'PK"
-#     context_object_name = 'My_Object' # Data To Be Sent To Page HTML
-#     template_name = 'registration/my_financial_data_detail_ID.html'# The Page HTML to Display
-# #
-# #
-# # Update Housing Record.
-# class My_Financial_Data_Update(UpdateView):
-#         model = FinancialData_MODEL # Data Table
-#         template_name = 'registration/my_financial_data_Update.html'# The Page HTML to Display
-#         success_url = reverse_lazy('My_Financial_Data_Update_Done_URL')# Go to This Page After Successful Operation
-#         fields = [ # Fields Table
-#             ''             
-#             'FIN_ShareValue'             ,
-#             'FIN_NumberShares'           ,       
-#             'FIN_BankName'               ,                            
-#             'FIN_BankAccount'            ,                                
-#             'FIN_MethodPayment'          ,      
-#             'FIN_MethodReceive'          ,
-#             'FIN_SalaryDisbursementDate' ,                                              
-#             'FIN_DateShareReceived'      ,                  
-#             ]
-# #
-# #
-# # Display The my_Housing_Data_done Page
-# class My_Financial_Data_Update_Done(TemplateView):
-#     template_name = 'registration/my_financial_data_update_done.html' # The Page HTML to Display
-# #
-# #
-# #
-# ########## Housing Data:-############################################################
-# ## Display Detail Record By: ID
-# class My_Housing_Data_Detail_ID(LoginRequiredMixin , DetailView):
-#     model = HousingData_MODEL # Data Table
-#     slug_field = 'pk' # Filter Field Use 'PK"
-#     context_object_name = 'My_Object' # Data To Be Sent To Page HTML
-#     template_name = 'registration/my_housing_data_detail_ID.html'# The Page HTML to Display
-# #
-# #
-# # Update Housing Record.
-# class My_Housing_Data_Update(UpdateView):
-#         model = HousingData_MODEL # Data Table
-#         template_name = 'registration/my_housing_data_Update.html'# The Page HTML to Display
-#         success_url = reverse_lazy('My_Housing_Data_Update_Done_URL')# Go to This Page After Successful Operation
-#         fields = [ # Fields Table
-#             'HOU_User',
-#             'HOU_Region', 
-#             'HOU_City', 
-#             'HOU_District',
-#             'HOU_HomeAddress',
-#             'HOU_CurrentWork', 
-#             'HOU_WorkAddress', 
-#             ]
-# #
-# #
-# # Display The my_Housing_Data_done Page
-# class My_Housing_Data_Update_Done(TemplateView):
-#     template_name = 'registration/my_housning_data_update_done.html' # The Page HTML to Display
-# #
-# #
-# #
-# #
-# #
+            'P_User'                  ,
+            'P_Avialable'             , 
+            'P_Slug'                  ,  
+            'P_FirstName'             ,
+            'P_GrandFatherName'       ,
+            'P_FamilyName'            , 
+            'P_Photo'          , 
+            'P_Mobile'              ,
+            'P_Address'           ,
+            'P_Notes'                ,
+            ]
+#
+# Display The my_Profile_delete_done Page
+class PersonalDataUpdateDoneCLASS(TemplateView):
+    template_name = 'registration/personal_data_update_done.html' # The Page HTML to Display
+#
+#
+#
+########## Financial Data:-####################################################################################################################################
+## Display Detail Record By: ID
+class FinancialStatementsDetailIdCLASS(LoginRequiredMixin , DetailView):
+    model = FinancialStatementsMODEL # Data Table
+    slug_field = 'pk' # Filter Field Use 'PK"
+    context_object_name = 'My_Object' # Data To Be Sent To Page HTML
+    template_name = 'registration/financial_statement_detail_id.html'# The Page HTML to Display
+#
+# Update Housing Record.
+class FinancialStatementsUpdateCLASS(UpdateView):
+        model = FinancialStatementsMODEL # Data Table
+        template_name = 'registration/financial_statement_update.html'# The Page HTML to Display
+        success_url = reverse_lazy('FinancialStatementsUpdateDoneURL')# Go to This Page After Successful Operation
+        fields = [ # Fields Table
+            ''             
+            'FS_User'               ,
+            'FS_SubscriptionAmount' ,       
+            'FS_NumberPaymentsDue'  ,                            
+            'FS_BankName'           ,                                
+            'FS_BankAccount'        ,      
+            'FS_Notes'              ,
+            ]
+#
+#
+# Display The my_Housing_Data_done Page
+class FinancialStatementsUpdateDoneCLASS(TemplateView):
+    template_name = 'registration/financial_statement_update_done.html' # The Page HTML to Display
+#
+#
+#
+# ########## DATA RECEIVING MONEY PAYMENTS :-############################################################
+## Display Detail Record By: ID
+class DatesReceivingMoneyPaymentsDetailIdCLASS(LoginRequiredMixin , DetailView):
+    model = DatesReceivingMoneyPaymentsMODEL # Data Table
+    slug_field = 'pk' # Filter Field Use 'PK"
+    context_object_name = 'My_Object' # Data To Be Sent To Page HTML
+    template_name = 'registration/dates_receiving_money_payments_detail_id.html'# The Page HTML to Display
+#
+#
+# Update Record  .
+class DatesReceivingMoneyPamentsUpdateCLASS(UpdateView):
+        model = DatesReceivingMoneyPaymentsMODEL # Data Table
+        template_name = 'registration/dates_receiving_money_paments_update.html'# The Page HTML to Display
+        success_url = reverse_lazy('DatesReceivingMoneyPamentsUpdateDoneURL')# Go to This Page After Successful Operation
+        fields = [ # Fields Table
+            'DRMP_User'                              ,
+            'DRMP_DateReceivingMoneyPayments_Long'   , 
+            'DRMP_DateReceivingMoneyPayments_Short'  , 
+            'DRMP_Notes'                             ,
+            ]
+#
+#
+# Display Dates Receiving Money Paments Udate Done 
+class DatesReceivingMoneyPamentsUpdateDoneCLASS(TemplateView):
+    template_name = 'registration/dates_receiving_money_paments_update_done.html' # The Page HTML to Display
+#
+#
+#
+#
+#
 # class My_Dues_Record_ListView_Search(LoginRequiredMixin , TemplateView):    
 # #     paginate_by = 4  # if pagination is desired
 #     template_name = 'registration/my_dues_record_list.html'# The Page HTML to Display

@@ -98,6 +98,7 @@
 <li><a href="{% url 'ProfileListViewSearchURL' %}">(2) - All  Subscribers</a></li>
 <li><a href="{% url 'about_pageURL'           %}">(3) - About Us </a></li>
 <li><a href="{% url 'contact_pageURL'         %}">(4) - Contact Us </a></li>
+<li><a href="{% url 'logout'                  %}">(5) - Logout </a></li>
 
 
 <!--  Base.html - Menu_Page Start- ---------------------------- -->
@@ -108,11 +109,9 @@
                 <li>
                 <span class="opener">(A) - Acoount</span>
                 <ul>
-                    <li><a href="{% url 'password_reset'          %}">1- Password Reset</a></li>
-                    <li><a href="{% url 'password_change'         %}">2- Password Change</a></li>
+                    <li><a href="{% url 'password_reset'           %}">1- Password Reset</a></li>
+                    <li><a href="{% url 'password_change'          %}">2- Password Change</a></li>
                     <li><a href="{% url 'ProfileDeleteURL' user.pk %}">3- Delete Profile</a></li>
-                    <li><a href="{% url 'contact_pageURL'         %}">4- Contact Us</a></li>
-                    <li><a href="{% url 'logout'                  %}">5- Logout</a></li>
 
                 </ul>
                 </li>
@@ -120,9 +119,10 @@
                 <li>
                 <span class="opener">(B) - Profile</span>
                 <ul>
-                    <li><a href="{% url 'ProfileDetailIdURL' user.pk %}">1- My Profile</a></li>
-                    <li><a href="#">2- Financial Statements Data</a></li>
-                    <li><a href="#">3- Dates Receiving Money Payments Data</a></li>
+                    <li><a href="{% url 'ProfileDetailIdURL'                        user.pk  %}">1-  Basic Data</a></li>
+                    <li><a href="{% url 'PersonalDetailIdURL'                       user.pk  %}">1-  Personal Data</a></li>
+                    <li><a href="{% url 'FinancialStatementsDetailIdURL'            user.pk  %}">2- Financial Statements Data</a></li>
+                    <li><a href="{% url 'DatesReceivingMoneyPaymetsDetailIdURL'            user.pk  %}">3- Dates Receiving Money Payments Data</a></li>
                     <li><a href="#">4- Dues Record</a></li>
                 </ul>
                 </li>
