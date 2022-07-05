@@ -7,7 +7,12 @@ from django.contrib.auth.models import User # إستيراد اسم المستخ
 from django.urls import reverse  # To generate URLS by reversing URL patterns
 #
 from django.db.models.signals import post_save # كلاس فكرته: انه بمجرد تنفيذ عملية الحفظ يقوم مباشرة بتنفيذ عملية اخرى بعده
+#
 from django.utils.text import slugify
+#
+from datetime import datetime
+#
+from datetime import date
 ####################################
 # (1)Personal Data
 class PersonalsMODEL(models.Model):
@@ -98,7 +103,7 @@ class  DatesReceivingMoneyPaymentsMODEL(models.Model):
     OCT                 = '10'
     NOV                 = '11'
     DEC                 = '12'
-
+    #
     # The Number Of Months
     MONTH_NUMBER = [
     (CHOOSE_MONTH_NUMBER ,  'Choose The Month Number'),
@@ -119,44 +124,43 @@ class  DatesReceivingMoneyPaymentsMODEL(models.Model):
     #
     # Variable To Save The Month Code
     # The Data Will be Saved in the Database
-    JANUARY             = '01-January__Jumada Al-Awwal-(05)'
-    FEBRUARY            = '02-February_Jumada Al-Thani-(06)'
-    MARCH               = '03-March______________Rajab-(07)'
-    APRIL               = '04-April_____________Shaban-(08)'
-    MAY                 = '05-May______________Ramadan-(09)'
-    JUNE                = '06-June_____________Shawwal-(10)'
-    JULY                = '07-July__________Dhul-Qadah-(11)'
-    AUGUST              = '08-August_______Dhul-Hijjah-(12)'
-    SEPTEMBER           = '09-September_______Muharram-(01)'
-    OCTOBER             = '10-October____________Safar-(02)'
-    NOVEMBER            = '11-November___Rabi Al-Awwal-(03)'
-    DECEMBER            = '12-December___Rabi Al-Thani-(04)'
-    All                 = '00-All_______________Al-Kol-(00)'
-
-
+    JANUARY             = '01-January__Jumada Al-Awwal-(05)  '
+    FEBRUARY            = '02-February_Jumada Al-Thani-(06)  '
+    MARCH               = '03-March______________Rajab-(07)  '
+    APRIL               = '04-April_____________Shaban-(08)  '
+    MAY                 = '05-May______________Ramadan-(09)  ' 
+    JUNE                = '06-June_____________Shawwal-(10)  '
+    JULY                = '07-July__________Dhul-Qadah-(11)  '
+    AUGUST              = '08-August_______Dhul-Hijjah-(12)  '
+    SEPTEMBER           = '09-September_______Muharram-(01)  '
+    OCTOBER             = '10-October____________Safar-(02)  '
+    NOVEMBER            = '11-November___Rabi Al-Awwal-(03)  '
+    DECEMBER            = '12-December___Rabi Al-Thani-(04)  '
+    NO                  = 'The Date Has Not Yet Been Set-(00)'
+    #
     # List Of The Names Of The Months
     # This Data Will Be shown In the Menu
     MONTH_NAME = [
-    (JANUARY            ,  '01-January__Jumada Al-Awwal-(05)')  ,
-    (FEBRUARY           ,  '02-February_Jumada Al-Thani-(06)')  ,
-    (MARCH              ,  '03-March______________Rajab-(07)')  ,
-    (APRIL              ,  '04-April_____________Shaban-(08)')  ,
-    (MAY                ,  '05-May______________Ramadan-(09)')  ,
-    (JUNE               ,  '06-June_____________Shawwal-(10)')  ,
-    (JULY               ,  '07-July__________Dhul-Qadah-(11)')  ,
-    (AUGUST             ,  '08-August_______Dhul-Hijjah-(12)')  ,
-    (SEPTEMBER          ,  '09-September_______Muharram-(01)')  ,
-    (OCTOBER            ,  '10-October____________Safar-(02)')  ,
-    (NOVEMBER           ,  '11-November___Rabi Al-Awwal-(03)')  ,
-    (DECEMBER           ,  '12-December___Rabi Al-Thani-(04)')  ,
-    (All                ,  '00-All_______________Al-Kol-(00)')  ,
+    (JANUARY            ,  '01-January__Jumada Al-Awwal-(05)')   ,
+    (FEBRUARY           ,  '02-February_Jumada Al-Thani-(06)')   ,
+    (MARCH              ,  '03-March______________Rajab-(07)')   ,
+    (APRIL              ,  '04-April_____________Shaban-(08)')   ,
+    (MAY                ,  '05-May______________Ramadan-(09)')   ,
+    (JUNE               ,  '06-June_____________Shawwal-(10)')   ,
+    (JULY               ,  '07-July__________Dhul-Qadah-(11)')   ,
+    (AUGUST             ,  '08-August_______Dhul-Hijjah-(12)')   ,
+    (SEPTEMBER          ,  '09-September_______Muharram-(01)')   ,
+    (OCTOBER            ,  '10-October____________Safar-(02)')   ,
+    (NOVEMBER           ,  '11-November___Rabi Al-Awwal-(03)')   ,
+    (DECEMBER           ,  '12-December___Rabi Al-Thani-(04)')   ,
+    (NO                 ,  'The Date Has Not Yet Been Set-(00)') ,
     ]
     #
-    DRMP_User                              = models.ForeignKey(User         , on_delete=models.CASCADE                                                       , verbose_name="اسم المشترك")
-    DRMP_DateReceivingMoneyPayments_Long   = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="موعد إستلام المال - بالشهر"     , choices=MONTH_NAME , default='Please Choose' , help_text='Required Field')
-    DRMP_DateReceivingMoneyPayments_Short  = models.DateField(                                                    db_index=True , blank=True   , null=True   , verbose_name="موعد إستلام المال - بالتاريخ"                                                   , help_text='Required Field')
-    DRMP_Notes                             = models.CharField(max_length=100                                    , db_index=True , blank=True   , null=True   , verbose_name="الملاحظات")
     #
+    DRMP_User                              = models.ForeignKey(User         , on_delete=models.CASCADE                                                       , verbose_name="اسم المشترك")
+    DRMP_DateReceivingMoneyPayments_Long   = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="موعد إستلام المال - بالشهر"     , choices=MONTH_NAME , default=NO , help_text='Required Field')
+    DRMP_DateReceivingMoneyPayments_Short  = models.DateField(                                                    db_index=True , blank=True   , null=True   , verbose_name="موعد إستلام المال - بالتاريخ"                                     , help_text='Required Field')
+    DRMP_Notes                             = models.CharField(max_length=100                                    , db_index=True , blank=True   , null=True   , verbose_name="الملاحظات")
     # Display The Name Of This Field In The Admin Page
     def __str__(self):
         return str(self.DRMP_DateReceivingMoneyPayments_Long)
@@ -177,3 +181,53 @@ class  DatesReceivingMoneyPaymentsMODEL(models.Model):
             DatesReceivingMoneyPaymentsMODEL.objects.create(DRMP_User=kwargs['instance']) #التي أستقبلتها "'instance'"جديد بناء على  معلومات المستخدم "PersonalData_MODEL" قم بإنشاء ملف
     # "" "user"والمستخدم  "post_save" الربط بين الفانكشن
     post_save.connect(create_dates_receiving_money_payments , sender=User)
+###############################################  
+# (4) Dues Record
+class  DuesRecordMODEL(models.Model):
+    #
+        # Variable To Save The Month Code
+    # The Data Will be Saved in the Database
+    JANUARY             = '01-January__Jumada Al-Awwal-(05)  '
+    FEBRUARY            = '02-February_Jumada Al-Thani-(06)  '
+    MARCH               = '03-March______________Rajab-(07)  '
+    APRIL               = '04-April_____________Shaban-(08)  '
+    MAY                 = '05-May______________Ramadan-(09)  ' 
+    JUNE                = '06-June_____________Shawwal-(10)  '
+    JULY                = '07-July__________Dhul-Qadah-(11)  '
+    AUGUST              = '08-August_______Dhul-Hijjah-(12)  '
+    SEPTEMBER           = '09-September_______Muharram-(01)  '
+    OCTOBER             = '10-October____________Safar-(02)  '
+    NOVEMBER            = '11-November___Rabi Al-Awwal-(03)  '
+    DECEMBER            = '12-December___Rabi Al-Thani-(04)  '
+    NO                  = 'The Date Has Not Yet Been Set-(00)'
+    #
+    # List Of The Names Of The Months
+    # This Data Will Be shown In the Menu
+    MONTH_NAME = [
+    (JANUARY            ,  '01-January__Jumada Al-Awwal-(05)')   ,
+    (FEBRUARY           ,  '02-February_Jumada Al-Thani-(06)')   ,
+    (MARCH              ,  '03-March______________Rajab-(07)')   ,
+    (APRIL              ,  '04-April_____________Shaban-(08)')   ,
+    (MAY                ,  '05-May______________Ramadan-(09)')   ,
+    (JUNE               ,  '06-June_____________Shawwal-(10)')   ,
+    (JULY               ,  '07-July__________Dhul-Qadah-(11)')   ,
+    (AUGUST             ,  '08-August_______Dhul-Hijjah-(12)')   ,
+    (SEPTEMBER          ,  '09-September_______Muharram-(01)')   ,
+    (OCTOBER            ,  '10-October____________Safar-(02)')   ,
+    (NOVEMBER           ,  '11-November___Rabi Al-Awwal-(03)')   ,
+    (DECEMBER           ,  '12-December___Rabi Al-Thani-(04)')   ,
+    (NO                 ,  'The Date Has Not Yet Been Set-(00)') ,
+    ]
+    #
+    #
+    DRMP_User                              = models.ForeignKey(User         , on_delete=models.CASCADE                                                       , verbose_name="اسم المشترك")
+    DRMP_DateReceivingMoneyPayments_Long   = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="موعد إستلام المال - بالشهر"     , choices=MONTH_NAME , default=NO , help_text='Required Field')
+    DRMP_DateReceivingMoneyPayments_Short  = models.DateField(                                                    db_index=True , blank=True   , null=True   , verbose_name="موعد إستلام المال - بالتاريخ"                                     , help_text='Required Field')
+    DRMP_Notes                             = models.CharField(max_length=100                                    , db_index=True , blank=True   , null=True   , verbose_name="الملاحظات")
+    FS_SubscriptionAmount                  = models.DecimalField(default=50 , max_digits=8 , decimal_places=2   , db_index=True , blank=False  , null=False  , verbose_name="مبلغ الإشتراك")
+    FS_NumberPaymentsDue                   = models.IntegerField(default=1                                      , db_index=True , blank=False  , null=False  , verbose_name="عدد الدفعات")
+    P_FirstName                            = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="الإسم الأول")
+    P_FatherName                           = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="إسم الاب")
+    P_GrandFatherName                      = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="إسم الجد")
+    P_FamilyName                           = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="إسم العائلة")
+
