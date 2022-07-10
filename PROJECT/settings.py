@@ -40,10 +40,17 @@ INSTALLED_APPS = [
     # an Application Improved Forms Design and That Beautifies The Look Of HTML Pages
     'crispy_forms', 
     'widget_tweaks', 
+    # ----------------------------------
+    # Applications OTP (1)
+    'django_otp',
+    'django_otp.plugins.otp_totp',
+    # ----------------------------------
     # User Accounts Application
     'accounts',
-    # Project Home Pages Application
+    #  Home Pages Application
     'home',
+    # Application Send messages
+    'sms',
     # 'social_django',# 04 Login With Social Media(Facebook , Instagram ,......)
     # 'django_countries',# تطبيق معد مسبقاً يحتوي على جميع اسماء دول العالم
 ]
@@ -56,6 +63,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # ----------------------------------
+    # Applications OTP (2)
+    'django_otp.middleware.OTPMiddleware',
+    # ----------------------------------
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'PROJECT.urls'

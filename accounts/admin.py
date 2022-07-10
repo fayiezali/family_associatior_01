@@ -4,6 +4,10 @@ from django.contrib.auth.models import User # إستيراد اسم المستخ
 # 
 from accounts.models import * #  استيراد كل المودل/الجداول من التطبيق المطلوب
 # 
+# Aplications OTP
+from django_otp.admin import OTPAdminSite
+from django_otp.plugins.otp_totp.models import TOTPDevice
+#
 """Important Note:
 (fields) & (fieldsets) This Properties Can Not Be Put Together
 # Controlling Which fields are Displayed and Laid Out
@@ -119,8 +123,8 @@ class FinancialStatementsADMIN(admin.ModelAdmin): # The class has been inherited
         (None, {
         'fields': (
         'FS_User'                      , 
-        'FS_SubscriptionAmount'                , 
-        'FS_NumberPaymentsDue'              , 
+        'FS_SubscriptionAmount'        , 
+        'FS_NumberPaymentsDue'         , 
         'FS_BankName'                  ,  
         'FS_BankAccount'               
         )
@@ -182,9 +186,17 @@ class DatesReceivingMoneyPaymentsADMIN(admin.ModelAdmin):  # The class has been 
         )
         # inlines = [PersonalDataInline]
 # 
+"""Admin OTP
+class OTPAdmin(OTPAdminSite):
+        pass
 #
-
-
+admin.site= OTPAdmin(name="OTPAdmin")
+admin.site.register(User)
+admin.site.register(PersonalsMODEL)
+admin.site.register(FinancialStatementsMODEL)
+admin.site.register(DatesReceivingMoneyPaymentsMODEL)
+admin.site.register(TOTPDevice)
+"""
 
 
 

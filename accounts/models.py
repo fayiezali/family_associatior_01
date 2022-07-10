@@ -1,3 +1,5 @@
+from signal import signal
+# from blinker import receiver_connected
 from django.db import models
 #
 from typing import ClassVar
@@ -6,13 +8,20 @@ from django.contrib.auth.models import User # إستيراد اسم المستخ
 #
 from django.urls import reverse  # To generate URLS by reversing URL patterns
 #
-from django.db.models.signals import post_save # كلاس فكرته: انه بمجرد تنفيذ عملية الحفظ يقوم مباشرة بتنفيذ عملية اخرى بعده
+from django.dispatch import receiver
+#
+from django.db.models.signals import post_save , post_delete # كلاس فكرته: انه بمجرد تنفيذ عملية الحفظ يقوم مباشرة بتنفيذ عملية اخرى بعده
 #
 from django.utils.text import slugify
 #
 from datetime import datetime
 #
 from datetime import date
+#
+from django.core.mail import send_mail
+# from django.core.mail import send_mail
+from accounts.email_info import EMAIL_BACKEND , EMAIL_HOST , EMAIL_HOST_USER , EMAIL_HOST_PASSWORD , EMAIL_PORT ,  EMAIL_USE_TLS , PASSWORD_RESET_TIMEOUT_DAYS
+
 ####################################
 # (1)Personal Data
 class PersonalsMODEL(models.Model):
@@ -55,7 +64,55 @@ class PersonalsMODEL(models.Model):
         if not self.slug:
             self.slug = slugify(self.P_User.username)
         super(PersonalsMODEL , self).save(*args , **kwargs)
-###############################################  
+    #
+    """Send a Congratulatory Email For Joining Us
+       Send an Email After Registering a User
+    """
+    # def send_email_after_registering_user(self , *args , **kwargs):
+    #     user = User.objects.get(id=self.P_User.pk)
+    #     SendTo = user.email
+    #     print(SendTo)
+    #     send_mail(
+    #         'Family Association',
+    #         'We Thank You and welcome you to join us',
+    #         EMAIL_HOST_USER,
+    #         [SendTo],
+    #         fail_silently=False,
+    #     )
+#   
+##
+"""
+Send a Congratulatory Email For Joining Us
+Send an Email After Registering a User
+"""
+@receiver(post_save,sender=User)
+def send_email_after_registering_user(sender,instance,created,**kwargs):
+    user = instance.email
+    SendTo = user
+    send_mail(
+            'Family Association',
+            'User Profile Created - We Thank You and welcome you to join us.',
+            EMAIL_HOST_USER,
+            [SendTo],
+            fail_silently=False,
+        )
+##
+"""
+Send a Congratulatory Email For Joining Us
+Send an Email After Registering a User
+"""
+@receiver(post_delete,sender=User)
+def Send_email_after_deleting_user(sender,instance,*args,**kwargs):
+    user = instance.email
+    SendTo = user
+    send_mail(
+            'Family Association',
+            'User Profile Deleted - We wish you a nice day',
+            EMAIL_HOST_USER,
+            [SendTo],
+            fail_silently=False,
+        )
+##
 # (2) Financial Statements``
 class  FinancialStatementsMODEL(models.Model):
     #

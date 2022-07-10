@@ -21,6 +21,8 @@ from django.http import JsonResponse
 from django.contrib import messages
 from accounts.models import PersonalsMODEL , FinancialStatementsMODEL , DatesReceivingMoneyPaymentsMODEL
 UserModel = get_user_model()
+import pywhatkit as pwt # Send messages To WhatsApp
+import random
 #
 #
 #
@@ -322,6 +324,13 @@ class DatesReceivingMoneyPamentsUpdateDoneCLASS(TemplateView):
 #
 #
 #
+# from twilio.rest import Client
+# account_sid=''
+# auth_token =''
+# client = Client(account_sid , auth_token)
+# def send_sms(user_code , phone_number):
+#     messages = client.messages.create(body =f'Hie ! Your user and verification code is {user_code}',from_ ='',to=f'{phone_number}')  
+# print(messages.sid)                       
 # class My_Dues_Record_ListView_Search(LoginRequiredMixin , TemplateView):
 # #     paginate_by = 4  # if pagination is desired
 #     template_name = 'registration/my_dues_record_list.html'# The Page HTML to Display
