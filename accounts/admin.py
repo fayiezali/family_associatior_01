@@ -7,7 +7,8 @@ from accounts.models import * #  استيراد كل المودل/الجداول
 # Aplications OTP
 from django_otp.admin import OTPAdminSite
 from django_otp.plugins.otp_totp.models import TOTPDevice
-#
+admin.site.__class__ = OTPAdminSite
+
 """Important Note:
 (fields) & (fieldsets) This Properties Can Not Be Put Together
 # Controlling Which fields are Displayed and Laid Out
@@ -186,17 +187,17 @@ class DatesReceivingMoneyPaymentsADMIN(admin.ModelAdmin):  # The class has been 
         )
         # inlines = [PersonalDataInline]
 # 
-"""Admin OTP
-class OTPAdmin(OTPAdminSite):
-        pass
-#
-admin.site= OTPAdmin(name="OTPAdmin")
-admin.site.register(User)
-admin.site.register(PersonalsMODEL)
-admin.site.register(FinancialStatementsMODEL)
-admin.site.register(DatesReceivingMoneyPaymentsMODEL)
-admin.site.register(TOTPDevice)
-"""
+# """Admin OTP
+# class OTPAdmin(OTPAdminSite):
+#         pass
+# #
+# admin.site= OTPAdmin(name="OTPAdmin")
+# admin.site.register(User)
+# admin.site.register(PersonalsMODEL)
+# admin.site.register(FinancialStatementsMODEL)
+# admin.site.register(DatesReceivingMoneyPaymentsMODEL)
+# admin.site.register(TOTPDevice)
+# """
 
 
 

@@ -1,9 +1,10 @@
 from django.urls import path
 from django.urls import reverse_lazy
 from sms import views # This Views I Created It
-#
-# MESSAGES DATA:-------------------------------------------------------------------------------------------------------
 urlpatterns = [
-        # Send a Message to...
-        # path('send_message/'                            , views.SendMessagesCLASS.as_view()                       , name='SendMessagesURL'),
+    path('register/',views.createUser,name="register"),
+    path('verify/',views.verifyUser,name="verify"),
+    path('',views.login_function,name="login"),
+    path('success/',views.success,name="success"),
+    path('logout/',views.logout_function,name='logout')
 ]

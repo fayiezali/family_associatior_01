@@ -1,2 +1,2 @@
 import pywhatkit as pwt
-pwt.sendwhatmsg("+966506361923","Test From Cooding",22,10)
+pwt.sendwhatmsg("+0000000000","Test From Cooding",13,57)

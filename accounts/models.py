@@ -18,9 +18,17 @@ from datetime import datetime
 #
 from datetime import date
 #
+from twilio.rest import Client
+#
 from django.core.mail import send_mail
 # from django.core.mail import send_mail
 from accounts.email_info import EMAIL_BACKEND , EMAIL_HOST , EMAIL_HOST_USER , EMAIL_HOST_PASSWORD , EMAIL_PORT ,  EMAIL_USE_TLS , PASSWORD_RESET_TIMEOUT_DAYS
+# Send Whatsapp
+import time
+import webbrowser 
+import pyautogui 
+# Send OTP
+import random
 
 ####################################
 # (1)Personal Data
@@ -65,9 +73,86 @@ class PersonalsMODEL(models.Model):
             self.slug = slugify(self.P_User.username)
         super(PersonalsMODEL , self).save(*args , **kwargs)
     #
-    """Send a Congratulatory Email For Joining Us
-       Send an Email After Registering a User
-    """
+#
+### (1) CREATE OTP **************************************************************************************************************
+#
+# Create an OTP and send it to the e-mail (1)
+@receiver(post_save,sender=User)
+def Create_otp_send_it_to_email_after_registering_new_userDEF(sender,instance,created,**kwargs):
+        otp = ""
+        otp= f'{str(random.randint(1000,9999))}'
+        user = instance.email
+        SendTo = user
+        send_mail(
+        'Family Association - One Time Password', f'Your OTP pin is: {otp}', EMAIL_HOST_USER, [SendTo],
+        fail_silently=False,)
+        return otp
+#
+# Create an OTP and send it to the Whatsapp (2)
+@receiver(post_save,sender=User)
+def Create_otp_send_it_to_whatsapp_after_Registering_new_userDEF(sender,instance,created,**kwargs):
+    otp = ""
+    otp= f'{str(random.randint(1000,9999))}'
+
+    Phone = '+966506361923'
+    # Phone = '+966567677895'
+    Message=f'Your OTP pin is: {otp}'
+    webbrowser.open('https://web.whatsapp.com/send?phone='+Phone+'&text='+Message)
+    time.sleep(10)
+    pyautogui.press('enter')
+
+### (2) SEND EMAIL *****************************************************************************************************************
+#
+# Send Email After Registering New User (1)
+@receiver(post_save,sender=User)
+def send_email_after_registering_new_user(sender,instance,created,**kwargs):
+    user = instance.email
+    SendTo = user
+    send_mail(
+            'Family Association',
+            'User Account Created - We Thank You and welcome you to join us.',
+            EMAIL_HOST_USER,
+            [SendTo],
+            fail_silently=False,)
+#
+# Send Email After Deleted User Account (2)
+@receiver(post_delete,sender=User)
+def Send_email_after_deleting_user(sender,instance,*args,**kwargs):
+    user = instance.email
+    SendTo = user
+    send_mail(
+            'Family Association',
+            'User Account Deleted - We wish you a nice day',
+            EMAIL_HOST_USER,
+            [SendTo],
+            fail_silently=False,)
+#
+### (3) SEND WHATSAPP *****************************************************************************************************************
+#
+# Send Message To Whatsapp After Registering New User (1)
+@receiver(post_save,sender=User)
+def send_message_to_whatsapp_after_registering_new_user(sender,instance,created,**kwargs):
+    Phone = '+966506361923'
+    # Phone = '+966567677895'
+    Message='User Account Created - We Thank You and welcome you to join us.'
+    webbrowser.open('https://web.whatsapp.com/send?phone='+Phone+'&text='+Message)
+    time.sleep(10)
+    pyautogui.press('enter')
+#
+# Send Message To Whatsapp After Deleting User Account (2)
+@receiver(post_delete,sender=User)
+def Send_message_to_whatsapp_after_deleting_user(sender,instance,*args,**kwargs):
+    Phone = '+966506361923'
+    # Phone = '+966567677895'
+    Message='User Account Deleted - We wish you a nice day'
+    webbrowser.open('https://web.whatsapp.com/send?phone='+Phone+'&text='+Message)
+    time.sleep(10)
+    pyautogui.press('enter')
+#**************************************************************************************************************************************
+
+    # """Send a Congratulatory Email For Joining Us
+    #    Send an Email After Registering a User
+    # """
     # def send_email_after_registering_user(self , *args , **kwargs):
     #     user = User.objects.get(id=self.P_User.pk)
     #     SendTo = user.email
@@ -79,40 +164,22 @@ class PersonalsMODEL(models.Model):
     #         [SendTo],
     #         fail_silently=False,
     #     )
-#   
-##
-"""
-Send a Congratulatory Email For Joining Us
-Send an Email After Registering a User
-"""
-@receiver(post_save,sender=User)
-def send_email_after_registering_user(sender,instance,created,**kwargs):
-    user = instance.email
-    SendTo = user
-    send_mail(
-            'Family Association',
-            'User Profile Created - We Thank You and welcome you to join us.',
-            EMAIL_HOST_USER,
-            [SendTo],
-            fail_silently=False,
-        )
-##
-"""
-Send a Congratulatory Email For Joining Us
-Send an Email After Registering a User
-"""
-@receiver(post_delete,sender=User)
-def Send_email_after_deleting_user(sender,instance,*args,**kwargs):
-    user = instance.email
-    SendTo = user
-    send_mail(
-            'Family Association',
-            'User Profile Deleted - We wish you a nice day',
-            EMAIL_HOST_USER,
-            [SendTo],
-            fail_silently=False,
-        )
-##
+
+
+# """Whatsapp Using Twilio
+# Send a Congratulatory Whatsapp For Joining Us
+# Send an Whatsapp After Deleted User Account
+# """
+# @receiver(post_save,sender=User)
+# def send_message_to_whatsapp_with_twilio(sender,instance,created,**kwargs):
+#     # [TWILIO_ACCOUNT_SID]Account SID From Twilio
+#     account_sid = 'AC65eae2f82119281192dd22599087fa05'
+#     # [TWILIO_AUTH_TOKEN]Auth Token From Twilio            
+#     auth_token  = 'cafab142d89f0ab765ddd5cc96504b5c' 
+#     client      = Client(account_sid, auth_token)
+#     message     = client.messages.create(media_url=["https://duckduckgo.com/?q=flor.png&atb=v329-1&iar=images&iax=images&ia=images&iai=https%3A%2F%2Fwww.pngpix.com%2Fwp-content%2Fuploads%2F2016%2F03%2FDahlia-Flower-PNG-image.png"], from_='whatsapp:+19377875117', body="Family Associatior - Hi there The Curent Result Is - ", to='whatsapp:+966506361923')
+#     print('Twilio - message Whatsapp Sended',message)
+
 # (2) Financial Statements``
 class  FinancialStatementsMODEL(models.Model):
     #

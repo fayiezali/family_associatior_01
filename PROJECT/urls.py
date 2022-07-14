@@ -20,45 +20,20 @@ from django.conf.urls.static import static
 from django.conf import settings
 from home import  views
 from django.contrib.auth.models import User
+#
+from accounts.models import * #  استيراد كل المودل/الجداول من التطبيق المطلوب
+#
 # Aplications OTP
 from django_otp.admin import OTPAdminSite
 from django_otp.plugins.otp_totp.models import TOTPDevice
 #
-from accounts.models import * #  استيراد كل المودل/الجداول من التطبيق المطلوب
-from sms.models import * #  استيراد كل المودل/الجداول من التطبيق المطلوب
-
-
-
-
-# class OTPAdmin(OTPAdminSite):
-#     	pass
-
-# admin = OTPAdmin(name="OTPAdmin")
-# admin.register(User)
-# admin.register(TOTPDevice)
-# #
-# # # Path Admin Without OTP Token
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-# ]
-# class OTPAdmin(OTPAdminSite):
-#     	pass
-# #
-# admin.site= OTPAdmin(name="OTPAdmin")
-# admin.site.register(User)
-# admin.site.register(PersonalsMODEL)
-# admin.site.register(FinancialStatementsMODEL)
-# admin.site.register(DatesReceivingMoneyPaymentsMODEL)
-# admin.site.register(TOTPDevice)
-
-# Paht Admin With OTP Token
+#
 urlpatterns = [
     # path('admin/'            , admin.urls),
     path('admin/'            , admin.site.urls),
-    # path('admin/'        , admin_site.urls), # Admin With OTP Token
 ]
 #
-# Path App Accounts
+# Path App sms
 urlpatterns += [
     path('sms/', include('sms.urls')), # This Path I was Created From My App
 ]

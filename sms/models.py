@@ -47,100 +47,77 @@ UserModel = get_user_model()
 import pywhatkit as pwt # Send messages To WhatsApp
 import random
 #
+import pywhatkit as pwk
 #
 from django.core.mail import send_mail
 # from django.core.mail import send_mail
 from accounts.email_info import EMAIL_BACKEND , EMAIL_HOST , EMAIL_HOST_USER , EMAIL_HOST_PASSWORD , EMAIL_PORT ,  EMAIL_USE_TLS , PASSWORD_RESET_TIMEOUT_DAYS
 #
-
-# (1)Personal Data
-class SendMessagesMODEL(models.Model):
+from django.db.models.signals import post_save , post_delete # كلاس فكرته: انه بمجرد تنفيذ عملية الحفظ يقوم مباشرة بتنفيذ عملية اخرى بعده
 #
-    # SM_User                   = models.OneToOneField(User                         , on_delete=models.CASCADE                 , verbose_name="اسم المشترك")
-    SM_SubscriptionAmount     = models.DecimalField(default=50 , max_digits=8 , decimal_places=2                  , db_index=True , blank=False  , null=False , verbose_name="مبلغ الإشتراك")
-    SM_Email                  = models.EmailField()
-#
-    # 'admin'عرض إسم الحقل في صفحة
-    def __str__(self):
-        return str(self.SM_SubscriptionAmount)
-    # Send Email 
-    def save(self , *args , **kwargs):
-        user = User.objects.get(id=11)
-        SendTo = user.email
-        print(SendTo)
-        if self.SM_SubscriptionAmount < 50:
-            send_mail(
-            'Family Association',
-            'Thank you for joining the family association.',
-            EMAIL_HOST_USER,
-            [SendTo],
-            fail_silently=False,
-        )
-#     # Auto Save Slug 
-#     def save(self , *args , **kwargs):
-#         if self.SM_SubscriptionAmount < 50:
-#             # [TWILIO_ACCOUNT_SID]Account SID From Twilio
-#             account_sid = '000000000000'
-#             # [TWILIO_AUTH_TOKEN]Auth Token From Twilio            
-#             auth_token  = '000000000000'
-#             client      = Client(account_sid, auth_token)
-        
-#             message = client.messages.create(body=f"Family Associatior - Hi there The Curent Result Is - {self.SM_SubscriptionAmount}", from_='+000000000000',to='+000000000000')
-#         else:
-#                         # [TWILIO_ACCOUNT_SID]Account SID From Twilio
-#             account_sid = 'AC9c97dcf191d694b3bc982ea3b8959d43'
-#             # [TWILIO_AUTH_TOKEN]Auth Token From Twilio            
-#             auth_token  = '2530aeed15bee9ea8601c2ee421c6916'
-#             client      = Client(account_sid, auth_token)
-        
-#             message = client.messages.create(body=f"Family Associatior - Hi there The Curent Result Is - {self.SM_SubscriptionAmount}", from_='+000000000000',to='+000000000000')
-
-#             print(message.sid)
-#         return super().save(*args , **kwargs)
+from django.dispatch import receiver
 
 
+# Create your models here.
+class PreRegistration(models.Model):
+    username = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.CharField(max_length=100)
+    password1 = models.CharField(max_length=100)
+    password2 = models.CharField(max_length=100)
+    otp = models.CharField(max_length=10)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# # (1)Personal Data
+# class SendMessagesMODEL(models.Model):
 # #
-#     def save(self , *args , **kwargs):
-#         if not self.slug:
-#             self.slug = slugify(self.P_User.username)
-#         super(PersonalsMODEL , self).save(*args , **kwargs)
+#     # SM_User                   = models.OneToOneField(User                         , on_delete=models.CASCADE                 , verbose_name="اسم المشترك")
+#     SM_SubscriptionAmount     = models.DecimalField(default=50 , max_digits=8 , decimal_places=2                  , db_index=True , blank=False  , null=False , verbose_name="مبلغ الإشتراك")
+#     SM_Email                  = models.EmailField(default='fayiez@outlook.com')
+#     SM_Mobil                  = models.CharField(default='+0000000000' ,max_length=17 , db_index=True , blank=False  , null=False , verbose_name="الجوال")
+# #
+#     # Send OTP 
+# @receiver(post_save,sender=User)
+# def send_message_to_whatsapp(sender,instance,created,**kwargs):
+#     # [TWILIO_ACCOUNT_SID]Account SID From Twilio
+#     account_sid = 'ACd5219db82f4052208e4e57b1397e9b71'
+#     # [TWILIO_AUTH_TOKEN]Auth Token From Twilio            
+#     auth_token  = '887741e7416254b52737f6d2b71a903a'
+#     client      = Client(account_sid, auth_token)
+#     messages     = client.messages.create(
+#             media_url=["https://duckduckgo.com/?q=flor.png&atb=v329-1&iar=images&iax=images&ia=images&iai=https%3A%2F%2Fwww.pngpix.com%2Fwp-content%2Fuploads%2F2016%2F03%2FDahlia-Flower-PNG-image.png"],
+#             from_='+19794736580',
+#             body=f"Family Associatior - Hi there The Curent Result Is - ",  
+#             to='+0000000000')
+#     print('Messages Whatsapp Sended')
+#         # else:
+        
+        #                 # [TWILIO_ACCOUNT_SID]Account SID From Twilio
+        #     account_sid = 'AC9c97dcf191d694b3bc982ea3b8959d43'
+        #     # [TWILIO_AUTH_TOKEN]Auth Token From Twilio            
+        #     auth_token  = '2530aeed15bee9ea8601c2ee421c6916'
+        #     client      = Client(account_sid, auth_token)
 
-#     def save(self , *args , **kwargs):
-#         if self.SM_SubscriptionAmount < 50:
-#         # if not self.SM_SubscriptionAmount:
-#             server=smtplib.SMTP('smtp.gmail.com',587)
-#             server.starttls()
-#             server.login('family00associatior@gmail.com','ckvtsgoimjepbriu')
-#             msg=("Thank you for joining the family association")
-#             server.sendmail('family00associatior@gmail.com','fayiez@outlook.com',msg)
-#             server.quit()
-#         return super().save(*args , **kwargs)
-    
-    
-#     def save(self , *args , **kwargs):
-#         if self.SM_SubscriptionAmount < 50:
-#             server=smtplib.SMTP('smtp.gmail.com',587)
-#             server.starttls()
-#             server.login('family00associatior@gmail.com','ckvtsgoimjepbriu')
-#             msg=("Thank you for joining the family association")
-#             subject =("fayez")
-#             server.sendmail('family00associatior@gmail.com','fayiez@outlook.com',msg,subject)
-#             server.quit()
-#         return super().save(*args , **kwargs)
+        #     message = client.messages.create(body=f"Family Associatior - Hi there The Curent Result Is - {self.SM_SubscriptionAmount}", from_='+19804476399',to='+0000000000')
 
-
-
-# from django.core.mail import send_mail
-# from accounts.email_info import EMAIL_BACKEND , EMAIL_HOST , EMAIL_HOST_USER , EMAIL_HOST_PASSWORD , EMAIL_PORT ,  EMAIL_USE_TLS , PASSWORD_RESET_TIMEOUT_DAYS
-
-# send_mail('Family Association','Thank You For Joining The Family Association',  None,  ['fayiez@outlook.com'],  fail_silently=False,)
-
-#     def save(self , *args , **kwargs):
-#         if self.SM_SubscriptionAmount < 50:
-#             send_mail(
-#             'Family Association',
-#             'Thank you for joining the family association.',
-#             EMAIL_HOST_USER,
-#             ['fayiez@outlook.com'],
-#             fail_silently=False,
-#         )
+    # print(message.sid)
+    # return super().save(*args , **kwargs)
