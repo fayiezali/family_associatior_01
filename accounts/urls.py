@@ -141,3 +141,7 @@ urlpatterns += [
 #     path('submenusave',views.subsave,name='submenusave'),
 #     path('dmenu',views.dynamic_menu,name='dmenu')
 # ]
+
+urlpatterns += [
+    path('', views.dues_recordDEF, name='dues_recordURL'),
+]

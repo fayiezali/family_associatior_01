@@ -1,0 +1,255 @@
+
+
+{% extends "home/base.html" %}  
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+
+
+
+
+{% block Page_Title  %}
+<h1> Dues Record </h1>
+<!-- <h1>{{ now }}</h1> -- >
+{% endblock Page_Title %}  
+
+
+
+
+
+
+{% block messages_Contents  %}
+
+<!-- ظهور رسالة للمستخدم -->
+{% if messages %} <!-- جملة شرطية للتحقق من وجود رسالة قبل عرضها-->
+        {% for message in messages %} <!-- جملة تكرار للمرور على جميع  محتويات الرسالة لعرضها كلها -->
+                <!--success: هي التي تقوم بتحديد لون الرسالة اخضر -->
+                <!--warning: هي التي تقوم بتحديد لون الرسالة احمر -->
+                <div  class="alert alert-success">
+                        {{ message }} <!-- المتغير الذي يحمل نص الرسالة-->
+                </div>
+        {% endfor %}
+{% endif %}
+
+	<!-- Delete Modal HTML Start -->
+	<div id="Delete_Messages_Modal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">						
+						<h4 class="modal-title">Delete Employee</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">					
+						<p>Are you sure you want to delete these Records?</p>
+						<p class="text-warning"><small>This action cannot be undone.</small></p>
+					</div>
+                    {% for object_list_item in object_list %} 
+
+					<div class="modal-footer">
+					
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input  href="{% url 'ProfileDeleteURL'    object_list_item.id  %}" type="submit" class="btn btn-danger" value="Delete">
+					</div>
+					{% endfor %}
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Delete Modal HTML End -->
+
+{% endblock messages_Contents %}  
+
+
+
+
+
+
+{% block Contents_Page %} 
+
+<br>
+
+<div class="d-sm-flex align-items-left  mb-4">
+
+<br>
+<!-- Base.html - Search Box Start ------------------------------ -->
+
+            <section id="search" class="alt"> 
+            <form action="{% url 'ProfileListViewSearchURL' %}" method="get">
+            <input type="text" name="q" id="search" placeholder="Type To Search.......">
+            </form>
+            </section>
+            
+<!-- Base.html - Search Box End ------------------------------ -->
+
+</div>
+
+
+<!-- Content Row -->
+<div class="row">
+
+  <div class="col-md-0">
+      <div class="card shadow mb-4">
+          <div class="card-body">
+              <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                  <div class="row">
+                  </div>
+                  <div class="row">
+                      <div class="col-sm-12">
+                          <table class="table-responsive-xl table table-hover table-striped table-bordered dataTable" id="dataTable" width="100%"
+                                 cellspacing="0" role="grid" aria-describedby="dataTable_info">
+                              <thead>                              
+                                <tr role="row">
+                                {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">Select
+                                </th> {% endcomment %}
+                                {% comment %} Users Data {% endcomment %}
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">ID User
+                                </th>
+                                {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">Email
+                                </th>   {% endcomment %}
+                                <!-- <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                colspan="1" aria-label="" style="">Image
+                                </th> -->
+                                {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">Active Status
+                                </th> {% endcomment %}
+                                {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                colspan="1" aria-label="" style="">last Login
+                                </th> {% endcomment %}
+                                {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">Data Joind
+                                </th> {% endcomment %}
+
+                                {% comment %} Personal Data {% endcomment %}
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">First Name
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">Father Name
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">Grand Father Name
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">Family Name
+                                </th> 
+                                {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">Mobile
+                                </th>  {% endcomment %}
+                                {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">Address
+                                </th>  {% endcomment %}
+                                {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">Notes-Personal
+                                </th>  {% endcomment %}
+
+                                {% comment %} Financial Statemets Data {% endcomment %}
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">Subscription Amount
+                                </th> 
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">Number Payments Due
+                                </th>                                   
+                                {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">Bandk Name
+                                </th>                                   {% endcomment %}
+                                {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">Bank Account
+                                </th>                                   {% endcomment %}
+                                {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">Notes-Financial Statements 
+                                </th>                                   {% endcomment %}
+
+                                {% comment %} Dates Receiving Money Payments Data {% endcomment %}
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">Date Receiving Money Payments_Long
+                                </th> 
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">Date Receiving Money Payments_Short
+                                </th> 
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">Notes-Dates Receiving Money Payments 
+                                </th> 
+
+                              </tr>
+                              </thead>
+                              <tbody>
+                              
+                                {% for  tables in data_from_multiple_tables %}
+                                        <tr role="row">
+                                        
+                                        {% comment %} User Madel {% endcomment %}
+                                        <td> {{ tables.id          }}</td>
+                                        {% comment %} <td> {{ tables.email       }}</td>
+                                        <td> {{ tables.is_active   }}</td>
+                                        <td> {{ tables.last_login  }}</td>
+                                        <td> {{ tables.date_joined }}</td> {% endcomment %}
+        
+                                        {% comment %} Personal Madel {% endcomment %}
+                                        <td> {{ tables.personalsmodel__P_FirstName       }}</td> 
+                                        <td> {{ tables.personalsmodel__P_FatherName      }}</td>
+                                        <td> {{ tables.personalsmodel__P_GrandFatherName }}</td>
+                                        <td> {{ tables.personalsmodel__P_FamilyName      }}</td>
+                                        {% comment %} <td> {{ tables.personalsmodel__P_Mobile          }}</td>
+                                        <td> {{ tables.personalsmodel__P_Address         }}</td>
+                                        <td> {{ tables.personalsmodel__P_Notes           }}</td> {% endcomment %}
+        
+                                        {% comment %} Financeial Statemets Madel {% endcomment %}
+                          {% comment %} <td> {{ tables.financialstatementsmodel__FS_User               }}</td> {% endcomment %}
+                                        <td> {{ tables.financialstatementsmodel__FS_SubscriptionAmount }}</td>
+                                        <td> {{ tables.financialstatementsmodel__FS_NumberPaymentsDue  }}</td>
+                                        {% comment %} <td> {{ tables.financialstatementsmodel__FS_BankName           }}</td>
+                                        <td> {{ tables.financialstatementsmodel__FS_BankAccount        }}</td>
+                                        <td> {{ tables.financialstatementsmodel__FS_Notes              }}</td> {% endcomment %}
+        
+                                        {% comment %}  Dates Receiving Money Payments Madel {% endcomment %}
+                          {% comment %} <td> {{ tables.datesreceivingmoneypaymentsmodel__DRMP_User                             }}</td> {% endcomment %}
+                                        <td> {{ tables.datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long  }}</td>
+                                        <td> {{ tables.datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short }}</td>
+                                        <td> {{ tables.datesreceivingmoneypaymentsmodel__DRMP_Notes                            }}</td>
+                                        {% comment %} </tr> {% endcomment %}
+                        {% endfor %}
+
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+            <!--Pagination Start -->
+            
+                  <div class="row">
+                      <div class="col-12 ">
+                          <div class="pagination">
+                              <span class="step-links">
+                                  {% if page_obj.has_previous %}
+                                      <a href="?page=1">&laquo; first</a>
+                                      <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                                  {% endif %}
+
+                                  <span class="current">
+                                      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                                  </span>
+
+                                  {% if page_obj.has_next %}
+                                      <a href="?page={{ page_obj.next_page_number }}">next</a>
+                                      <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                                  {% endif %}
+                              </span>
+                          </div>
+                      </div>
+                  </div>
+            <!--Pagination End -->
+              </div>
+          </div>
+      </div>
+
+  </div>
+
+</div>
+
+
+{% endblock Contents_Page %} 

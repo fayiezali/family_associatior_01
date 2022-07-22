@@ -57,7 +57,6 @@ class PersonalsADMIN(admin.ModelAdmin): # The class has been inherited as an add
         list_display = (
         'P_User'                  , 
         'slug'                  ,
-        'P_Avialable'             , 
         'P_FirstName'             ,
         'P_FatherName'            ,
         'P_GrandFatherName'       ,
@@ -76,11 +75,11 @@ class PersonalsADMIN(admin.ModelAdmin): # The class has been inherited as an add
         'fields': (
         'P_User'              ,
         'slug'              ,
-        'P_Avialable'         ,
         'P_FirstName'         ,
         'P_FatherName'        ,
         'P_GrandFatherName'   ,
         'P_FamilyName'        ,
+        'P_Mobile'                ,
         'P_Address'           
         )
         }

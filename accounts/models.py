@@ -35,14 +35,13 @@ import random
 class PersonalsMODEL(models.Model):
 #
     P_User                   = models.OneToOneField(User                         , on_delete=models.CASCADE                 , verbose_name="اسم المشترك")
-    P_Avialable              = models.BooleanField(default=True                  , db_index=True , blank=False , null=False , verbose_name="حالة المشترك_نشط")
     slug                     = models.SlugField(unique=False                     , db_index=True , blank=True  , null=False , verbose_name="الإسم التعريفي")
     P_FirstName              = models.CharField(max_length=50                    , db_index=True , blank=False , null=False , verbose_name="الإسم الأول")
     P_FatherName             = models.CharField(max_length=50                    , db_index=True , blank=False , null=False , verbose_name="إسم الاب")
     P_GrandFatherName        = models.CharField(max_length=50                    , db_index=True , blank=False , null=False , verbose_name="إسم الجد")
     P_FamilyName             = models.CharField(max_length=50                    , db_index=True , blank=False , null=False , verbose_name="إسم العائلة")
     P_Photo                  = models.ImageField(upload_to='PersonaFile_Photo/'  , db_index=True , blank=False , null=False , verbose_name="الصورة الشخصية"      ,default='Default_Image.png')
-    P_Mobile                 = models.CharField(max_length=10                    , db_index=True , blank=False , null=False , verbose_name="الجوال")
+    P_Mobile                 = models.IntegerField(                                db_index=True , blank=False , null=False , verbose_name="الجوال")
     P_Address                = models.CharField(max_length=100                   , db_index=True , blank=False , null=False ,verbose_name="العنوان")
     P_Notes                  = models.CharField(max_length=100                   , db_index=True , blank=True  , null=True  , verbose_name="الملاحظات")
 #
