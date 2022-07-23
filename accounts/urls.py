@@ -78,8 +78,9 @@ urlpatterns += [
         path('profile_delete/<int:pk>/delete/'    , views.ProfileDeleteCLASS.as_view()                , name='ProfileDeleteURL'),
         # Checkout Confirmed Successfull
         path('profile_delete_done/'               , views.ProfileDeleteDoneCLASS.as_view()            , name='ProfileDeleteDoneURL'),
-        # View a List Of The Records
+        # View and Search The Records
         path('profile_list/'                      , views.ProfileListViewSearchCLASS.as_view()        , name='ProfileListViewSearchURL'),
+        # View a List Of The Records
 #*****************************************************************************************************
 #       ## View Record Details By (slug)
 #       # path('my_profile_detail_sluIDg/<slug:slug>/' , views.My_Profile_Detail_Slug.as_view()       , name='My_Profile_Detail_Slug_URL'),
@@ -124,13 +125,12 @@ urlpatterns += [
 #
 #
 # # DUES RECORD:----------------------------------------------------------------------------------------
-# urlpatterns +=[
-#         # View a List Of The Dues Record
-#         path('my_dues_record_list/'                      , views.My_Dues_Record_ListView_Search.as_view()       , name='My_Dues_Record_ListView_Search_URL'),
-#         path('accounts/'                          , views.My_Monthes_Menu.as_view()                      , name='My_Monthes_Menu_URL'),
-#         #*********************************************************************************
-
-# ]
+urlpatterns +=[
+        # View and Search The Records List
+        path('dues_record_list/'            , views.dues_record_list_views_search_DEF              , name='dues_record_list_views_searchURL'),
+        #
+        #*********************************************************************************
+]
 
 
 
@@ -142,6 +142,3 @@ urlpatterns += [
 #     path('dmenu',views.dynamic_menu,name='dmenu')
 # ]
 
-urlpatterns += [
-    path('', views.dues_recordDEF, name='dues_recordURL'),
-]

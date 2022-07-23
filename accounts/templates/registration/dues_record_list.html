@@ -11,7 +11,7 @@
 
 
 {% block Page_Title  %}
-<h1> Dues Record </h1>
+<h1> Dues Record List </h1>
 <!-- <h1>{{ now }}</h1> -- >
 {% endblock Page_Title %}  
 
@@ -77,11 +77,27 @@
 <!-- Base.html - Search Box Start ------------------------------ -->
 
             <section id="search" class="alt"> 
-            <form action="{% url 'ProfileListViewSearchURL' %}" method="get">
-            <input type="text" name="q" id="search" placeholder="Type To Search.......">
+            <form action="{% url 'dues_record_list_views_searchURL' %}" method="get">
+            <input type="text" name="search_by_number" id="search" placeholder="Search By Numbers......................">
             </form>
             </section>
             
+            <!-- Base.html - Search Box Start ------------------------------ -->
+
+            <section id="search" class="alt"> 
+                <form action="{% url 'dues_record_list_views_searchURL' %}" method="get">
+                <input type="text" name="search_by_letters" id="search" placeholder="Search By letters...................">
+                </form>
+                </section>
+                
+            <!-- Base.html - Search Box Start ------------------------------ -->
+
+            <section id="search" class="alt"> 
+                <form action="{% url 'dues_record_list_views_searchURL' %}" method="get">
+                <input type="text" name="search_by_dates" id="search" placeholder="Search By Dates...................">
+                </form>
+                </section>
+
 <!-- Base.html - Search Box End ------------------------------ -->
 
 </div>
@@ -106,9 +122,9 @@
                                     colspan="1" aria-label="" style="">Select
                                 </th> {% endcomment %}
                                 {% comment %} Users Data {% endcomment %}
-                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" aria-label="" style="">ID User
-                                </th>
+                                </th> {% endcomment %}
                                 {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" aria-label="" style="">Email
                                 </th>   {% endcomment %}
@@ -179,12 +195,12 @@
                               </tr>
                               </thead>
                               <tbody>
-                              
-                                {% for  tables in data_from_multiple_tables %}
+                                
+                                {% for  tables in queryset_dues_record_list_CONTEXT %}
                                         <tr role="row">
                                         
                                         {% comment %} User Madel {% endcomment %}
-                                        <td> {{ tables.id          }}</td>
+                                        {% comment %} <td> {{ tables.id          }}</td> {% endcomment %}
                                         {% comment %} <td> {{ tables.email       }}</td>
                                         <td> {{ tables.is_active   }}</td>
                                         <td> {{ tables.last_login  }}</td>
@@ -210,9 +226,12 @@
                                         {% comment %}  Dates Receiving Money Payments Madel {% endcomment %}
                           {% comment %} <td> {{ tables.datesreceivingmoneypaymentsmodel__DRMP_User                             }}</td> {% endcomment %}
                                         <td> {{ tables.datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long  }}</td>
-                                        <td> {{ tables.datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short }}</td>
+                                        <td> {{ tables.datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short  | date:"Y-m-d" }}</td>
                                         <td> {{ tables.datesreceivingmoneypaymentsmodel__DRMP_Notes                            }}</td>
                                         {% comment %} </tr> {% endcomment %}
+                        {% empty %}
+                     <li><h4>No Matching Records!</h4></li>
+
                         {% endfor %}
 
                               </tbody>

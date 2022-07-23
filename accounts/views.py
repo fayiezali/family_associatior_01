@@ -84,6 +84,196 @@ class ActivateCLASS(View):
             # Show Activation Link Invalid Form For Unsuccessful Operation
             return render(request, 'registration/activation_link_invalid.html')
 #
+#
+def dues_record_list_views_search_DEF(request):
+    # Show All Records
+    # data_from_multiple_tables = User.objects.all().select_related()\
+    queryset_dues_record_list_CONTEXT = User.objects.all().select_related()\
+            .values(
+            # (1) User Model Fields 
+            'id',
+            'username',
+            'password',
+            'first_name',
+            'last_name',
+            'email',
+            'is_active',
+            'is_staff',
+            'is_superuser',
+            'last_login',
+            'date_joined',
+            # (2) Personal Model Fields - The Table Name Must Be Lower Case
+            'personalsmodel__P_FirstName',
+            'personalsmodel__P_FatherName',
+            'personalsmodel__P_GrandFatherName',
+            'personalsmodel__P_FamilyName',
+            'personalsmodel__P_Mobile',
+            'personalsmodel__P_Address',
+            'personalsmodel__P_Notes',
+            # (3) Financial Statements  Model Fields - The Table Name Must Be Lower Case
+            'financialstatementsmodel__FS_User',
+            'financialstatementsmodel__FS_SubscriptionAmount',
+            'financialstatementsmodel__FS_NumberPaymentsDue',
+            'financialstatementsmodel__FS_BankName',
+            'financialstatementsmodel__FS_BankAccount',
+            'financialstatementsmodel__FS_Notes',
+            # (4) Dates Receiving Money Payments Model Fields -  The Table Name Must Be Lower Case
+            'datesreceivingmoneypaymentsmodel__DRMP_User',
+            'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long',
+            'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short',
+            'datesreceivingmoneypaymentsmodel__DRMP_Notes',
+            # Sort Fields By 'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long' Field
+            ).order_by('datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long')
+    #
+    # For Further Information: https://www.w3schools.com/django/django_ref_field_lookups.php
+    # Save User Input To The Variable
+    # Search By Number
+    query = request.GET.get('search_by_number')
+    if query:
+        queryset_dues_record_list_CONTEXT = User.objects.filter( 
+        Q(id=query)                                             |# ID Number
+        Q(personalsmodel__P_Mobile=query)                       |# Mobile
+        Q(financialstatementsmodel__FS_SubscriptionAmount=query)|# Subscription Amount
+        Q(financialstatementsmodel__FS_NumberPaymentsDue=query)  # Number Payments Due
+        ).select_related()\
+            .values(
+            # (1) User Model Fields 
+            'id',
+            'username',
+            'password',
+            'first_name',
+            'last_name',
+            'email',
+            'is_active',
+            'is_staff',
+            'is_superuser',
+            'last_login',
+            'date_joined',
+            # (2) Personal Model Fields - The Table Name Must Be Lower Case
+            'personalsmodel__P_FirstName',
+            'personalsmodel__P_FatherName',
+            'personalsmodel__P_GrandFatherName',
+            'personalsmodel__P_FamilyName',
+            'personalsmodel__P_Mobile',
+            'personalsmodel__P_Address',
+            'personalsmodel__P_Notes',
+            # (3) Financial Statements  Model Fields - The Table Name Must Be Lower Case
+            'financialstatementsmodel__FS_User',
+            'financialstatementsmodel__FS_SubscriptionAmount',
+            'financialstatementsmodel__FS_NumberPaymentsDue',
+            'financialstatementsmodel__FS_BankName',
+            'financialstatementsmodel__FS_BankAccount',
+            'financialstatementsmodel__FS_Notes',
+            # (4) Dates Receiving Money Payments Model Fields -  The Table Name Must Be Lower Case
+            'datesreceivingmoneypaymentsmodel__DRMP_User',
+            'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long',
+            'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short',
+            'datesreceivingmoneypaymentsmodel__DRMP_Notes',
+            # Sort Fields By 'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long' Field
+            ).order_by('datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short')
+#
+    # Save User Input To The Variable
+    query = request.GET.get('search_by_letters')
+    if query:
+        queryset_dues_record_list_CONTEXT = User.objects.filter( 
+        Q(first_name__icontains=query)                       |# First Name
+        Q(last_name__icontains=query)                        |# Last Name
+        Q(email__exact=query)                                |# Email
+        Q(personalsmodel__P_FirstName__icontains=query)      |# First Name
+        Q(personalsmodel__P_FatherName__icontains=query)     |# Father Name
+        Q(personalsmodel__P_GrandFatherName__icontains=query)|# Grand Father Name
+        Q(personalsmodel__P_FamilyName__icontains=query)      # Family Name
+        ).select_related()\
+            .values(
+            # (1) User Model Fields 
+            'id',
+            'username',
+            'password',
+            'first_name',
+            'last_name',
+            'email',
+            'is_active',
+            'is_staff',
+            'is_superuser',
+            'last_login',
+            'date_joined',
+            # (2) Personal Model Fields - The Table Name Must Be Lower Case
+            'personalsmodel__P_FirstName',
+            'personalsmodel__P_FatherName',
+            'personalsmodel__P_GrandFatherName',
+            'personalsmodel__P_FamilyName',
+            'personalsmodel__P_Mobile',
+            'personalsmodel__P_Address',
+            'personalsmodel__P_Notes',
+            # (3) Financial Statements  Model Fields - The Table Name Must Be Lower Case
+            'financialstatementsmodel__FS_User',
+            'financialstatementsmodel__FS_SubscriptionAmount',
+            'financialstatementsmodel__FS_NumberPaymentsDue',
+            'financialstatementsmodel__FS_BankName',
+            'financialstatementsmodel__FS_BankAccount',
+            'financialstatementsmodel__FS_Notes',
+            # (4) Dates Receiving Money Payments Model Fields -  The Table Name Must Be Lower Case
+            'datesreceivingmoneypaymentsmodel__DRMP_User',
+            'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long',
+            'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short',
+            'datesreceivingmoneypaymentsmodel__DRMP_Notes',
+            # Sort Fields By 'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long' Field
+            ).order_by('datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short')
+#
+    # Save User Input To The Variable
+    query = request.GET.get('search_by_dates')
+    if query:
+        queryset_dues_record_list_CONTEXT = User.objects.filter( 
+        Q(datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long__icontains=query) |# Date Receiving Money Payments-Long
+        Q(datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short__icontains=query) # Date Receiving Money Payments-Short
+        ).select_related()\
+            .values(
+            # (1) User Model Fields 
+            'id',
+            'username',
+            'password',
+            'first_name',
+            'last_name',
+            'email',
+            'is_active',
+            'is_staff',
+            'is_superuser',
+            'last_login',
+            'date_joined',
+            # (2) Personal Model Fields - The Table Name Must Be Lower Case
+            'personalsmodel__P_FirstName',
+            'personalsmodel__P_FatherName',
+            'personalsmodel__P_GrandFatherName',
+            'personalsmodel__P_FamilyName',
+            'personalsmodel__P_Mobile',
+            'personalsmodel__P_Address',
+            'personalsmodel__P_Notes',
+            # (3) Financial Statements  Model Fields - The Table Name Must Be Lower Case
+            'financialstatementsmodel__FS_User',
+            'financialstatementsmodel__FS_SubscriptionAmount',
+            'financialstatementsmodel__FS_NumberPaymentsDue',
+            'financialstatementsmodel__FS_BankName',
+            'financialstatementsmodel__FS_BankAccount',
+            'financialstatementsmodel__FS_Notes',
+            # (4) Dates Receiving Money Payments Model Fields -  The Table Name Must Be Lower Case
+            'datesreceivingmoneypaymentsmodel__DRMP_User',
+            'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long',
+            'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short',
+            'datesreceivingmoneypaymentsmodel__DRMP_Notes',
+            # Sort Fields By 'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long' Field
+            ).order_by('datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short')
+
+    # Send Page HTML & Context
+    return render(request, 'registration/dues_record_list.html', {'queryset_dues_record_list_CONTEXT': queryset_dues_record_list_CONTEXT })
+
+
+
+
+
+
+
+
+
 # Display List Record
 class ProfileListViewSearchCLASS(LoginRequiredMixin , ListView):
     paginate_by = 4  # if pagination is desired
@@ -416,150 +606,3 @@ class DatesReceivingMoneyPamentsUpdateDoneCLASS(TemplateView):
 #     return render(request, 'dynamic_menu.html', {'menu': menu, 'submenu': submenu})
 
 # Select Data from Multiple Tables In One Query 
-def dues_recordDEF(request):
-    # Show All Records
-    # personals = PersonalsMODEL.objects.select_related('P_User').all()\
-    #         .values('P_User__email','P_User__is_staff','P_User__is_active',
-    #         'P_User__username','P_User__last_name','P_User__last_login',
-    #         'P_User__is_superuser','P_User_id','P_User__date_joined',
-    #         'P_User__first_name').order_by('id')
-    # 
-        # personals = PersonalsMODEL.objects.select_related('P_User').all()\
-        #     .values_list('P_User__email','P_User__is_staff','P_User__is_active',
-        #     'P_User__username','P_User__last_name','P_User__last_login',
-        #     'P_User__is_superuser','P_User_id','P_User__date_joined',
-        #     'P_User__first_name').order_by('id')
-
-    # # Show Records With Filter
-    # personals=PersonalsMODEL.objects.filter(pk=118).select_related('P_User')\
-    #         .values('P_User__email','P_User__is_staff','P_User__is_active',
-    #         'P_User__username','P_User__last_name','P_User__last_login',
-    #         'P_User__is_superuser','P_User_id','P_User__date_joined',
-    #         'P_User__first_name')
-    #
-    
-    # users = [users
-    #                                 # Select Data From Table: User
-    #                                 for users                           in  User.objects.select_related('').all()\
-    #                                                                         .values(
-    #                                                                         'id',
-    #                                                                         'username',
-    #                                                                         'password',
-    #                                                                         'email',
-    #                                                                         'is_active',
-    #                                                                         'is_superuser',
-    #                                                                         'is_staff',
-    #                                                                         'last_login',
-    #                                                                         'date_joined',
-    #                                                                         #'first_name'
-    #                                                                         #'last_name',
-    #                                                                         )
-    #                                 ]
-    # personals = [personals
-    #                                 # Select Data From Table: Personals
-    #                                 for personals                       in  PersonalsMODEL.objects.select_related().all()\
-    #                                                                         .values(
-    #                                                                         'P_User',
-    #                                                                         'slug',
-    #                                                                         'P_FirstName',
-    #                                                                         'P_FatherName',
-    #                                                                         'P_GrandFatherName',
-    #                                                                         'P_FamilyName',
-    #                                                                         'P_Photo',
-    #                                                                         'P_Mobile',
-    #                                                                         'P_Address',
-    #                                                                         'P_Notes'
-    #                                                                         )
-    #                                 #
-    #                                 ]
-    # financial_statements = [financial_statements
-    #                                 # Select Data From Table: FinancialStatements
-    #                                 for financial_statements            in  FinancialStatementsMODEL.objects.select_related().all()
-    #                                                                         .values(
-    #                                                                         'FS_User',
-    #                                                                         'FS_SubscriptionAmount',
-    #                                                                         'FS_NumberPaymentsDue',
-    #                                                                         'FS_BankName',
-    #                                                                         'FS_BankAccount',
-    #                                                                         'FS_Notes'
-    #                                                                         )
-    #                                 ]
-    # dates_receiving_money_payments = [dates_receiving_money_payments
-    #                                 # Select Data From Table: DatesReceivingMoneyPayments
-    #                                 for dates_receiving_money_payments   in  DatesReceivingMoneyPaymentsMODEL.objects.select_related().all()\
-    #                                                                         .values(
-    #                                                                         'DRMP_User',
-    #                                                                         'DRMP_DateReceivingMoneyPayments_Long',
-    #                                                                         'DRMP_DateReceivingMoneyPayments_Short',
-    #                                                                         'DRMP_Notes'
-    #                                                                         )
-    #                                 ]
-
-
-    # personals = PersonalsMODEL.objects.select_related('P_User').only\
-                # ('financialStatementsmodel__FS_SubscriptionAmount')
-                # 'P_User','slug','P_FirstName','P_FatherName','P_GrandFatherName',
-                # 'P_FamilyName','P_Photo','P_Mobile','P_Address','P_Notes',
-                # 'financialStatementsmodel__FS_User'
-                # )
-                
-                
-                
-                
-                
-    # employees = Employee.objects.all().values('id','name','company__name')
-# BackendDesign.objects.select_related('worker').only('human_readable_id','worker__first_name','worker__last_name',)
-    # personals = PersonalsMODEL.objects.select_related('P_User').all()\
-            # .values('P_User__personalsmodel',
-            # 'P_User__datesreceivingmoneypaymentsmodel',
-            # 'P_User__is_superuser','P_User_id','P_User__date_joined',
-            # 'P_User__datesreceivingmoneypaymentsmodel').order_by('id')
-
-    
-    # for personal in personals:
-    #     print (personal)
-        # print (personal.P_User.FS_NumberPaymentsDue)
-    # projects = Project.objects.select_related('leader').all()
-    # for project in projects:
-    #     print project.name, project.leader.user_name
-# project_list = Project.objects.select_related('leader').values_list('name', 'leader__user_name')
-
-    # data_from_multiple_tables = User.objects.filter().select_related()\
-    data_from_multiple_tables = User.objects.all().select_related()\
-            .values(
-            # (1) User Model Fields
-            'id',
-            'username',
-            'password',
-            'first_name',
-            'last_name',
-            'email',
-            'is_active',
-            'is_staff',
-            'is_superuser',
-            'last_login',
-            'date_joined',
-            # (2) Personal Model Fields
-            'personalsmodel__P_FirstName',
-            'personalsmodel__P_FatherName',
-            'personalsmodel__P_GrandFatherName',
-            'personalsmodel__P_FamilyName',
-            'personalsmodel__P_Mobile',
-            'personalsmodel__P_Address',
-            'personalsmodel__P_Notes',
-            # (3) Financial Statements  Model Fields
-            'financialstatementsmodel__FS_User',
-            'financialstatementsmodel__FS_SubscriptionAmount',
-            'financialstatementsmodel__FS_NumberPaymentsDue',
-            'financialstatementsmodel__FS_BankName',
-            'financialstatementsmodel__FS_BankAccount',
-            'financialstatementsmodel__FS_Notes',
-            # (4) Dates Receiving Money Payments Model Fields
-            'datesreceivingmoneypaymentsmodel__DRMP_User',
-            'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long',
-            'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short',
-            'datesreceivingmoneypaymentsmodel__DRMP_Notes',
-            # Sort Fields By ID Field
-            ).order_by('id')
-    #
-    return render(request, 'registration/dues_record.html', {'data_from_multiple_tables': data_from_multiple_tables })
