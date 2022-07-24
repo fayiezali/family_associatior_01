@@ -52,6 +52,10 @@ class PersonalsMODEL(models.Model):
     # 'Z-A' ترتيب تنازلي
     class Meta:
         ordering = ['P_User']
+    #
+    class Meta:
+        # The Name of the Model That Will Be Displayed In The Admin Page
+        verbose_name_plural = 'Personal'
 #
     # create_profile: للمستخدم الجديد "profile"دالة تقوم بإنشاء
     # sender: هي فانكش/دالة تقوم بمتابعة الملف الذي ترتبط به فبمجرد قيام الملف المرتبطة به بحدث ما تقوم بتفيذ الكود الموجود فيها
@@ -196,6 +200,11 @@ class  FinancialStatementsMODEL(models.Model):
     # 'Z-A' ترتيب تنازلي
     class Meta:
         ordering = ['FS_User']
+#
+    class Meta:
+        # The Name of the Model That Will Be Displayed In The Admin Page
+        verbose_name_plural = 'Financial Statements'
+
 # #
     # create_profile: للمستخدم الجديد "profile"دالة تقوم بإنشاء
     # sender: هي فانكش/دالة تقوم بمتابعة الملف الذي ترتبط به فبمجرد قيام الملف المرتبطة به بحدث ما تقوم بتفيذ الكود الموجود فيها
@@ -291,6 +300,10 @@ class  DatesReceivingMoneyPaymentsMODEL(models.Model):
     # Arrange The Fields In Ascending Order 'Z-A'
     class Meta:
         ordering = ['DRMP_DateReceivingMoneyPayments_Short']
+    class Meta:
+        # The Name of the Model That Will Be Displayed In The Admin Page
+        verbose_name_plural = 'Dates Receiving Money Payments'
+
 #
     # create_profile: للمستخدم الجديد "profile"دالة تقوم بإنشاء
     # sender: هي فانكش/دالة تقوم بمتابعة الملف الذي ترتبط به فبمجرد قيام الملف المرتبطة به بحدث ما تقوم بتفيذ الكود الموجود فيها

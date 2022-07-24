@@ -85,194 +85,378 @@ class ActivateCLASS(View):
             return render(request, 'registration/activation_link_invalid.html')
 #
 #
-def dues_record_list_views_search_DEF(request):
-    # Show All Records
-    # data_from_multiple_tables = User.objects.all().select_related()\
-    queryset_dues_record_list_CONTEXT = User.objects.all().select_related()\
-            .values(
-            # (1) User Model Fields 
-            'id',
-            'username',
-            'password',
-            'first_name',
-            'last_name',
-            'email',
-            'is_active',
-            'is_staff',
-            'is_superuser',
-            'last_login',
-            'date_joined',
-            # (2) Personal Model Fields - The Table Name Must Be Lower Case
-            'personalsmodel__P_FirstName',
-            'personalsmodel__P_FatherName',
-            'personalsmodel__P_GrandFatherName',
-            'personalsmodel__P_FamilyName',
-            'personalsmodel__P_Mobile',
-            'personalsmodel__P_Address',
-            'personalsmodel__P_Notes',
-            # (3) Financial Statements  Model Fields - The Table Name Must Be Lower Case
-            'financialstatementsmodel__FS_User',
-            'financialstatementsmodel__FS_SubscriptionAmount',
-            'financialstatementsmodel__FS_NumberPaymentsDue',
-            'financialstatementsmodel__FS_BankName',
-            'financialstatementsmodel__FS_BankAccount',
-            'financialstatementsmodel__FS_Notes',
-            # (4) Dates Receiving Money Payments Model Fields -  The Table Name Must Be Lower Case
-            'datesreceivingmoneypaymentsmodel__DRMP_User',
-            'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long',
-            'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short',
-            'datesreceivingmoneypaymentsmodel__DRMP_Notes',
-            # Sort Fields By 'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long' Field
-            ).order_by('datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long')
-    #
-    # For Further Information: https://www.w3schools.com/django/django_ref_field_lookups.php
-    # Save User Input To The Variable
-    # Search By Number
-    query = request.GET.get('search_by_number')
-    if query:
-        queryset_dues_record_list_CONTEXT = User.objects.filter( 
-        Q(id=query)                                             |# ID Number
-        Q(personalsmodel__P_Mobile=query)                       |# Mobile
-        Q(financialstatementsmodel__FS_SubscriptionAmount=query)|# Subscription Amount
-        Q(financialstatementsmodel__FS_NumberPaymentsDue=query)  # Number Payments Due
-        ).select_related()\
-            .values(
-            # (1) User Model Fields 
-            'id',
-            'username',
-            'password',
-            'first_name',
-            'last_name',
-            'email',
-            'is_active',
-            'is_staff',
-            'is_superuser',
-            'last_login',
-            'date_joined',
-            # (2) Personal Model Fields - The Table Name Must Be Lower Case
-            'personalsmodel__P_FirstName',
-            'personalsmodel__P_FatherName',
-            'personalsmodel__P_GrandFatherName',
-            'personalsmodel__P_FamilyName',
-            'personalsmodel__P_Mobile',
-            'personalsmodel__P_Address',
-            'personalsmodel__P_Notes',
-            # (3) Financial Statements  Model Fields - The Table Name Must Be Lower Case
-            'financialstatementsmodel__FS_User',
-            'financialstatementsmodel__FS_SubscriptionAmount',
-            'financialstatementsmodel__FS_NumberPaymentsDue',
-            'financialstatementsmodel__FS_BankName',
-            'financialstatementsmodel__FS_BankAccount',
-            'financialstatementsmodel__FS_Notes',
-            # (4) Dates Receiving Money Payments Model Fields -  The Table Name Must Be Lower Case
-            'datesreceivingmoneypaymentsmodel__DRMP_User',
-            'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long',
-            'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short',
-            'datesreceivingmoneypaymentsmodel__DRMP_Notes',
-            # Sort Fields By 'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long' Field
-            ).order_by('datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short')
+
+
+#This Is Orgenal Code
+# def dues_record_list_views_search_DEF(request):
+#     # Show All Records
+#     # data_from_multiple_tables = User.objects.all().select_related()\
+#     queryset_dues_record_list_CONTEXT = User.objects.all().select_related()\
+#             .values(
+#             # (1) User Model Fields 
+#             'id',
+#             'username',
+#             'password',
+#             'first_name',
+#             'last_name',
+#             'email',
+#             'is_active',
+#             'is_staff',
+#             'is_superuser',
+#             'last_login',
+#             'date_joined',
+#             # (2) Personal Model Fields - The Table Name Must Be Lower Case
+#             'personalsmodel__P_FirstName',
+#             'personalsmodel__P_FatherName',
+#             'personalsmodel__P_GrandFatherName',
+#             'personalsmodel__P_FamilyName',
+#             'personalsmodel__P_Mobile',
+#             'personalsmodel__P_Address',
+#             'personalsmodel__P_Notes',
+#             # (3) Financial Statements  Model Fields - The Table Name Must Be Lower Case
+#             'financialstatementsmodel__FS_User',
+#             'financialstatementsmodel__FS_SubscriptionAmount',
+#             'financialstatementsmodel__FS_NumberPaymentsDue',
+#             'financialstatementsmodel__FS_BankName',
+#             'financialstatementsmodel__FS_BankAccount',
+#             'financialstatementsmodel__FS_Notes',
+#             # (4) Dates Receiving Money Payments Model Fields -  The Table Name Must Be Lower Case
+#             'datesreceivingmoneypaymentsmodel__DRMP_User',
+#             'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long',
+#             'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short',
+#             'datesreceivingmoneypaymentsmodel__DRMP_Notes',
+#             # Sort Fields By 'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long' Field
+#             ).order_by('datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long')
+#     #
+#     # For Further Information: https://www.w3schools.com/django/django_ref_field_lookups.php
+#     # Save User Input To The Variable
+#     # Search By Number
+#     query = request.GET.get('search_by_number')
+#     if query:
+#         queryset_dues_record_list_CONTEXT = User.objects.filter( 
+#         Q(id=query)                                             |# ID Number
+#         Q(personalsmodel__P_Mobile=query)                       |# Mobile
+#         Q(financialstatementsmodel__FS_SubscriptionAmount=query)|# Subscription Amount
+#         Q(financialstatementsmodel__FS_NumberPaymentsDue=query)  # Number Payments Due
+#         ).select_related()\
+#             .values(
+#             # (1) User Model Fields 
+#             'id',
+#             'username',
+#             'password',
+#             'first_name',
+#             'last_name',
+#             'email',
+#             'is_active',
+#             'is_staff',
+#             'is_superuser',
+#             'last_login',
+#             'date_joined',
+#             # (2) Personal Model Fields - The Table Name Must Be Lower Case
+#             'personalsmodel__P_FirstName',
+#             'personalsmodel__P_FatherName',
+#             'personalsmodel__P_GrandFatherName',
+#             'personalsmodel__P_FamilyName',
+#             'personalsmodel__P_Mobile',
+#             'personalsmodel__P_Address',
+#             'personalsmodel__P_Notes',
+#             # (3) Financial Statements  Model Fields - The Table Name Must Be Lower Case
+#             'financialstatementsmodel__FS_User',
+#             'financialstatementsmodel__FS_SubscriptionAmount',
+#             'financialstatementsmodel__FS_NumberPaymentsDue',
+#             'financialstatementsmodel__FS_BankName',
+#             'financialstatementsmodel__FS_BankAccount',
+#             'financialstatementsmodel__FS_Notes',
+#             # (4) Dates Receiving Money Payments Model Fields -  The Table Name Must Be Lower Case
+#             'datesreceivingmoneypaymentsmodel__DRMP_User',
+#             'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long',
+#             'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short',
+#             'datesreceivingmoneypaymentsmodel__DRMP_Notes',
+#             # Sort Fields By 'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long' Field
+#             ).order_by('datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short')
+# #
+#     # Save User Input To The Variable
+#     query = request.GET.get('search_by_letters')
+#     if query:
+#         queryset_dues_record_list_CONTEXT = User.objects.filter( 
+#         Q(first_name__icontains=query)                       |# First Name
+#         Q(last_name__icontains=query)                        |# Last Name
+#         Q(email__exact=query)                                |# Email
+#         Q(personalsmodel__P_FirstName__icontains=query)      |# First Name
+#         Q(personalsmodel__P_FatherName__icontains=query)     |# Father Name
+#         Q(personalsmodel__P_GrandFatherName__icontains=query)|# Grand Father Name
+#         Q(personalsmodel__P_FamilyName__icontains=query)      # Family Name
+#         ).select_related()\
+#             .values(
+#             # (1) User Model Fields 
+#             'id',
+#             'username',
+#             'password',
+#             'first_name',
+#             'last_name',
+#             'email',
+#             'is_active',
+#             'is_staff',
+#             'is_superuser',
+#             'last_login',
+#             'date_joined',
+#             # (2) Personal Model Fields - The Table Name Must Be Lower Case
+#             'personalsmodel__P_FirstName',
+#             'personalsmodel__P_FatherName',
+#             'personalsmodel__P_GrandFatherName',
+#             'personalsmodel__P_FamilyName',
+#             'personalsmodel__P_Mobile',
+#             'personalsmodel__P_Address',
+#             'personalsmodel__P_Notes',
+#             # (3) Financial Statements  Model Fields - The Table Name Must Be Lower Case
+#             'financialstatementsmodel__FS_User',
+#             'financialstatementsmodel__FS_SubscriptionAmount',
+#             'financialstatementsmodel__FS_NumberPaymentsDue',
+#             'financialstatementsmodel__FS_BankName',
+#             'financialstatementsmodel__FS_BankAccount',
+#             'financialstatementsmodel__FS_Notes',
+#             # (4) Dates Receiving Money Payments Model Fields -  The Table Name Must Be Lower Case
+#             'datesreceivingmoneypaymentsmodel__DRMP_User',
+#             'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long',
+#             'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short',
+#             'datesreceivingmoneypaymentsmodel__DRMP_Notes',
+#             # Sort Fields By 'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long' Field
+#             ).order_by('datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short')
+# #
+#     # Save User Input To The Variable
+#     query = request.GET.get('search_by_dates')
+#     if query:
+#         queryset_dues_record_list_CONTEXT = User.objects.filter( 
+#         Q(datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long__icontains=query) |# Date Receiving Money Payments-Long
+#         Q(datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short__icontains=query) # Date Receiving Money Payments-Short
+#         ).select_related()\
+#             .values(
+#             # (1) User Model Fields 
+#             'id',
+#             'username',
+#             'password',
+#             'first_name',
+#             'last_name',
+#             'email',
+#             'is_active',
+#             'is_staff',
+#             'is_superuser',
+#             'last_login',
+#             'date_joined',
+#             # (2) Personal Model Fields - The Table Name Must Be Lower Case
+#             'personalsmodel__P_FirstName',
+#             'personalsmodel__P_FatherName',
+#             'personalsmodel__P_GrandFatherName',
+#             'personalsmodel__P_FamilyName',
+#             'personalsmodel__P_Mobile',
+#             'personalsmodel__P_Address',
+#             'personalsmodel__P_Notes',
+#             # (3) Financial Statements  Model Fields - The Table Name Must Be Lower Case
+#             'financialstatementsmodel__FS_User',
+#             'financialstatementsmodel__FS_SubscriptionAmount',
+#             'financialstatementsmodel__FS_NumberPaymentsDue',
+#             'financialstatementsmodel__FS_BankName',
+#             'financialstatementsmodel__FS_BankAccount',
+#             'financialstatementsmodel__FS_Notes',
+#             # (4) Dates Receiving Money Payments Model Fields -  The Table Name Must Be Lower Case
+#             'datesreceivingmoneypaymentsmodel__DRMP_User',
+#             'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long',
+#             'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short',
+#             'datesreceivingmoneypaymentsmodel__DRMP_Notes',
+#             # Sort Fields By 'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long' Field
+#             ).order_by('datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short')
+
+#     # Send Page HTML & Context
+#     return render(request, 'registration/dues_record_list.html', {'queryset_dues_record_list_CONTEXT': queryset_dues_record_list_CONTEXT })
+
+
+
+class DuesRecordListViewSearchCLASS(LoginRequiredMixin , ListView):
+    paginate_by = 4  # if pagination is desired
+    template_name = 'registration/dues_record_list.html'# The Page HTML to Display
+    context_object_name = 'queryset_dues_record_list_CONTEXT'
 #
-    # Save User Input To The Variable
-    query = request.GET.get('search_by_letters')
-    if query:
-        queryset_dues_record_list_CONTEXT = User.objects.filter( 
-        Q(first_name__icontains=query)                       |# First Name
-        Q(last_name__icontains=query)                        |# Last Name
-        Q(email__exact=query)                                |# Email
-        Q(personalsmodel__P_FirstName__icontains=query)      |# First Name
-        Q(personalsmodel__P_FatherName__icontains=query)     |# Father Name
-        Q(personalsmodel__P_GrandFatherName__icontains=query)|# Grand Father Name
-        Q(personalsmodel__P_FamilyName__icontains=query)      # Family Name
-        ).select_related()\
-            .values(
-            # (1) User Model Fields 
-            'id',
-            'username',
-            'password',
-            'first_name',
-            'last_name',
-            'email',
-            'is_active',
-            'is_staff',
-            'is_superuser',
-            'last_login',
-            'date_joined',
-            # (2) Personal Model Fields - The Table Name Must Be Lower Case
-            'personalsmodel__P_FirstName',
-            'personalsmodel__P_FatherName',
-            'personalsmodel__P_GrandFatherName',
-            'personalsmodel__P_FamilyName',
-            'personalsmodel__P_Mobile',
-            'personalsmodel__P_Address',
-            'personalsmodel__P_Notes',
-            # (3) Financial Statements  Model Fields - The Table Name Must Be Lower Case
-            'financialstatementsmodel__FS_User',
-            'financialstatementsmodel__FS_SubscriptionAmount',
-            'financialstatementsmodel__FS_NumberPaymentsDue',
-            'financialstatementsmodel__FS_BankName',
-            'financialstatementsmodel__FS_BankAccount',
-            'financialstatementsmodel__FS_Notes',
-            # (4) Dates Receiving Money Payments Model Fields -  The Table Name Must Be Lower Case
-            'datesreceivingmoneypaymentsmodel__DRMP_User',
-            'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long',
-            'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short',
-            'datesreceivingmoneypaymentsmodel__DRMP_Notes',
-            # Sort Fields By 'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long' Field
-            ).order_by('datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short')
+    # def dues_record_list_views_search_DEF(self):
+    def get_queryset(self):
+        # Show All Records
+        # data_from_multiple_tables = User.objects.all().select_related()\
+        queryset_dues_record_list_CONTEXT = User.objects.all().select_related()\
+                .values(
+                # (1) User Model Fields 
+                'id',
+                'username',
+                'password',
+                'first_name',
+                'last_name',
+                'email',
+                'is_active',
+                'is_staff',
+                'is_superuser',
+                'last_login',
+                'date_joined',
+                # (2) Personal Model Fields - The Table Name Must Be Lower Case
+                'personalsmodel__P_FirstName',
+                'personalsmodel__P_FatherName',
+                'personalsmodel__P_GrandFatherName',
+                'personalsmodel__P_FamilyName',
+                'personalsmodel__P_Mobile',
+                'personalsmodel__P_Address',
+                'personalsmodel__P_Notes',
+                # (3) Financial Statements  Model Fields - The Table Name Must Be Lower Case
+                'financialstatementsmodel__FS_User',
+                'financialstatementsmodel__FS_SubscriptionAmount',
+                'financialstatementsmodel__FS_NumberPaymentsDue',
+                'financialstatementsmodel__FS_BankName',
+                'financialstatementsmodel__FS_BankAccount',
+                'financialstatementsmodel__FS_Notes',
+                # (4) Dates Receiving Money Payments Model Fields -  The Table Name Must Be Lower Case
+                'datesreceivingmoneypaymentsmodel__DRMP_User',
+                'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long',
+                'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short',
+                'datesreceivingmoneypaymentsmodel__DRMP_Notes',
+                # Sort Fields By 'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long' Field
+                ).order_by('datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long')
 #
-    # Save User Input To The Variable
-    query = request.GET.get('search_by_dates')
-    if query:
-        queryset_dues_record_list_CONTEXT = User.objects.filter( 
-        Q(datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long__icontains=query) |# Date Receiving Money Payments-Long
-        Q(datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short__icontains=query) # Date Receiving Money Payments-Short
-        ).select_related()\
-            .values(
-            # (1) User Model Fields 
-            'id',
-            'username',
-            'password',
-            'first_name',
-            'last_name',
-            'email',
-            'is_active',
-            'is_staff',
-            'is_superuser',
-            'last_login',
-            'date_joined',
-            # (2) Personal Model Fields - The Table Name Must Be Lower Case
-            'personalsmodel__P_FirstName',
-            'personalsmodel__P_FatherName',
-            'personalsmodel__P_GrandFatherName',
-            'personalsmodel__P_FamilyName',
-            'personalsmodel__P_Mobile',
-            'personalsmodel__P_Address',
-            'personalsmodel__P_Notes',
-            # (3) Financial Statements  Model Fields - The Table Name Must Be Lower Case
-            'financialstatementsmodel__FS_User',
-            'financialstatementsmodel__FS_SubscriptionAmount',
-            'financialstatementsmodel__FS_NumberPaymentsDue',
-            'financialstatementsmodel__FS_BankName',
-            'financialstatementsmodel__FS_BankAccount',
-            'financialstatementsmodel__FS_Notes',
-            # (4) Dates Receiving Money Payments Model Fields -  The Table Name Must Be Lower Case
-            'datesreceivingmoneypaymentsmodel__DRMP_User',
-            'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long',
-            'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short',
-            'datesreceivingmoneypaymentsmodel__DRMP_Notes',
-            # Sort Fields By 'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long' Field
-            ).order_by('datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short')
+        # For Further Information: https://www.w3schools.com/django/django_ref_field_lookups.php
+        # Save User Input To The Variable
+        # Search By Number
+        query = self.request.GET.get('search_by_number')
+        if query:
+            queryset_dues_record_list_CONTEXT = User.objects.filter( 
+            Q(id=query)                                             |# ID Number
+            Q(personalsmodel__P_Mobile=query)                       |# Mobile
+            Q(financialstatementsmodel__FS_SubscriptionAmount=query)|# Subscription Amount
+            Q(financialstatementsmodel__FS_NumberPaymentsDue=query)  # Number Payments Due
+            ).select_related()\
+                .values(
+                # (1) User Model Fields 
+                'id',
+                'username',
+                'password',
+                'first_name',
+                'last_name',
+                'email',
+                'is_active',
+                'is_staff',
+                'is_superuser',
+                'last_login',
+                'date_joined',
+                # (2) Personal Model Fields - The Table Name Must Be Lower Case
+                'personalsmodel__P_FirstName',
+                'personalsmodel__P_FatherName',
+                'personalsmodel__P_GrandFatherName',
+                'personalsmodel__P_FamilyName',
+                'personalsmodel__P_Mobile',
+                'personalsmodel__P_Address',
+                'personalsmodel__P_Notes',
+                # (3) Financial Statements  Model Fields - The Table Name Must Be Lower Case
+                'financialstatementsmodel__FS_User',
+                'financialstatementsmodel__FS_SubscriptionAmount',
+                'financialstatementsmodel__FS_NumberPaymentsDue',
+                'financialstatementsmodel__FS_BankName',
+                'financialstatementsmodel__FS_BankAccount',
+                'financialstatementsmodel__FS_Notes',
+                # (4) Dates Receiving Money Payments Model Fields -  The Table Name Must Be Lower Case
+                'datesreceivingmoneypaymentsmodel__DRMP_User',
+                'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long',
+                'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short',
+                'datesreceivingmoneypaymentsmodel__DRMP_Notes',
+                # Sort Fields By 'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long' Field
+                ).order_by('datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short')
+#
+        # Save User Input To The Variable
+        query = self.request.GET.get('search_by_letters')
+        if query:
+            queryset_dues_record_list_CONTEXT = User.objects.filter( 
+            Q(first_name__icontains=query)                       |# First Name
+            Q(last_name__icontains=query)                        |# Last Name
+            Q(email__exact=query)                                |# Email
+            Q(personalsmodel__P_FirstName__icontains=query)      |# First Name
+            Q(personalsmodel__P_FatherName__icontains=query)     |# Father Name
+            Q(personalsmodel__P_GrandFatherName__icontains=query)|# Grand Father Name
+            Q(personalsmodel__P_FamilyName__icontains=query)      # Family Name
+            ).select_related()\
+                .values(
+                # (1) User Model Fields 
+                'id',
+                'username',
+                'password',
+                'first_name',
+                'last_name',
+                'email',
+                'is_active',
+                'is_staff',
+                'is_superuser',
+                'last_login',
+                'date_joined',
+                # (2) Personal Model Fields - The Table Name Must Be Lower Case
+                'personalsmodel__P_FirstName',
+                'personalsmodel__P_FatherName',
+                'personalsmodel__P_GrandFatherName',
+                'personalsmodel__P_FamilyName',
+                'personalsmodel__P_Mobile',
+                'personalsmodel__P_Address',
+                'personalsmodel__P_Notes',
+                # (3) Financial Statements  Model Fields - The Table Name Must Be Lower Case
+                'financialstatementsmodel__FS_User',
+                'financialstatementsmodel__FS_SubscriptionAmount',
+                'financialstatementsmodel__FS_NumberPaymentsDue',
+                'financialstatementsmodel__FS_BankName',
+                'financialstatementsmodel__FS_BankAccount',
+                'financialstatementsmodel__FS_Notes',
+                # (4) Dates Receiving Money Payments Model Fields -  The Table Name Must Be Lower Case
+                'datesreceivingmoneypaymentsmodel__DRMP_User',
+                'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long',
+                'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short',
+                'datesreceivingmoneypaymentsmodel__DRMP_Notes',
+                # Sort Fields By 'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long' Field
+                ).order_by('datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short')
+#
+        # Save User Input To The Variable
+        query = self.request.GET.get('search_by_dates')
+        if query:
+            queryset_dues_record_list_CONTEXT = User.objects.filter( 
+            Q(datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long__icontains=query) |# Date Receiving Money Payments-Long
+            Q(datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short__icontains=query) # Date Receiving Money Payments-Short
+            ).select_related()\
+                .values(
+                # (1) User Model Fields 
+                'id',
+                'username',
+                'password',
+                'first_name',
+                'last_name',
+                'email',
+                'is_active',
+                'is_staff',
+                'is_superuser',
+                'last_login',
+                'date_joined',
+                # (2) Personal Model Fields - The Table Name Must Be Lower Case
+                'personalsmodel__P_FirstName',
+                'personalsmodel__P_FatherName',
+                'personalsmodel__P_GrandFatherName',
+                'personalsmodel__P_FamilyName',
+                'personalsmodel__P_Mobile',
+                'personalsmodel__P_Address',
+                'personalsmodel__P_Notes',
+                # (3) Financial Statements  Model Fields - The Table Name Must Be Lower Case
+                'financialstatementsmodel__FS_User',
+                'financialstatementsmodel__FS_SubscriptionAmount',
+                'financialstatementsmodel__FS_NumberPaymentsDue',
+                'financialstatementsmodel__FS_BankName',
+                'financialstatementsmodel__FS_BankAccount',
+                'financialstatementsmodel__FS_Notes',
+                # (4) Dates Receiving Money Payments Model Fields -  The Table Name Must Be Lower Case
+                'datesreceivingmoneypaymentsmodel__DRMP_User',
+                'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long',
+                'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short',
+                'datesreceivingmoneypaymentsmodel__DRMP_Notes',
+                # Sort Fields By 'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long' Field
+                ).order_by('datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short')
 
-    # Send Page HTML & Context
-    return render(request, 'registration/dues_record_list.html', {'queryset_dues_record_list_CONTEXT': queryset_dues_record_list_CONTEXT })
-
-
-
-
-
-
-
-
+        # Send Page HTML & Context
+        return  queryset_dues_record_list_CONTEXT
 
 # Display List Record
 class ProfileListViewSearchCLASS(LoginRequiredMixin , ListView):

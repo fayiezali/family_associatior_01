@@ -127,8 +127,9 @@ urlpatterns += [
 # # DUES RECORD:----------------------------------------------------------------------------------------
 urlpatterns +=[
         # View and Search The Records List
-        path('dues_record_list/'            , views.dues_record_list_views_search_DEF              , name='dues_record_list_views_searchURL'),
+        # path('dues_record_list/'            , views.dues_record_list_views_search_DEF              , name='dues_record_list_views_searchURL'),
         #
+        path('dues_record_list/'            ,views.DuesRecordListViewSearchCLASS.as_view()        , name='dues_record_list_views_searchURL'),
         #*********************************************************************************
 ]
 
