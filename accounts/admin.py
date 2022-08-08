@@ -7,8 +7,10 @@ from accounts.models import * #  استيراد كل المودل/الجداول
 # Aplications OTP
 from django_otp.admin import OTPAdminSite
 from django_otp.plugins.otp_totp.models import TOTPDevice
-admin.site.__class__ = OTPAdminSite
-
+#
+# Adding The Ability to Access The Admin page Using OTP
+# admin.site.__class__ = OTPAdminSite 
+# admin.site.unregister(User) # first unregister the existing useradmin...
 """Important Note:
 (fields) & (fieldsets) This Properties Can Not Be Put Together
 # Controlling Which fields are Displayed and Laid Out
@@ -33,6 +35,11 @@ admin.site.__class__ = OTPAdminSite
 # Personal File
 @admin.register(PersonalsMODEL)
 class PersonalsADMIN(admin.ModelAdmin): # The class has been inherited as an addict in order to make a modification / customization 
+        #
+        # Add a Search Box With The Fields Below:
+        search_fields = ('P_User','P_FirstName', 'P_FatherName', 'P_GrandFatherName','P_FamilyName','P_Mobile')
+        #
+        #
         # Automatically Fill In Slug Field From Variable (FullName)
         FullName = {
         "slug": # Slug Field
@@ -45,7 +52,7 @@ class PersonalsADMIN(admin.ModelAdmin): # The class has been inherited as an add
         } # ملئ حقل السلاق تلقائياَمن بيانات حقل اﻷسم الاول+الاب+الجد+العائلة
         prepopulated_fields = FullName
         #
-        #
+        # 
         # Add a Filter Box
         list_filter = (
         'P_User'     , 
@@ -98,6 +105,12 @@ class PersonalsADMIN(admin.ModelAdmin): # The class has been inherited as an add
 @admin.register(FinancialStatementsMODEL)
 class FinancialStatementsADMIN(admin.ModelAdmin): # The class has been inherited as an addict in order to make a modification / customization 
         #
+        # Add a Search Box With The Fields Below:
+        search_fields = ('FS_User','FS_BankAccount', 'FS_SubscriptionAmount', 'FS_NumberPaymentsDue')
+        #
+        # Add a Search Box With The Fields Below:
+        search_fields = ('first_name', 'last_name', 'email')
+        #
         # Add aFilter Box
         list_filter = (
         'FS_User'                  , 
@@ -146,6 +159,9 @@ class FinancialStatementsADMIN(admin.ModelAdmin): # The class has been inherited
 @admin.register(DatesReceivingMoneyPaymentsMODEL)
 class DatesReceivingMoneyPaymentsADMIN(admin.ModelAdmin):  # The class has been inherited as an addict in order to make a modification / customization 
         #
+        # Add a Search Box With The Fields Below:
+        search_fields = ('DRMP_User', 'DRMP_DateReceivingMoneyPayments_Long', 'DRMP_DateReceivingMoneyPayments_Short')
+        #
         # Add aFilter Box
         list_filter = (
         'DRMP_User'      , 
@@ -185,6 +201,59 @@ class DatesReceivingMoneyPaymentsADMIN(admin.ModelAdmin):  # The class has been 
         ),
         )
         # inlines = [PersonalDataInline]
+#
+#
+#
+# Dates Receiving Payments
+@admin.register(SubscribersDesiresMODEL)
+class SubscribersDesiresMODELADMIN(admin.ModelAdmin):  # The class has been inherited as an addict in order to make a modification / customization 
+        #
+        # Add a Search Box With The Fields Below:
+        search_fields = ('SD_User', 'SD_Desire', 'SD_Notes')
+        #
+        # Add aFilter Box
+        list_filter = (
+        'SD_User'      , 
+        'SD_Desire_first'   ,
+        'SD_Desire_second'  ,
+        'SD_Desire_third'   ,
+        'SD_Notes'
+        )
+        #
+        #
+        # Show Fields a List
+        list_display = (
+        'SD_User'     , 
+        'SD_Desire_first'   ,
+        'SD_Desire_second'  ,
+        'SD_Desire_third'   ,
+        'SD_Notes'
+        )
+        #
+        # search list
+        search_fields = ['SD_Desire']
+
+        #
+        # Add Data In Different Sections
+        fieldsets = (
+        (None, {
+        'fields': (
+        'SD_User'         , 
+        'SD_Desire_first'   ,
+        'SD_Desire_second'  ,
+        'SD_Desire_third'
+        )
+        }
+        ),
+        ('Advanced', {
+        'classes': ('collapse',) ,
+        'fields': (
+        'SD_Notes',
+        )
+        }
+        ),
+        )
+
 # 
 # """Admin OTP
 # class OTPAdmin(OTPAdminSite):
@@ -198,6 +267,37 @@ class DatesReceivingMoneyPaymentsADMIN(admin.ModelAdmin):  # The class has been 
 # admin.site.register(TOTPDevice)
 # """
 
+# from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+# from django.contrib import admin
+# from django.contrib.auth.models import Group, User
+
+# # first unregister the existing useradmin...
+# admin.site.unregister(User)
+
+# class UserAdmin(BaseUserAdmin):
+#     # The forms to add and change user instances
+#     # The fields to be used in displaying the User model.
+#     # These override the definitions on the base UserAdmin
+#     # that reference specific fields on auth.User.
+#     list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff')
+#     fieldsets = (
+#     (None, {'fields': ('username', 'password')}),
+#     ('Personal info', {'fields': ('first_name', 'last_name', 'email',)}),
+#     ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+#     ('Important dates', {'fields': ('last_login', 'date_joined')}),)
+#     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
+#     # overrides get_fieldsets to use this attribute when creating a user.
+#     add_fieldsets = (
+#     (None, {
+#         'classes': ('wide',),
+#         'fields': ('username', 'email', 'first_name', 'last_name', 'password1', 'password2')}),)
+#     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
+#     search_fields = ('username', 'first_name', 'last_name', 'email')
+#     ordering = ('username',)
+#     filter_horizontal = ('groups', 'user_permissions',)
+
+# # Now register the new UserAdmin...
+# admin.site.register(User, UserAdmin)
 
 
 
@@ -390,3 +490,24 @@ class DatesReceivingMoneyPaymentsADMIN(admin.ModelAdmin):  # The class has been 
 #         search_fields = ['m_menu_name']
 #         #
 #         #
+
+
+# @admin.register(Profile)
+# class ProfileADMIN(admin.ModelAdmin): # The class has been inherited as an addict in order to make a modification / customization 
+#         #
+#         # Add a Search Box With The Fields Below:
+#         search_fields = ('P_User','P_FirstName', 'P_FatherName', 'P_GrandFatherName','P_FamilyName','P_Mobile')
+#         #
+#         #
+#         # Add a Filter Box
+#         list_filter = (
+#         'user'     , 
+#         'mobile'
+#         )
+#         #
+#         #
+#         # Show Fields a List
+#         list_display = (
+#         'user'  ,
+#         'mobile'
+#         )

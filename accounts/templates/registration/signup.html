@@ -30,8 +30,7 @@
     
 <form enctype="multipart/form-data" method="post" novalidate>
     {% csrf_token %} <!-- Django encrypts Data -->
-    {% comment %} {{ form|crispy }} {% endcomment %}
-    
+
         <!-- Required Form + Data Validation -->
         {% include  "includes/data_validation_form.html" %} 
         

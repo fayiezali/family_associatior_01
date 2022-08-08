@@ -142,18 +142,22 @@
                                 </th> {% endcomment %}
 
                                 {% comment %} Personal Data {% endcomment %}
-                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                    colspan="1" aria-label="" style="">First Name
-                                </th>
-                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                    colspan="1" aria-label="" style="">Father Name
-                                </th>
-                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                    colspan="1" aria-label="" style="">Grand Father Name
-                                </th>
-                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                    colspan="1" aria-label="" style="">Family Name
+                                <th class="sorting" tabindex="100" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">Full Name
                                 </th> 
+
+                                {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">First Name
+                                </th> {% endcomment %}
+                                {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">Father Name
+                                </th> {% endcomment %}
+                                {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">Grand Father Name
+                                </th> {% endcomment %}
+                                {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="" style="">Family Name
+                                </th>  {% endcomment %}
                                 {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" aria-label="" style="">Mobile
                                 </th>  {% endcomment %}
@@ -207,10 +211,11 @@
                                         <td> {{ tables.date_joined }}</td> {% endcomment %}
         
                                         {% comment %} Personal Madel {% endcomment %}
-                                        <td> {{ tables.personalsmodel__P_FirstName       }}</td> 
-                                        <td> {{ tables.personalsmodel__P_FatherName      }}</td>
-                                        <td> {{ tables.personalsmodel__P_GrandFatherName }}</td>
-                                        <td> {{ tables.personalsmodel__P_FamilyName      }}</td>
+<td> {{ tables.personalsmodel__P_FirstName}}  بن {{ tables.personalsmodel__P_FatherName}} بن {{ tables.personalsmodel__P_GrandFatherName}}  {{ tables.personalsmodel__P_FamilyName}}</td>    
+                                        {% comment %} <td> {{ tables.personalsmodel__P_FirstName       }}</td>  {% endcomment %}
+                                        {% comment %} <td> {{ tables.personalsmodel__P_FatherName      }}</td> {% endcomment %}
+                                        {% comment %} <td> {{ tables.personalsmodel__P_GrandFatherName }}</td> {% endcomment %}
+                                        {% comment %} <td> {{ tables.personalsmodel__P_FamilyName      }}</td> {% endcomment %}
                                         {% comment %} <td> {{ tables.personalsmodel__P_Mobile          }}</td>
                                         <td> {{ tables.personalsmodel__P_Address         }}</td>
                                         <td> {{ tables.personalsmodel__P_Notes           }}</td> {% endcomment %}

@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'sms',
     # 'social_django',# 04 Login With Social Media(Facebook , Instagram ,......)
     # 'django_countries',# تطبيق معد مسبقاً يحتوي على جميع اسماء دول العالم
+    'phonenumber_field',
 ]
 #
 MIDDLEWARE = [

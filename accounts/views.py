@@ -1,10 +1,12 @@
+# from winreg import REG_QWORD
+from multiprocessing import context
 import django
-from django.shortcuts import render #
+from django.shortcuts import render  , redirect#
 from django.contrib.auth.models import User # إستيراد اسم المستخدم
 from django.contrib.auth import  get_user_model #
 from django.contrib.auth.views import TemplateView #
 from django.views import View #
-from accounts.forms import SignUpForm #
+from accounts.forms import SignUpForm  #
 from django.template.loader import render_to_string #
 from django.contrib.sites.shortcuts import get_current_site #
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode #
@@ -85,191 +87,6 @@ class ActivateCLASS(View):
             return render(request, 'registration/activation_link_invalid.html')
 #
 #
-
-
-#This Is Orgenal Code
-# def dues_record_list_views_search_DEF(request):
-#     # Show All Records
-#     # data_from_multiple_tables = User.objects.all().select_related()\
-#     queryset_dues_record_list_CONTEXT = User.objects.all().select_related()\
-#             .values(
-#             # (1) User Model Fields 
-#             'id',
-#             'username',
-#             'password',
-#             'first_name',
-#             'last_name',
-#             'email',
-#             'is_active',
-#             'is_staff',
-#             'is_superuser',
-#             'last_login',
-#             'date_joined',
-#             # (2) Personal Model Fields - The Table Name Must Be Lower Case
-#             'personalsmodel__P_FirstName',
-#             'personalsmodel__P_FatherName',
-#             'personalsmodel__P_GrandFatherName',
-#             'personalsmodel__P_FamilyName',
-#             'personalsmodel__P_Mobile',
-#             'personalsmodel__P_Address',
-#             'personalsmodel__P_Notes',
-#             # (3) Financial Statements  Model Fields - The Table Name Must Be Lower Case
-#             'financialstatementsmodel__FS_User',
-#             'financialstatementsmodel__FS_SubscriptionAmount',
-#             'financialstatementsmodel__FS_NumberPaymentsDue',
-#             'financialstatementsmodel__FS_BankName',
-#             'financialstatementsmodel__FS_BankAccount',
-#             'financialstatementsmodel__FS_Notes',
-#             # (4) Dates Receiving Money Payments Model Fields -  The Table Name Must Be Lower Case
-#             'datesreceivingmoneypaymentsmodel__DRMP_User',
-#             'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long',
-#             'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short',
-#             'datesreceivingmoneypaymentsmodel__DRMP_Notes',
-#             # Sort Fields By 'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long' Field
-#             ).order_by('datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long')
-#     #
-#     # For Further Information: https://www.w3schools.com/django/django_ref_field_lookups.php
-#     # Save User Input To The Variable
-#     # Search By Number
-#     query = request.GET.get('search_by_number')
-#     if query:
-#         queryset_dues_record_list_CONTEXT = User.objects.filter( 
-#         Q(id=query)                                             |# ID Number
-#         Q(personalsmodel__P_Mobile=query)                       |# Mobile
-#         Q(financialstatementsmodel__FS_SubscriptionAmount=query)|# Subscription Amount
-#         Q(financialstatementsmodel__FS_NumberPaymentsDue=query)  # Number Payments Due
-#         ).select_related()\
-#             .values(
-#             # (1) User Model Fields 
-#             'id',
-#             'username',
-#             'password',
-#             'first_name',
-#             'last_name',
-#             'email',
-#             'is_active',
-#             'is_staff',
-#             'is_superuser',
-#             'last_login',
-#             'date_joined',
-#             # (2) Personal Model Fields - The Table Name Must Be Lower Case
-#             'personalsmodel__P_FirstName',
-#             'personalsmodel__P_FatherName',
-#             'personalsmodel__P_GrandFatherName',
-#             'personalsmodel__P_FamilyName',
-#             'personalsmodel__P_Mobile',
-#             'personalsmodel__P_Address',
-#             'personalsmodel__P_Notes',
-#             # (3) Financial Statements  Model Fields - The Table Name Must Be Lower Case
-#             'financialstatementsmodel__FS_User',
-#             'financialstatementsmodel__FS_SubscriptionAmount',
-#             'financialstatementsmodel__FS_NumberPaymentsDue',
-#             'financialstatementsmodel__FS_BankName',
-#             'financialstatementsmodel__FS_BankAccount',
-#             'financialstatementsmodel__FS_Notes',
-#             # (4) Dates Receiving Money Payments Model Fields -  The Table Name Must Be Lower Case
-#             'datesreceivingmoneypaymentsmodel__DRMP_User',
-#             'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long',
-#             'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short',
-#             'datesreceivingmoneypaymentsmodel__DRMP_Notes',
-#             # Sort Fields By 'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long' Field
-#             ).order_by('datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short')
-# #
-#     # Save User Input To The Variable
-#     query = request.GET.get('search_by_letters')
-#     if query:
-#         queryset_dues_record_list_CONTEXT = User.objects.filter( 
-#         Q(first_name__icontains=query)                       |# First Name
-#         Q(last_name__icontains=query)                        |# Last Name
-#         Q(email__exact=query)                                |# Email
-#         Q(personalsmodel__P_FirstName__icontains=query)      |# First Name
-#         Q(personalsmodel__P_FatherName__icontains=query)     |# Father Name
-#         Q(personalsmodel__P_GrandFatherName__icontains=query)|# Grand Father Name
-#         Q(personalsmodel__P_FamilyName__icontains=query)      # Family Name
-#         ).select_related()\
-#             .values(
-#             # (1) User Model Fields 
-#             'id',
-#             'username',
-#             'password',
-#             'first_name',
-#             'last_name',
-#             'email',
-#             'is_active',
-#             'is_staff',
-#             'is_superuser',
-#             'last_login',
-#             'date_joined',
-#             # (2) Personal Model Fields - The Table Name Must Be Lower Case
-#             'personalsmodel__P_FirstName',
-#             'personalsmodel__P_FatherName',
-#             'personalsmodel__P_GrandFatherName',
-#             'personalsmodel__P_FamilyName',
-#             'personalsmodel__P_Mobile',
-#             'personalsmodel__P_Address',
-#             'personalsmodel__P_Notes',
-#             # (3) Financial Statements  Model Fields - The Table Name Must Be Lower Case
-#             'financialstatementsmodel__FS_User',
-#             'financialstatementsmodel__FS_SubscriptionAmount',
-#             'financialstatementsmodel__FS_NumberPaymentsDue',
-#             'financialstatementsmodel__FS_BankName',
-#             'financialstatementsmodel__FS_BankAccount',
-#             'financialstatementsmodel__FS_Notes',
-#             # (4) Dates Receiving Money Payments Model Fields -  The Table Name Must Be Lower Case
-#             'datesreceivingmoneypaymentsmodel__DRMP_User',
-#             'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long',
-#             'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short',
-#             'datesreceivingmoneypaymentsmodel__DRMP_Notes',
-#             # Sort Fields By 'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long' Field
-#             ).order_by('datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short')
-# #
-#     # Save User Input To The Variable
-#     query = request.GET.get('search_by_dates')
-#     if query:
-#         queryset_dues_record_list_CONTEXT = User.objects.filter( 
-#         Q(datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long__icontains=query) |# Date Receiving Money Payments-Long
-#         Q(datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short__icontains=query) # Date Receiving Money Payments-Short
-#         ).select_related()\
-#             .values(
-#             # (1) User Model Fields 
-#             'id',
-#             'username',
-#             'password',
-#             'first_name',
-#             'last_name',
-#             'email',
-#             'is_active',
-#             'is_staff',
-#             'is_superuser',
-#             'last_login',
-#             'date_joined',
-#             # (2) Personal Model Fields - The Table Name Must Be Lower Case
-#             'personalsmodel__P_FirstName',
-#             'personalsmodel__P_FatherName',
-#             'personalsmodel__P_GrandFatherName',
-#             'personalsmodel__P_FamilyName',
-#             'personalsmodel__P_Mobile',
-#             'personalsmodel__P_Address',
-#             'personalsmodel__P_Notes',
-#             # (3) Financial Statements  Model Fields - The Table Name Must Be Lower Case
-#             'financialstatementsmodel__FS_User',
-#             'financialstatementsmodel__FS_SubscriptionAmount',
-#             'financialstatementsmodel__FS_NumberPaymentsDue',
-#             'financialstatementsmodel__FS_BankName',
-#             'financialstatementsmodel__FS_BankAccount',
-#             'financialstatementsmodel__FS_Notes',
-#             # (4) Dates Receiving Money Payments Model Fields -  The Table Name Must Be Lower Case
-#             'datesreceivingmoneypaymentsmodel__DRMP_User',
-#             'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long',
-#             'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short',
-#             'datesreceivingmoneypaymentsmodel__DRMP_Notes',
-#             # Sort Fields By 'datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Long' Field
-#             ).order_by('datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short')
-
-#     # Send Page HTML & Context
-#     return render(request, 'registration/dues_record_list.html', {'queryset_dues_record_list_CONTEXT': queryset_dues_record_list_CONTEXT })
-
-
 
 class DuesRecordListViewSearchCLASS(LoginRequiredMixin , ListView):
     paginate_by = 4  # if pagination is desired
@@ -790,3 +607,148 @@ class DatesReceivingMoneyPamentsUpdateDoneCLASS(TemplateView):
 #     return render(request, 'dynamic_menu.html', {'menu': menu, 'submenu': submenu})
 
 # Select Data from Multiple Tables In One Query 
+
+# ==================================================================================================================
+# def save(self):
+#     new_user  = User.objects.create_user(first=self.cleaned_data['first'], email=self.cleaned_data['email'], password=self.cleaned_data['password'])
+#     new_grade = PersonalsMODEL.objects.create_P_Mobile(grade=self.cleaned_data['P_Mobile'])
+#     return new_user, new_grade 
+
+
+# def save(self, commit=True):
+#     if not commit:
+#         raise NotImplementedError("Can't create User and UserProfile without database save")
+#     user         = super(UserCreateForm, self).save(commit=True)
+#     user_profile = PersonalsMODEL(user=user, P_Mobile=self.cleaned_data['Mobile'])
+#     user_profile.save()
+#     return user, user_profile
+# ==================================================================================================================
+# from .forms import SignUpForm , ProfileForm
+
+# #newly added function
+# # def update_user_data(user):
+# #     Profile.objects.update_or_create(user=user, defaults={'mob': user.profile.mob},)
+# def update_user_data(user):
+#     PersonalsMODEL.objects.update_or_create(user=user, defaults={PersonalsMODEL.P_Mobile},)
+
+
+# class SignupCLASS___(View):
+#     form_class = SignUpForm # Form for Entering New User Data
+#     template_name = 'registration/signup.html' # The Name Of a Template To Display For The View Use
+#     #
+#     # (1) Show User Registration Form
+#     def get(self, request, *args, **kwargs):
+#         form = self.form_class() # Save The Registration Form In a Variable
+#         return render(request, self.template_name, {'form': form})
+#     #
+#     # (2) Save Data and Send Email
+#     def post(self, request, *args, **kwargs):
+#         form = self.form_class(request.POST) # Save The Registration Data In The Variable If It Is (POST)
+#         if form.is_valid(): # Verify That The Form Is Valid For Saving Its Data
+#             user = form.save(commit=False) # Stop Saving Data
+#             user.is_active = False # Deactivate The Account To Be Confirmed By Email
+#             user.save() # Save Data
+#             # profile_data=PersonalsMODEL(P_Mobile='9660000000000', P_User=user)
+#             # profile_data.save()
+            
+            
+#             # PersonalsMODEL.objects.create(P_User=user ,P_Mobile='9660000000000')
+#             pro=PersonalsMODEL(P_User=user ,P_Mobile='9660000000000')
+#             pro.save()
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+#             current_site = get_current_site(request) # Get the Current (Web Site) By Comparing The Domain With The Host Name
+#             subject = 'Activate Your ( Family Associatior ) Account' # Email Address
+#             message = render_to_string('registration/activate_account_by_email.html', { # Email content
+#                 'user': user,
+#                 'domain': current_site.domain, # The Domain Name That Will Send The Message
+#                 'uid': urlsafe_base64_encode(force_bytes(user.pk)), # URL Safe Encode
+#                 'token': default_token_generator.make_token(user),}) # Create a Special Code Sent To The e-Mail To Activate The Account
+#             user.email_user(subject, message) # Send E-mail(content - Address)
+#             messages.success(request, ('Please Confirm Your Email To Complete Registration.'))# Display Message For The New User(In His Email)
+#             # Display Message For The New User On The Registration Page
+#             return render(request, 'registration/confirm_email_registration.html', {'message': f'A confirmation email has been sent to {user.email}. Please confirm to finish registering'})
+#         else:
+#             # Reload The Form  Registration Agin
+#             return render(request, self.template_name, {'form': form})
+
+
+
+# def SignupDEF_____(request):
+#     if request.method == 'POST':
+#         form = SignUpForm(request.POST)
+#         profile_form = ProfileForm(request.POST)
+#         if form.is_valid() and profile_form.is_valid():
+#             user = form.save()
+#             profile = profile_form.save(commit=False)
+#             profile.user = user
+#             profile.P_Mobile='+966506361923'
+#             profile.save()
+#             context = {'form':form , 'profile_form':profile_form}
+#             return render(request , 'registration/signup.html' ,context)
+#     else:
+#         form         = SignUpForm()
+#         profile_form = ProfileForm()
+#     context = {'form':form , 'profile_form':profile_form}
+#     return render(request , 'registration/signup.html' ,context)
+# #
+
+# from .models import Profile
+# from .forms import SignUpForm
+# from django.db.models.signals import post_save , post_delete # كلاس فكرته: انه بمجرد تنفيذ عملية الحفظ يقوم مباشرة بتنفيذ عملية اخرى بعده
+
+# #newly added function
+# def update_user_data(user):
+#     Profile.objects.update_or_create(user=user, defaults={'mob': user.profile.mob},)
+
+# def signup(request):
+#     if request.method == 'POST':
+#         form = SignUpForm(request.POST)
+#         if form.is_valid():
+#             ####
+#             def create_Profile(sender, **kwargs):
+#                 if kwargs['created']: #'created' إذا كان هناك بيانات تم إستقبالها اطبع هذه الكلمة
+#                     Profile.objects.create(user=kwargs['instance']) #التي أستقبلتها "'instance'"جديد بناء على  معلومات المستخدم "PersonalData_MODEL" قم بإنشاء ملف
+#             # "" "user"والمستخدم  "post_save" الربط بين الفانكشن
+#             post_save.connect(create_Profile , sender=User)
+
+#             ######
+#             user = form.save()
+#             user.profile.mob = form.cleaned_data.get('mob')
+#             update_user_data(user)  
+
+#             user.refresh_from_db()
+
+#             #newly added
+#             # user.profile.mob = form.cleaned_data.get('mob')
+#             # update_user_data(user)  
+
+#             # load the profile instance created by the signal
+
+#             user.save()
+#             # raw_password = form.cleaned_data.get('password1')
+
+#             # login user after signing up
+#             # user = authenticate(username=user.username, password=raw_password)
+#             # login(request, user)
+
+#             # redirect user to home page
+#             return redirect('index_pageURL')
+#     else:
+#         form = SignUpForm()
+#     return render(request, 'registration/signup.html', {'form': form})
