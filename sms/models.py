@@ -26,7 +26,7 @@ from django.shortcuts import render #
 from django.contrib.auth.models import User # إستيراد اسم المستخدم
 from django.contrib.auth import  get_user_model #
 from django.contrib.auth.views import TemplateView #
-from django.views import View #
+# from django.views import View #
 # from accounts.forms import SignUpForm #
 from django.template.loader import render_to_string #
 from django.contrib.sites.shortcuts import get_current_site #
@@ -42,8 +42,8 @@ from django.urls import reverse_lazy , reverse
 from django.db.models import Q # new
 from django.http import JsonResponse
 from django.contrib import messages
-from accounts.models import PersonalsMODEL , FinancialStatementsMODEL , DatesReceivingMoneyPaymentsMODEL
-UserModel = get_user_model()
+# from accounts.models import PersonalsMODEL , FinancialStatementsMODEL , DatesReceivingMoneyPaymentsMODEL
+# UserModel = get_user_model()
 import pywhatkit as pwt # Send messages To WhatsApp
 import random
 #
@@ -51,22 +51,22 @@ import pywhatkit as pwk
 #
 from django.core.mail import send_mail
 # from django.core.mail import send_mail
-from accounts.email_info import EMAIL_BACKEND , EMAIL_HOST , EMAIL_HOST_USER , EMAIL_HOST_PASSWORD , EMAIL_PORT ,  EMAIL_USE_TLS , PASSWORD_RESET_TIMEOUT_DAYS
+# from accounts.email_info import EMAIL_BACKEND , EMAIL_HOST , EMAIL_HOST_USER , EMAIL_HOST_PASSWORD , EMAIL_PORT ,  EMAIL_USE_TLS , PASSWORD_RESET_TIMEOUT_DAYS
 #
-from django.db.models.signals import post_save , post_delete # كلاس فكرته: انه بمجرد تنفيذ عملية الحفظ يقوم مباشرة بتنفيذ عملية اخرى بعده
+# from django.db.models.signals import post_save , post_delete # كلاس فكرته: انه بمجرد تنفيذ عملية الحفظ يقوم مباشرة بتنفيذ عملية اخرى بعده
 #
 from django.dispatch import receiver
 
 
 # Create your models here.
-class PreRegistration(models.Model):
-    username = models.CharField(max_length=100)
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    email = models.CharField(max_length=100)
-    password1 = models.CharField(max_length=100)
-    password2 = models.CharField(max_length=100)
-    otp = models.CharField(max_length=10)
+# class PreRegistration(models.Model):
+#     username = models.CharField(max_length=100)
+#     first_name = models.CharField(max_length=100)
+#     last_name = models.CharField(max_length=100)
+#     email = models.CharField(max_length=100)
+#     password1 = models.CharField(max_length=100)
+#     password2 = models.CharField(max_length=100)
+#     otp = models.CharField(max_length=10)
 
 
 

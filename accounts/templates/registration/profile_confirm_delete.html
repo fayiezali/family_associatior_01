@@ -11,7 +11,7 @@
 {% block Page_Title  %}
 
 <div class="row justify-content-center">
-<h1>Confirm Delete Your Account</h1>
+<h1>Confirm Delete Your Account - تأكيد حذف حساب</h1>
 </div>
 
 {% endblock Page_Title %}  
@@ -30,9 +30,9 @@
     
  <form enctype="multipart/form-data"  method="post" novalidate>
             {% csrf_token %}
-            <h3>Are You Sure You Want To Delete Your Account: ( {{ object.username }} ) ?</h3>
-            <button type="submit" class="btn btn-danger">Delete</button>
-            <a href="{% url 'index_pageURL' %}" class="btn btn-success">Cancel</a>
+            <h3>Are You Sure You Want To Delete Your Account - هل إنت متأكد أنك تريد حذف حسابك: ( {{ object.username }} ) ?</h3>
+            <button type="submit" class="btn btn-danger">Delete - حذف</button>
+            <a href="{% url 'index_pageURL' %}" class="btn btn-success">Cancel - إلغاء</a>
 </form>
 </div>
 </div>

@@ -13,7 +13,7 @@
 {% block Page_Title  %}
 
 <div class="row justify-content-center">
-<h1>Step (3) My Financial Statements Data </h1>
+<h1>Step (3) My Financial Statements Data  - الخطوة 3 بيانات الكشوفات المالية</h1>
 </div>
 
 {% endblock Page_Title %}  
@@ -90,12 +90,12 @@
     
     
     
-      <div class="col-lg-4">
+      {% comment %} <div class="col-lg-4">
         <div class="card shadow-sm">
           <div class="card-header bg-transparent text-center">
             <img class="profile_img" src="https://source.unsplash.com/600x300/?student" alt="student dp">
 
-            <h3>{{ My_Object.username }}</h3>
+            <h3>{{ My_Object.username }}السيد/ة</h3>
           </div>
           <div class="card-body">
             <p class="mb-0"><strong class="pr-1">Student ID:</strong>321000001</p>
@@ -103,7 +103,7 @@
             <p class="mb-0"><strong class="pr-1">Section:</strong>A</p>
           </div>
         </div>
-      </div>
+      </div> {% endcomment %}
       
       
       
@@ -113,42 +113,42 @@
 
         <div class="card shadow-sm">
           <div class="card-header bg-transparent border-0">
-            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Financial Statements Information</h3>
+            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Financial Statements Information - معلومات عن الكشوفات المالية</h3>
           </div>
           <div class="card-body pt-0">
             <table class="table table-bordered">
-              <tr>
-                <th width="30%">Financial ID</th>
+              {% comment %} <tr>
+                <th width="30%">Financial ID - المعرف الخاص</th>
                 <td width="2%">:</td>
                 <td>{{ My_Object.id }}</td>
-              </tr>
+              </tr> {% endcomment %}
               <tr>
-                <th width="30%">Subscription Name</th>
+                {% comment %} <th width="30%">Subscription Name - إسم المشترك</th>
                 <td width="2%">:</td>
                 <td>{{ My_Object.FS_User }}</td>
-              </tr>
+              </tr> {% endcomment %}
               <tr>
-                <th width="30%">Subscription Amount/th>
+                <th width="30%">Subscription Amount - مبلغ الإشتراك</th>
                 <td width="2%">:</td>
                 <td>{{ My_Object.FS_SubscriptionAmount }}</td>
               </tr>
               <tr>
-                <th width="30%">Number Payments Due</th>
+                <th width="30%">Number Payments Due - عدد الدفعات المالية</th>
                 <td width="2%">:</td>
                 <td>{{ My_Object.FS_NumberPaymentsDue }}</td>
               </tr>
               <tr>
-                <th width="30%">Bank Name</th>
+                <th width="30%">Bank Name - إسم البنك</th>
                 <td width="2%">:</td>
                 <td>{{ My_Object.FS_BankName }}</td>
               </tr>
               <tr>
-                <th width="30%">Bank Account</th>
+                <th width="30%">Bank Account - رقم الحساب</th>
                 <td width="2%">:</td>
                 <td>{{ My_Object.FS_BankAccount }}</td>
               </tr>
               <tr>
-                <th width="30%">Notes</th>
+                <th width="30%">Notes - الملاحظات</th>
                 <td width="2%">:</td>
                 <td>{{My_Object.FS_Notes }}</td>
               </tr>
@@ -166,13 +166,13 @@
   </div>
 		</div>
     </div>
-    <a href="{% url 'DatesReceivingMoneyPaymetsDetailIdURL' user.pk %} " role="button" style="float:lieft" class="btn btn-success">Next</a> <!-- Go To Home Page  -->
+    <a href="{% url 'DatesReceivingMoneyPaymetsDetailIdURL' user.pk %} " role="button" style="float:lieft" class="btn btn-success">Next - التالي</a> <!-- Go To Home Page  -->
     
-    <a href="{% url 'FinancialStatementsUpdateURL' user.pk %}" class="btn btn-primary">Edite</a>
+    <a href="{% url 'FinancialStatementsUpdateURL' user.pk %}" class="btn btn-primary">Edite - تعديل</a>
     
-    <a href="{% url 'index_pageURL' %}" role="button" style="float:lieft" class="btn btn-info">Close</a> <!-- Go To Home Page  -->
+    <a href="{% url 'index_pageURL' %}" role="button" style="float:lieft" class="btn btn-info">Close - إغلاق</a> <!-- Go To Home Page  -->
     
-    <a href="{% url 'PersonalDetailIdURL' user.pk %}" role="button" style="float:lieft" class="btn btn-success">Previous</a> <!-- Go To Home Page  -->
+    <a href="{% url 'PersonalDetailIdURL' user.pk %}" role="button" style="float:lieft" class="btn btn-success">Previous - السابق</a> <!-- Go To Home Page  -->
 
 
 </section>

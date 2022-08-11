@@ -11,7 +11,7 @@
 {% block Page_Title  %}
 
 <div class="row justify-content-center">
-<h1>Update My Personal Information</h1>
+<h1>Update My Personal Information - تحديث معلوماتي الشخصية</h1>
 </div>
 
 {% endblock Page_Title %}  
@@ -48,8 +48,8 @@
         {% comment %} {{ form|crispy }} {% endcomment %}
         {% include  "includes/data_validation_form.html" %} 
                 
-                <button type="submit" class="btn btn-success">Update</button>
-                <a href="{% url 'PersonalDetailIdURL' user.pk %}" class="btn btn-info">Cancel</a>
+                <button type="submit" class="btn btn-success">Update - تعديل</button>
+                <a href="{% url 'PersonalDetailIdURL' user.pk %}" class="btn btn-info">Cancel - إلغاء</a>
 </form>
 
 {% endblock Contents_Page %} 

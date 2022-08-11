@@ -10,7 +10,7 @@
 {% block Page_Title  %}
 
 <div class="row justify-content-center">
-<h1>My Profile Data Update Done</h1>
+<h1>My Profile Data Update Done - تم تحديث بيانات ملف التعريف الخاص بك</h1>
 </div>
 
 {% endblock Page_Title %}  
@@ -27,15 +27,13 @@
     <div class="card">
     <div class="card-body">
 
-<h4>Data Saved  Successfully .</h4>
+<h4>Data Saved  Successfully  - تم حفظ البيانات بنجاح.</h4>
 
-<p>   </p>
+<a href="{%  url 'PersonalDetailIdURL'  user.pk   %}" role="button" style="float:lieft" class="btn btn-success">Next -التالي</a> <!-- Go To Home Page  -->
 
-<a href="{%  url 'PersonalDetailIdURL'  user.pk   %}" role="button" style="float:lieft" class="btn btn-success">Next</a> <!-- Go To Home Page  -->
+<a href="{%  url 'index_pageURL'                       %}" role="button" style="float:lieft" class="btn btn-info">Close - إغلاق</a> <!-- Go To Home Page  -->
 
-<a href="{%  url 'index_pageURL'                       %}" role="button" style="float:lieft" class="btn btn-info">Close</a> <!-- Go To Home Page  -->
-
-<a href="{% url 'ProfileDetailIdURL' user.id %}" role="button" style="float:lieft" class="btn btn-success">Previous</a> <!-- Go To Home Page  -->
+<a href="{% url 'ProfileDetailIdURL' user.id %}" role="button" style="float:lieft" class="btn btn-success">Previous - السابق</a> <!-- Go To Home Page  -->
 
 </div>
 </div>

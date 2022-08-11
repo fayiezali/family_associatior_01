@@ -2,14 +2,14 @@ from django.contrib import admin
 # 
 from django.contrib.auth.models import User # إستيراد اسم المستخدم
 # 
-from sms.models import * #  استيراد كل المودل/الجداول من التطبيق المطلوب
+# from sms.models import * #  استيراد كل المودل/الجداول من التطبيق المطلوب
 # 
 from django.contrib.admin.decorators import display
-from .models import PreRegistration
-# Register your models here.
-@admin.register(PreRegistration)
-class PreRegistrationAdmin(admin.ModelAdmin):
-    list_display=['first_name','last_name']
+# from .models import PreRegistration
+# # Register your models here.
+# @admin.register(PreRegistration)
+# class PreRegistrationAdmin(admin.ModelAdmin):
+#     list_display=['first_name','last_name']
 
 
 

@@ -11,7 +11,7 @@
 
 
 {% block Page_Title  %}
-<h1> Dues Record List </h1>
+ <h1> Dues Record List - قائمة سجل المستحقات/h1>
 <!-- <h1>{{ now }}</h1> -- >
 {% endblock Page_Title %}  
 
@@ -143,7 +143,7 @@
 
                                 {% comment %} Personal Data {% endcomment %}
                                 <th class="sorting" tabindex="100" aria-controls="dataTable" rowspan="1"
-                                    colspan="1" aria-label="" style="">Full Name
+                                    colspan="1" aria-label="" style="">Full Name - الإسم رباعياً
                                 </th> 
 
                                 {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
@@ -170,10 +170,10 @@
 
                                 {% comment %} Financial Statemets Data {% endcomment %}
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                    colspan="1" aria-label="" style="">Subscription Amount
+                                    colspan="1" aria-label="" style="">Subscription Amount - مبلغ الإشتراك
                                 </th> 
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                    colspan="1" aria-label="" style="">Number Payments Due
+                                    colspan="1" aria-label="" style="">Number Payments Due - عدد الدفعات المالية المستحقة
                                 </th>                                   
                                 {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" aria-label="" style="">Bandk Name
@@ -187,13 +187,13 @@
 
                                 {% comment %} Dates Receiving Money Payments Data {% endcomment %}
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                    colspan="1" aria-label="" style="">Date Receiving Money Payments_Long
+                                    colspan="1" aria-label="" style="">Date Receiving Money Payments_Long - تاريخ إستلام الدفعة المالية - الشهر
                                 </th> 
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                    colspan="1" aria-label="" style="">Date Receiving Money Payments_Short
+                                    colspan="1" aria-label="" style="">Date Receiving Money Payments_Short - تاريخ إستلام الدفعات المالية - التاريخ
                                 </th> 
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                    colspan="1" aria-label="" style="">Notes-Dates Receiving Money Payments 
+                                    colspan="1" aria-label="" style="">Notes-Dates Receiving Money Payments - الملاحظات
                                 </th> 
 
                               </tr>
@@ -251,7 +251,7 @@
                               <span class="step-links">
                                   {% if page_obj.has_previous %}
                                       <a href="?page=1">&laquo; first</a>
-                                      <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                                      <a href="?page={{ page_obj.previous_page_number }}">previous - السابق</a>
                                   {% endif %}
 
                                   <span class="current">
@@ -259,7 +259,7 @@
                                   </span>
 
                                   {% if page_obj.has_next %}
-                                      <a href="?page={{ page_obj.next_page_number }}">next</a>
+                                      <a href="?page={{ page_obj.next_page_number }}">next - التالي</a>
                                       <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
                                   {% endif %}
                               </span>

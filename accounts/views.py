@@ -21,7 +21,7 @@ from django.urls import reverse_lazy , reverse
 from django.db.models import Q # new
 from django.http import JsonResponse
 from django.contrib import messages
-from accounts.models import PersonalsMODEL , FinancialStatementsMODEL , DatesReceivingMoneyPaymentsMODEL
+from accounts.models import PersonalsMODEL , FinancialStatementsMODEL , DatesReceivingMoneyPaymentsMODEL , SubscribersDesiresMODEL
 UserModel = get_user_model()
 import pywhatkit as pwt # Send messages To WhatsApp
 import random
@@ -374,7 +374,7 @@ class ProfileUpdateCLASS(UpdateView):
         template_name = 'registration/profile_update.html'# The Page HTML to Display
         success_url = reverse_lazy('ProfileUpdateDoneURL')# Go to This Page After Successful Operation
         fields = [ # Fields Table
-            'username',
+            # 'username',
             'first_name',
             'last_name',
             'email',
@@ -438,7 +438,7 @@ class PersonalDataUpdateCLASS(UpdateView):
         fields = [ # Fields Table
 
             # 'P_User'                ,
-            'slug'                  ,
+            # 'slug'                  ,
             'P_FirstName'             ,
             'P_GrandFatherName'       ,
             'P_FamilyName'            ,
@@ -512,6 +512,45 @@ class DatesReceivingMoneyPamentsUpdateDoneCLASS(TemplateView):
 #
 #
 #
+# Display Detail Record By: ID
+class SubscribersDesiresCLASS(LoginRequiredMixin , DetailView):
+    model = SubscribersDesiresMODEL # Data Table
+    slug_field = 'pk' # Filter Field Use 'PK"
+    context_object_name = 'My_Object' # Data To Be Sent To Page HTML
+    template_name = 'registration/subscribers_desires_detail_id.html'# The Page HTML to Display
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # from twilio.rest import Client
 # account_sid=''
 # auth_token =''

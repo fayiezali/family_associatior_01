@@ -411,7 +411,6 @@ class  SubscribersDesiresMODEL(models.Model):
     SD_Desire_first   = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="الرغبة الأولى"     , choices=MONTH_NAME , default=NO , help_text='Required Field')
     SD_Desire_second  = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="الرغبة الثانية"    , choices=MONTH_NAME , default=NO , help_text='Required Field')
     SD_Desire_third   = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="الرغبة الثالثة"    , choices=MONTH_NAME , default=NO , help_text='Required Field')
-
     SD_Notes                             = models.CharField(max_length=100                                    , db_index=True , blank=True   , null=True   , verbose_name="الملاحظات")
     # Display The Name Of This Field In The Admin Page
     def __str__(self):
@@ -434,7 +433,7 @@ class  SubscribersDesiresMODEL(models.Model):
     # post_save:  ""   ""  يتم تنفيذ  حدث اخر بعده  "Save" كلاس فكرته: ان بمجرد تنفيذ عملية الحفظ
     def create_subscribers_desires(sender, **kwargs):
         if kwargs['created']: #'created' إذا كان هناك بيانات تم إستقبالها اطبع هذه الكلمة
-            SubscribersDesiresMODEL.objects.create(DRMP_User=kwargs['instance']) #التي أستقبلتها "'instance'"جديد بناء على  معلومات المستخدم "PersonalData_MODEL" قم بإنشاء ملف
+            SubscribersDesiresMODEL.objects.create(SD_User=kwargs['instance']) #التي أستقبلتها "'instance'"جديد بناء على  معلومات المستخدم "PersonalData_MODEL" قم بإنشاء ملف
     # "" "user"والمستخدم  "post_save" الربط بين الفانكشن
     post_save.connect(create_subscribers_desires , sender=User)
 

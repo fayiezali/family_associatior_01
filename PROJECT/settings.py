@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     #  Home Pages Application
     'home',
     # Application Send messages
-    'sms',
+    # 'sms',
     # 'social_django',# 04 Login With Social Media(Facebook , Instagram ,......)
     # 'django_countries',# تطبيق معد مسبقاً يحتوي على جميع اسماء دول العالم
     'phonenumber_field',

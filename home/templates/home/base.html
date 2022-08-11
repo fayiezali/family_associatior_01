@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title> Family Fssociatior</title>
+    <title> Family Fssociatior - الجمعية العائلية</title>
     
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css'           %}" >
@@ -40,8 +40,7 @@
 <header id="header">
 <div class="logo">
                 <a
-                href="{% url 'index_pageURL' %}"> Family Fssociatior 
-                </a> 
+                href="{% url 'index_pageURL' %}"> Family Fssociatior - الجمعية العائلية    </a> 
 <!--- Base.html - Title_Page Start  ----------------------------- -->
 
 <!--- Base.html - Title_Page End' ------------------------------- -->
@@ -93,12 +92,14 @@
 
 {% if  user.is_authenticated %}
 
-<p  class="mt-0">  Welcome (  {{ user.username }}  ) </p>
-<li><a href="{% url 'index_pageURL'            %}">(1) - Home page</a></li>
-<li><a href="{% url 'ProfileListViewSearchURL' %}">(2) - All  Subscribers</a></li>
-<li><a href="{% url 'about_pageURL'            %}">(3) - About Us </a></li>
-<li><a href="{% url 'contact_pageURL'          %}">(4) - Contact Us </a></li>
-<li><a href="{% url 'LogoutConfirmURL'                  %}">(5) - Logout </a></li>
+<p  class="mt-0">  Welcome -مرحبا (  {{ user.username }} ) </p>
+
+
+<li><a href="{% url 'index_pageURL'            %}">(1) - Home page - الصفحة الرئيسية</a></li>
+<li><a href="{% url 'ProfileListViewSearchURL' %}">(2) - All  Subscribers - كل المشتركين</a></li>
+<li><a href="{% url 'about_pageURL'            %}">(3) - About Us  - معلومات عنا</a></li>
+<li><a href="{% url 'contact_pageURL'          %}">(4) - Contact Us - أتصل بنا</a></li>
+<li><a href="{% url 'LogoutConfirmURL'         %}">(5) - Logout  - الخروج</a></li>
 
 
 <!--  Base.html - Menu_Page Start- ---------------------------- -->
@@ -107,24 +108,24 @@
             
             <ul>
                 <li>
-                <span class="opener">(A) - Acoount</span>
+                <span class="opener">(A) -My Acoount - حسابي</span>
                 <ul>
-                    <li><a href="{% url 'password_reset'           %}">1- Password Reset</a></li>
-                    <li><a href="{% url 'password_change'          %}">2- Password Change</a></li>
-                    <li><a href="{% url 'ProfileDeleteURL' user.pk %}">3- Delete Profile</a></li>
+                    <li><a href="{% url 'password_reset'           %}">1- Password Reset - إعادة تعيين كلمة المرور</a></li>
+                    <li><a href="{% url 'password_change'          %}">2- Password Change - تغيير كلمة المرور</a></li>
+                    <li><a href="{% url 'ProfileDeleteURL' user.pk %}">3- Delete Profile - حذف الحساب</a></li>
 
                 </ul>
                 </li>
                                 
                 <li>
-                <span class="opener">(B) - Profile</span>
+                <span class="opener">(B) - My Profile - الملف  الشخصي</span>
                 <ul>
-                    <li><a href="{% url 'ProfileDetailIdURL'                        user.pk  %}">1- Basic Data</a></li>
-                    <li><a href="{% url 'PersonalDetailIdURL'                       user.pk  %}">1- Personal Data</a></li>
-                    <li><a href="{% url 'FinancialStatementsDetailIdURL'            user.pk  %}">2- Financial Statements Data</a></li>
-                    <li><a href="{% url 'DatesReceivingMoneyPaymetsDetailIdURL'     user.pk  %}">3- Dates Receiving Money Payments Data</a></li>
-                    <li><a href="{% url 'dues_record_list_views_searchURL'                   %}">4- Dues Record</a></li>
-                    {% comment %} <li><a href="{% url 'saveURL'                   %}">5- Save/a></li> {% endcomment %}
+                    <li><a href="{% url 'ProfileDetailIdURL'                        user.pk  %}">1- Basic Data - البيانات الأساسية</a></li>
+                    <li><a href="{% url 'PersonalDetailIdURL'                       user.pk  %}">1- Personal Data -البياننات الشخصية</a></li>
+                    <li><a href="{% url 'FinancialStatementsDetailIdURL'            user.pk  %}">2- Financial Statements Data - بيانات القوائم المالية</a></li>
+                    <li><a href="{% url 'DatesReceivingMoneyPaymetsDetailIdURL'     user.pk  %}">3- Dates Receiving Money Payments Data - تواريخ إستلام الدفعات المالية</a></li>
+                    <li><a href="{% url 'dues_record_list_views_searchURL'                   %}">4- Dues Record سجل المستحقات المالية</a></li>
+                    <li><a href="{% url 'SubscribersDesiresURL'                     user.pk  %}">5- Subscriber Desires - رغبات المشترك</a></li>
 
                     
                 </ul>
@@ -156,7 +157,7 @@
             </nav>
             {% endif %}
 <!--  Base.html - Menu_Page Start- ---------------------------- -->
-OTPAdmin
+
     
     <!-- {% block Pagination %}
     

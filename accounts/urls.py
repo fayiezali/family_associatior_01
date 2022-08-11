@@ -65,7 +65,7 @@ urlpatterns += [
 # PROFILE DATA:-------------------------------------------------------------------------------------------------------
 urlpatterns += [
         # Signup And Confirm Registration With Email
-        # path('signup/'                            , views.SignupCLASS.as_view()                       , name='SignupURL'),
+        path('signup/'                            , views.SignupCLASS.as_view()                       , name='SignupURL'),
         # Active Registration Withe Email.
         path('activate/<uidb64>/<token>/'         , views.ActivateCLASS.as_view()                     , name='ActivateURL'),
         # View  Record Details  By (ID)
@@ -132,7 +132,10 @@ urlpatterns +=[
         # path('save/'  ,views.save()   , name='saveURL'),
         #*********************************************************************************
 ]
-
+# SUBSCRIBERS DESIRES DATA:-------------------------------------------------------------------------------------------------------
+urlpatterns += [
+        path('subscribers_desires_detail_id/<int:pk>/'         , views.SubscribersDesiresCLASS.as_view()              , name='SubscribersDesiresURL'),
+]
 
 
 # urlpatterns += [
@@ -143,9 +146,3 @@ urlpatterns +=[
 #     path('dmenu',views.dynamic_menu,name='dmenu')
 # ]
 
-# PROFILE DATA:-------------------------------------------------------------------------------------------------------
-urlpatterns += [
-        # Signup And Confirm Registration With Email
-        path('signup/'   , views.SignupCLASS.as_view()     , name='SignupURL'),
-        # path('signup/'   , views.signup     , name='SignupURL'),
-]

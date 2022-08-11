@@ -47,7 +47,6 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = User # Data Table
         fields = [ # Fields Table
-            'username',
             'first_name', 
             'last_name', 
             'email',

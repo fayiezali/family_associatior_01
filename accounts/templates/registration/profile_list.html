@@ -11,7 +11,7 @@
 
 
 {% block Page_Title  %}
-<h1>All  Subscribers</h1>
+<h1>All  Subscribers - قائمة المشتركين</h1>
 <!-- <h1>{{ now }}</h1> -- >
 {% endblock Page_Title %}  
 
@@ -112,22 +112,22 @@
                                       colspan="1" aria-label="" style="">Image
                                   </th> -->
                                   <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                      colspan="1" aria-label="" style="">ID User
+                                      colspan="1" aria-label="" style="">ID User - رقم المعرف الشخصي
                                   </th>
                                   {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                       colspan="1" aria-label="" style="">User Name
                                   </th> {% endcomment %}
                                   <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                      colspan="1" aria-label="" style="">First Name
+                                      colspan="1" aria-label="" style="">First Name - الإسم الأول
                                   </th>
                                   <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                      colspan="1" aria-label="" style="">Last Name
+                                      colspan="1" aria-label="" style="">Last Name - الإسم الأخير
                                   </th>
                                   <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                      colspan="1" aria-label="" style="">Email Address
+                                      colspan="1" aria-label="" style="">Email Address - الإيميمل
                                   </th>
                                   <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                      colspan="1" aria-label="" style="">Active Status
+                                      colspan="1" aria-label="" style="">Active Status - حالة حساب المشترك
                                   </th>
                                   {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                       colspan="1" aria-label="" style="">Staff Status
@@ -136,7 +136,7 @@
                                       colspan="1" aria-label="" style="">Superuser Status
                                   </th> {% endcomment %}
                                   <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                      colspan="1" aria-label="" style="">Date Joined
+                                      colspan="1" aria-label="" style="">Date Joined - تاريخ الإشتراك
                                   </th>
                                   {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                       colspan="1" aria-label="" style="">Last Login
@@ -195,8 +195,8 @@
                           <div class="pagination">
                               <span class="step-links">
                                   {% if page_obj.has_previous %}
-                                      <a href="?page=1">&laquo; first</a>
-                                      <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                                      <a href="?page=1">&laquo; first - الأول</a>
+                                      <a href="?page={{ page_obj.previous_page_number }}">previous - السابق</a>
                                   {% endif %}
 
                                   <span class="current">
@@ -204,8 +204,8 @@
                                   </span>
 
                                   {% if page_obj.has_next %}
-                                      <a href="?page={{ page_obj.next_page_number }}">next</a>
-                                      <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                                      <a href="?page={{ page_obj.next_page_number }}">next - التالي</a>
+                                      <a href="?page={{ page_obj.paginator.num_pages }}">last - الأخير &raquo;</a>
                                   {% endif %}
                               </span>
                           </div>

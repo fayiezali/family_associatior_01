@@ -34,9 +34,9 @@ urlpatterns = [
 ]
 #
 # Path App sms
-urlpatterns += [
-    path('sms/', include('sms.urls')), # This Path I was Created From My App
-]
+# urlpatterns += [
+#     path('sms/', include('sms.urls')), # This Path I was Created From My App
+# ]
 # Path App Accounts
 urlpatterns += [
     path('accounts/', include('accounts.urls')), # This Path I was Created From My App
@@ -50,3 +50,13 @@ urlpatterns += [
     
 ] 
 #
+#
+#
+#
+if settings.DEBUG is True:
+    # (13) Step:----->(14) Step:-----> base.html
+    # لكي يستطيع المشروع الوصول إليها"static" تعريف ملفات مجلد 
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    # (25) Step:----->(26) Step:-----> account/templates/user/show_user_profile_list.html
+    # لكي يستطيع المشروع الوصول إليها"media" تعريف ملفات مجلد 
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
