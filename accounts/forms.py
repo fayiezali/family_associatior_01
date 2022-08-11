@@ -31,11 +31,11 @@ class SignUpForm(UserCreationForm):
         # Table Fields
         fields     = {'username','password2','password1','email'}  
         #-------------
-        labels     = {'username' : ('User Name')} # change the Field Title
-        labels     = {'Password1': ('Password')} # change the Field Title
-        labels     = {'password2': ('Confirm Passwoerd')} # change the Field Title
+        labels     = {'username' : ('User Name - إسم المستخدم')} # change the Field Title
+        labels     = {'Password1': ('Password - كلمة المرور')} # change the Field Title
+        labels     = {'password2': ('Confirm Passwoerd - تأكيد كلمة المرور')} # change the Field Title
         #-------------
-        help_texts = {'email'    : ('Please Enter a Valid Email.')}  
+        help_texts = {'email'    : ('Please Enter a Valid Email - الرجاء إدخال بريد إلكتروني صحيح.')}  
         # help_texts = {'Mobile'   : ('Please Enter a Valid Mobile.')}   
     #
 #
@@ -47,8 +47,8 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = User # Data Table
         fields = [ # Fields Table
-            'first_name', 
-            'last_name', 
+            # 'first_name', 
+            # 'last_name', 
             'email',
             ]
 #

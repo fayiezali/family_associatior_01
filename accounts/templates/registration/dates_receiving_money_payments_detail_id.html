@@ -158,7 +158,7 @@
     </div>
     <a href="{% url 'SubscribersDesiresURL'                 user.pk  %}" role="button" style="float:lieft" class="btn btn-success">Next - التالي</a> <!-- Go To Home Page  -->
 
-    <a href="{% url 'DatesReceivingMoneyPamentsUpdateURL'  My_Object.pk %}" class="btn btn-primary">Edite - تعديل</a>
+    {% comment %} <a href="{% url 'DatesReceivingMoneyPamentsUpdateURL'  My_Object.pk %}" class="btn btn-primary">Edite - تعديل</a> {% endcomment %}
     
     <a href="{% url 'index_pageURL' %}" role="button" style="float:lieft" class="btn btn-info">Close - إغلاق</a> <!-- Go To Home Page  -->
 

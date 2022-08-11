@@ -134,7 +134,12 @@ urlpatterns +=[
 ]
 # SUBSCRIBERS DESIRES DATA:-------------------------------------------------------------------------------------------------------
 urlpatterns += [
-        path('subscribers_desires_detail_id/<int:pk>/'         , views.SubscribersDesiresCLASS.as_view()              , name='SubscribersDesiresURL'),
+        # View Record Details By (ID)
+        path('subscribers_desires_detail_id/<int:pk>/'         , views.SubscribersDesiresDetailIdCLASS.as_view()      , name='SubscribersDesiresDetailIdURL'),
+        # Update Record
+        path('subscribers_desires_update/<int:pk>/'            , views.SubscribersDesiresUdateCLASS.as_view()         , name='SubscribersDesiresUdateURL'),
+        # Checkout Confirmed Successfull
+        path('subscribers_desires_update_done/'                , views.SubscribersDesiresUdateDoneCLASS.as_view()     , name='SubscribersDesiresUdateDoneURL'),
 ]
 
 

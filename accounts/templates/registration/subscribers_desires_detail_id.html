@@ -156,9 +156,9 @@
 		</div>
     </div>
     
-    <a href="{%  url 'PersonalDetailIdURL' My_Object.id   %}" role="button" style="float:lieft" class="btn btn-success">Next - التالي</a> <!-- Go To Next Page  -->
+    {% comment %} <a href="{%  url 'PersonalDetailIdURL' My_Object.id   %}" role="button" style="float:lieft" class="btn btn-success">Next - التالي</a> <!-- Go To Next Page  --> {% endcomment %}
 
-    <a href="{% url 'ProfileUpdateURL' My_Object.id %}" class="btn btn-primary">Edite - تعديل</a>
+    <a href="{% url 'SubscribersDesiresUdateURL' My_Object.id %}" class="btn btn-primary">Edite - تعديل</a>
     
     <a href="{%  url 'index_pageURL'    %}" role="button" style="float:lieft" class="btn btn-info">Close - إغلاق</a> <!-- Go To Home Page  -->
 

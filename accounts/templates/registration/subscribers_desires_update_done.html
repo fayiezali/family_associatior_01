@@ -1,0 +1,46 @@
+
+{% extends "home/base.html" %}  
+{% load static %}
+
+
+
+
+
+
+{% block Page_Title  %}
+
+<div class="row justify-content-center">
+<h1> Update Desires Of Dates For Receipt Of Funds Done- تم تحديث رغبات مواعيد إستلام المبالغ المالية </h1>
+
+</div>
+
+{% endblock Page_Title %}  
+
+
+
+
+
+
+{% block Contents_Page %} 
+
+<div class="row justify-content-center">
+    <div class="col-5">
+    <div class="card">
+    <div class="card-body">
+
+<h4>Data Saved  Successfully  - تم حفظ البيانات بنجاح.</h4>
+
+<p></p>
+
+
+<a href="{%  url 'FinancialStatementsDetailIdURL' user.pk   %}" role="button" style="float:lieft" class="btn btn-success">Previous - السابق</a> <!-- Go To Home Page  -->
+
+<a href="{% url 'index_pageURL'%}" role="button" style="float:lieft" class="btn btn-info">Finish - النهاية</a> <!-- Go To Home Page  -->
+
+
+</div>
+</div>
+</div>
+</div>
+
+{% endblock Contents_Page %} 

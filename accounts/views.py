@@ -375,8 +375,8 @@ class ProfileUpdateCLASS(UpdateView):
         success_url = reverse_lazy('ProfileUpdateDoneURL')# Go to This Page After Successful Operation
         fields = [ # Fields Table
             # 'username',
-            'first_name',
-            'last_name',
+            # 'first_name',
+            # 'last_name',
             'email',
             # 'last_login',
             # 'is_superuser',
@@ -471,7 +471,7 @@ class FinancialStatementsUpdateCLASS(UpdateView):
             ''
             # 'FS_User'               ,
             'FS_SubscriptionAmount' ,
-            'FS_NumberPaymentsDue'  ,
+            # 'FS_NumberPaymentsDue'  ,
             'FS_BankName'           ,
             'FS_BankAccount'        ,
             'FS_Notes'              ,
@@ -513,11 +513,33 @@ class DatesReceivingMoneyPamentsUpdateDoneCLASS(TemplateView):
 #
 #
 # Display Detail Record By: ID
-class SubscribersDesiresCLASS(LoginRequiredMixin , DetailView):
+class SubscribersDesiresDetailIdCLASS(LoginRequiredMixin , DetailView):
     model = SubscribersDesiresMODEL # Data Table
     slug_field = 'pk' # Filter Field Use 'PK"
     context_object_name = 'My_Object' # Data To Be Sent To Page HTML
     template_name = 'registration/subscribers_desires_detail_id.html'# The Page HTML to Display
+#
+#
+#
+# # Update Profile.
+class SubscribersDesiresUdateCLASS(UpdateView):
+        model = SubscribersDesiresMODEL # Data Table
+        template_name = 'registration/subscribers_desires_update.html'# The Page HTML to Display
+        success_url = reverse_lazy('SubscribersDesiresUdateDoneURL')# Go to This Page After Successful Operation
+        fields = [ # Fields Table
+
+            # 'SD_User'            ,
+            'SD_Desire_first'      ,
+            'SD_Desire_second'     ,
+            'SD_Desire_third'      ,
+            'SD_Notes'             ,
+            ]
+#
+#
+#
+# Display Dates Receiving Money Paments Udate Done
+class SubscribersDesiresUdateDoneCLASS(TemplateView):
+    template_name = 'registration/subscribers_desires_update_done.html' # The Page HTML to Display
 
 
 
