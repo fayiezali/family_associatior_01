@@ -93,6 +93,8 @@
 {% if  user.is_authenticated %}
 
 <p  class="mt-0">  Welcome -مرحبا (  {{ user.username }} ) </p>
+<p  class="mt-0">  Last login: - أخر دخول (  {{ user.last_login }} ) </p>
+
 
 
 <li><a href="{% url 'index_pageURL'            %}">(1) - Home page - الصفحة الرئيسية</a></li>

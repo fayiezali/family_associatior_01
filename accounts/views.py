@@ -287,13 +287,12 @@ class ProfileListViewSearchCLASS(LoginRequiredMixin , ListView):
         query = self.request.GET.get('q')# Save Searvh Criterian In a Variable
         if query:
             # Save Search Results In a Variable
-            queryset_users_list_CONTEXT = User.objects.filter( Q(id__icontains=query)|Q(first_name__icontains=query)|Q(last_name__icontains=query)|Q(email__icontains=query)|Q(is_active__icontains=query)
-
-            # Q(id__icontains=query)          |# ID Number
-            # Q(first_name__icontains=query)  |# First Name
-            # Q(last_name__icontains=query)   |# Last Name
-            # Q(email__icontains=query)       | # Email
-            # Q(is_active__icontains=query)    # User Is Active
+            queryset_users_list_CONTEXT = User.objects.filter( 
+                                            # Q(id__icontains=query)          |# ID Number
+                                            Q(first_name__icontains=query)  |# First Name
+                                            Q(last_name__icontains=query)   |# Last Name
+                                            Q(email__icontains=query)        # Email
+                                            # Q(is_active__icontains=query)    # User Is Active
 
         )
         return queryset_users_list_CONTEXT  # Send Search Results To The Disired  Page HTML
@@ -440,6 +439,7 @@ class PersonalDataUpdateCLASS(UpdateView):
             # 'P_User'                ,
             # 'slug'                  ,
             'P_FirstName'             ,
+            'P_FatherName'            ,
             'P_GrandFatherName'       ,
             'P_FamilyName'            ,
             'P_Photo'                 ,

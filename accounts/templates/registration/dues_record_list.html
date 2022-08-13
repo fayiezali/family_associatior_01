@@ -11,7 +11,9 @@
 
 
 {% block Page_Title  %}
- <h1> Dues Record List - قائمة سجل المستحقات/h1>
+<h1> Dues Record List </h1>
+<h1> قائمة سجل المستحقات</h1>
+
 <!-- <h1>{{ now }}</h1> -- >
 {% endblock Page_Title %}  
 
@@ -211,7 +213,7 @@
                                         <td> {{ tables.date_joined }}</td> {% endcomment %}
         
                                         {% comment %} Personal Madel {% endcomment %}
-<td> {{ tables.personalsmodel__P_FirstName}}  بن {{ tables.personalsmodel__P_FatherName}} بن {{ tables.personalsmodel__P_GrandFatherName}}  {{ tables.personalsmodel__P_FamilyName}}</td>    
+<td> {{ tables.personalsmodel__P_FirstName}}   {{ tables.personalsmodel__P_FatherName}}  {{ tables.personalsmodel__P_GrandFatherName}}  {{ tables.personalsmodel__P_FamilyName}}</td>    
                                         {% comment %} <td> {{ tables.personalsmodel__P_FirstName       }}</td>  {% endcomment %}
                                         {% comment %} <td> {{ tables.personalsmodel__P_FatherName      }}</td> {% endcomment %}
                                         {% comment %} <td> {{ tables.personalsmodel__P_GrandFatherName }}</td> {% endcomment %}
@@ -234,11 +236,13 @@
                                         <td> {{ tables.datesreceivingmoneypaymentsmodel__DRMP_DateReceivingMoneyPayments_Short  | date:"Y-m-d" }}</td>
                                         <td> {{ tables.datesreceivingmoneypaymentsmodel__DRMP_Notes                            }}</td>
                                         {% comment %} </tr> {% endcomment %}
-                        {% empty %}
-                     <li><h4>No Matching Records!</h4></li>
-
-                        {% endfor %}
-
+                                        {% empty %}
+                              
+                                        <li><h4>No Search Results For This Query!</h4></li> 
+                                        <li><h4> لا توجد نتائج بحث لهذا الاستعلام</h4></li>
+                                       
+                                           {% endfor %}
+          
                               </tbody>
                           </table>
                       </div>

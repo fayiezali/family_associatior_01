@@ -11,7 +11,9 @@
 {% block Page_Title  %}
 
 <div class="row justify-content-center">
-<h1>Finish Registration</h1>
+<h1>Finish Registration </h1>
+<h1>نهاية التسجيل</h1>
+
 </div>
 
 {% endblock Page_Title %}  
@@ -48,9 +50,11 @@
     <div class="card">
     <div class="card-body">
     
-<h4> Confirm Account successfully . -  تم تنشيط الحساب بنجاح</h4>
+<h4> Confirm Account successfully</h4>
+<h4>  تم تنشيط الحساب بنجاح</h4>
+
 <p>Thank You ( {{ message }} ) For Your Email Confirmation. Now You can Login YOur Account </p>
-<p> على تنشيط حسابك يمكنك الآن تسجيل الدخول  ( {{ message }} )شكراً </p>
+<p> شكراً على تنشيط حسابك يمكنك الآن تسجيل الدخول  ( {{ message }} ) </p>
 
 <a href="{% url 'login' %}" role="button" style="float:lieft" class="btn btn-success">Re-Login - تسجيل الدخول</a><!-- Go To Login Page  -->
 

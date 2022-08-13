@@ -32,7 +32,7 @@ import pyautogui
 # Send OTP
 import random
 #
-
+from django.utils.safestring import mark_safe
 # from django.utils.translation import ugettext_lazy as _
 ####################################
 # (1)Personal Data
@@ -49,11 +49,11 @@ class PersonalsMODEL(models.Model):
     # P_Mobile                 = PhoneNumberField(unique=True                      , db_index=True , blank=False , null=False , verbose_name="الجوال")
     P_Mobile                 = PhoneNumberField(                                   db_index=True , blank=False , null=False , verbose_name="الجوال"              , default='+966555555555')
     P_Address                = models.CharField(max_length=100                   , db_index=True , blank=False , null=False ,verbose_name="العنوان")
-    P_Notes                  = models.CharField(max_length=100                   , db_index=True , blank=True  , null=True  , verbose_name="الملاحظات")
+    P_Notes                  = models.CharField(max_length=100                   , db_index=True , blank=True  , null=True  , verbose_name="الملاحظات"            , default='-')
 #
     # 'admin'عرض إسم الحقل في صفحة
     def __str__(self):
-        return str(self.P_User)
+        return str(self.P_User) 
     #
     # 'Z-A' ترتيب تنازلي
     class Meta:
@@ -63,6 +63,17 @@ class PersonalsMODEL(models.Model):
         # The Name of the Model That Will Be Displayed In The Admin Page
         # verbose_name      = _('Personal')
         verbose_name_plural = 'Personal'
+    #
+    # 'admin'عرض الصورة في صفحة
+    def image_tag(self):
+        return mark_safe('<img src="{}" height="50"/>'.format(self.P_Photo.url))  # 'admin'عرض حقل الصورة في صفحة
+    image_tag.short_description='الصورة'  # 'admin'عرض إسم الصورة في صفحة
+    #
+    # 'admin'عرض إسم المستخدم رباعياً في صفحة
+    def full_name(self):
+        return str(self.P_FirstName + ' ' + self.P_FatherName + ' ' + self.P_GrandFatherName + ' ' + self.P_FamilyName)
+    full_name.short_description='الإسم رباعيا'  # 'admin'عرض إسم الصورة في صفحة
+
 #
     # create_profile: للمستخدم الجديد "profile"دالة تقوم بإنشاء
     # sender: هي فانكش/دالة تقوم بمتابعة الملف الذي ترتبط به فبمجرد قيام الملف المرتبطة به بحدث ما تقوم بتفيذ الكود الموجود فيها
@@ -207,7 +218,7 @@ class  FinancialStatementsMODEL(models.Model):
     FS_NumberPaymentsDue       = models.IntegerField(default=1                                      , db_index=True , blank=False  , null=False  , verbose_name="عدد الدفعات")
     FS_BankName                = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="إسم البنك")
     FS_BankAccount             = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="الحساب البنكي - الآيبان")
-    FS_Notes                   = models.CharField(max_length=100                                    , db_index=True , blank=True   , null=True   , verbose_name="الملاحظات")
+    FS_Notes                   = models.CharField(max_length=100                                    , db_index=True , blank=True   , null=True   , verbose_name="الملاحظات"                 , default='-')
     #
     # 'admin'عرض إسم الحقل في صفحة
     def __str__(self):
@@ -307,9 +318,9 @@ class  DatesReceivingMoneyPaymentsMODEL(models.Model):
     #
     #
     DRMP_User                              = models.ForeignKey(User         , on_delete=models.CASCADE                                                       , verbose_name="اسم المشترك")
-    DRMP_DateReceivingMoneyPayments_Long   = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="موعد إستلام المال - بالشهر"     , choices=MONTH_NAME , default=NO , help_text='Required Field')
-    DRMP_DateReceivingMoneyPayments_Short  = models.DateField(                                                    db_index=True , blank=True   , null=True   , verbose_name="موعد إستلام المال - بالتاريخ"                                     , help_text='Required Field')
-    DRMP_Notes                             = models.CharField(max_length=100                                    , db_index=True , blank=True   , null=True   , verbose_name="الملاحظات")
+    DRMP_DateReceivingMoneyPayments_Long   = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="موعد إستلام المال - بالشهر"     , choices=MONTH_NAME , default=NO          , help_text='Required Field')
+    DRMP_DateReceivingMoneyPayments_Short  = models.DateField(                                                   db_index=True , blank=True   , null=True   , verbose_name="موعد إستلام المال - بالتاريخ"                         ,default=date.today   , help_text='Required Field')
+    DRMP_Notes                             = models.CharField(max_length=100                                    , db_index=True , blank=True   , null=True   , verbose_name="الملاحظات"                                           , default='-')
     # Display The Name Of This Field In The Admin Page
     def __str__(self):
         return str(self.DRMP_DateReceivingMoneyPayments_Long)
@@ -411,7 +422,7 @@ class  SubscribersDesiresMODEL(models.Model):
     SD_Desire_first   = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="الرغبة الأولى"     , choices=MONTH_NAME , default=NO , help_text='Required Field')
     SD_Desire_second  = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="الرغبة الثانية"    , choices=MONTH_NAME , default=NO , help_text='Required Field')
     SD_Desire_third   = models.CharField(max_length=50                                     , db_index=True , blank=False  , null=False  , verbose_name="الرغبة الثالثة"    , choices=MONTH_NAME , default=NO , help_text='Required Field')
-    SD_Notes                             = models.CharField(max_length=100                                    , db_index=True , blank=True   , null=True   , verbose_name="الملاحظات")
+    SD_Notes                             = models.CharField(max_length=100                 , db_index=True , blank=True   , null=True   , verbose_name="الملاحظات"                               , default='-')
     # Display The Name Of This Field In The Admin Page
     def __str__(self):
         return str(self.SD_Desire_first)

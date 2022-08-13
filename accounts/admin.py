@@ -37,20 +37,20 @@ from django_otp.plugins.otp_totp.models import TOTPDevice
 class PersonalsADMIN(admin.ModelAdmin): # The class has been inherited as an addict in order to make a modification / customization 
         #
         # Add a Search Box With The Fields Below:
-        search_fields = ('P_User','P_FirstName', 'P_FatherName', 'P_GrandFatherName','P_FamilyName','P_Mobile')
+        search_fields = ('P_User','P_FirstName', 'P_FatherName', 'P_GrandFatherName','P_FamilyName','P_Mobile' , 'image_tag', 'full_name')
         #
         #
         # Automatically Fill In Slug Field From Variable (FullName)
-        FullName = {
-        "slug": # Slug Field
-        [
-        'P_FirstName'       , 
-        'P_FatherName'      ,
-        'P_GrandFatherName' ,
-        'P_FamilyName'
-        ]
-        } # ملئ حقل السلاق تلقائياَمن بيانات حقل اﻷسم الاول+الاب+الجد+العائلة
-        prepopulated_fields = FullName
+        # FullName = {
+        # "slug": # Slug Field
+        # [
+        # 'P_FirstName'       , 
+        # 'P_FatherName'      ,
+        # 'P_GrandFatherName' ,
+        # 'P_FamilyName'
+        # ]
+        # } # ملئ حقل السلاق تلقائياَمن بيانات حقل اﻷسم الاول+الاب+الجد+العائلة
+        # prepopulated_fields = FullName
         #
         # 
         # Add a Filter Box
@@ -63,7 +63,9 @@ class PersonalsADMIN(admin.ModelAdmin): # The class has been inherited as an add
         # Show Fields a List
         list_display = (
         'P_User'                  , 
-        'slug'                  ,
+        'slug'                    ,
+        'full_name'               ,
+        'image_tag'               ,
         'P_FirstName'             ,
         'P_FatherName'            ,
         'P_GrandFatherName'       ,

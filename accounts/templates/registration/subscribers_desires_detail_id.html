@@ -13,7 +13,9 @@
 {% block Page_Title  %}
 
 <div class="row justify-content-center">
-<h1>Step (5)  Desires Of Dates For Receipt Of Funds - رغبات مواعيد إستلام المبالغ المالية </h1>
+<h1>Step (5)  Desires Of Dates For Receipt Of Funds </h1>
+<h1> الخطوة (5) رغبات مواعيد إستلام المبالغ المالية </h1>
+
 </div>
 
 {% endblock Page_Title %}  
@@ -161,6 +163,8 @@
     <a href="{% url 'SubscribersDesiresUdateURL' My_Object.id %}" class="btn btn-primary">Edite - تعديل</a>
     
     <a href="{%  url 'index_pageURL'    %}" role="button" style="float:lieft" class="btn btn-info">Close - إغلاق</a> <!-- Go To Home Page  -->
+
+    <a href="{%  url 'DatesReceivingMoneyPaymetsDetailIdURL'      user.pk %}" role="button" style="float:lieft" class="btn btn-success">Previous - السابق</a> <!-- Go To Home Page  -->
 
 
 

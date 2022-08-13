@@ -11,7 +11,9 @@
 
 
 {% block Page_Title  %}
-<h1>All  Subscribers - قائمة المشتركين</h1>
+<h1>All  Subscribers </h1>
+<h1>قائمة المشتركين</h1>
+
 <!-- <h1>{{ now }}</h1> -- >
 {% endblock Page_Title %}  
 
@@ -75,12 +77,18 @@
 
 <br>
 <!-- Base.html - Search Box Start ------------------------------ -->
+<form action="{% url 'ProfileListViewSearchURL' %}" method="GET" value="{{request.GET.q}}">
+    <input type="text" name="q" value="{{request.GET.q}}" placeholder="Searching For a Subscriber - البحث عن مشترك" >
+    <input class="btn btn-secondary" type="submit" name="submit" value="Search - البحث"/>
+</form>
+    
 
+            {% comment %} 
             <section id="search" class="alt"> 
             <form action="{% url 'ProfileListViewSearchURL' %}" method="get">
             <input type="text" name="q" id="search" placeholder="Type To Search.......">
             </form>
-            </section>
+            </section> {% endcomment %}
             
 <!-- Base.html - Search Box End ------------------------------ -->
 
@@ -111,24 +119,27 @@
                                   <!-- <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                       colspan="1" aria-label="" style="">Image
                                   </th> -->
-                                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                  {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                       colspan="1" aria-label="" style="">ID User - رقم المعرف الشخصي
-                                  </th>
+                                  </th> {% endcomment %}
                                   {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                       colspan="1" aria-label="" style="">User Name
                                   </th> {% endcomment %}
-                                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                  {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                       colspan="1" aria-label="" style="">First Name - الإسم الأول
-                                  </th>
-                                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                  </th> {% endcomment %}
+                                  {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                       colspan="1" aria-label="" style="">Last Name - الإسم الأخير
-                                  </th>
+                                  </th> {% endcomment %}
+                                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                  colspan="1" aria-label="" style=""> Name -  الأسم
+                                 </th>
                                   <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                       colspan="1" aria-label="" style="">Email Address - الإيميمل
                                   </th>
-                                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                  {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                       colspan="1" aria-label="" style="">Active Status - حالة حساب المشترك
-                                  </th>
+                                  </th> {% endcomment %}
                                   {% comment %} <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                       colspan="1" aria-label="" style="">Staff Status
                                   </th> {% endcomment %}
@@ -171,19 +182,26 @@
                                 
                                 </td>
                                 <!-- <td><img src="{{ object_list_item.ASS_AssociationLogo.url}}" alt="" width="150" height="90"></td> -->
-                                <td>{{ object_list_item.pk  }}</td> 
+                                {% comment %} <td>{{ object_list_item.pk  }}</td>  {% endcomment %}
                                 {% comment %} <td>{{ object_list_item.username }}</td> {% endcomment %}
-                                <td>{{ object_list_item.first_name }}</td>
-                                <td>{{ object_list_item.last_name }}</td>
+                                {% comment %} <td>{{ object_list_item.first_name }}</td> {% endcomment %}
+                                {% comment %} <td>{{ object_list_item.last_name }}</td> {% endcomment %}
+                                <td>{{ object_list_item.first_name }} {{ object_list_item.last_name }}</td>
                                 <td>{{ object_list_item.email }}</td>
-                                <td>{{ object_list_item.is_active }}</td>
+                                {% comment %} <td>{{ object_list_item.is_active }}</td> {% endcomment %}
                                 {% comment %} <td>{{ object_list_item.is_staff }}</td> {% endcomment %}
                                 {% comment %} <td>{{ object_list_item.is_superuser }}</td> {% endcomment %}
                                 <td>{{ object_list_item.date_joined | date:"M d, Y h:i:s A"}}</td>
                                 {% comment %} <td>{{ object_list_item.last_login  | date:"M d, Y h:i:s A"}}</td> {% endcomment %}
                               
                               </tr>
-                              {% endfor %}
+                              {% empty %}
+                              
+                              <li><h4>No Search Results For This Query!</h4></li> 
+                              <li><h4> لا توجد نتائج بحث لهذا الاستعلام</h4></li>
+                             
+                                 {% endfor %}
+         
                               </tbody>
                           </table>
                       </div>
@@ -220,70 +238,5 @@
 
 </div>
 
-                              {% comment %} ================================================= {% endcomment %}
-                              
-                        {% for user in users %}
-
-                                {% comment %} User Madel {% endcomment %}
-                                           id: {{ user.id }}<br>
-                                    User Name: {{ user.username }}<br>
-                       {% comment %} Password: {{ data_from_multiple_table.User__password }}<br> {% endcomment %}
-                                        Email: {{ user.email }}<br>
-                                    Is Active: {{ user.is_active}}<br/>
-                                Is Super User: {{ user.is_superuser }}<br>
-                                     Is Staff: {{ user.is_staff }}<br>
-                                   Last Login: {{ user.last_login }}<br>
-                                  Date Joined: {{ user.date_joined }}<br>
-                     {% comment %} First Name: {{ data_from_multiple_table.first_name }}<br> {% endcomment %}
-                      {% comment %} Last Name: {{ data_from_multiple_table.last_name }}<br> {% endcomment %}
-
-                        {% for personal in personals %}
-
-                            {% comment %} Personal Madel {% endcomment %}
-                                    {% comment %} User Name: {{ personal.P_User }}<br> {% endcomment %}
-                           {% comment %} Slug: {{ personal.slug }}<br> {% endcomment %}
-                                   First Name: {{ personal.P_FirstName }}<br>
-                                  Father Name: {{ personal.P_FatherName }}<br>
-                            Grand Father Name: {{ personal.P_GrandFatherName }}<br>
-                                  family Name: {{ personal.P_FamilyName }}<br>
-                                        Photo: {{ personal.P_Photo }}<br>
-                                       Mobile: {{ personal.P_Mobile }}<br>
-                                      Address: {{ personal.P_Address }}<br>
-                                        Notes: {{ personal.P_Notes}}<br/>
-
-                                {% comment %} Financeial Statemets Madel {% endcomment %}
-                        {% for financial_statement in  financial_statements %}
-                           {% comment %} User: {{ financial_statement.FS_User }}<br> {% endcomment %}
-                          Subscription Amount: {{ financial_statement.FS_SubscriptionAmount }}<br>
-                          Number Payments Due: {{ financial_statement.FS_NumberPaymentsDue }}<br>
-                                    Bank Name: {{ financial_statement.FS_BankName }}<br>
-                                 Bank Account: {{ financial_statement.FS_BankAccount }}<br>
-                                        Notes: {{ financial_statement.FS_Notes }}<br>
-
-                                {% comment %}  Dates Receiving Money Payments Madel {% endcomment %}
-                        {% for dates_receiving_money_payment in  dates_receiving_money_payments %}
-                           {% comment %} User: {{ dates_receiving_money_payment.DRMP_User }}<br> {% endcomment %}
-            DateReceiving Money Payments-Long: {{ dates_receiving_money_payment.DRMP_DateReceivingMoneyPayments_Long }}<br>
-           DateReceiving Money Payments-Short: {{ dates_receiving_money_payment.DRMP_DateReceivingMoneyPayments_Short }}<br>
-                                        Notes: {{ dates_receiving_money_payment.DRMP_Notes }}<br>
-
-                        {% endfor%}
-
-                        {% endfor %}
-
-                        {% endfor %}
-
-                        {% endfor %}
-
-                            {% comment %} <p>People with 3 experience:</p>
-                            <ul>
-                                {% for data_from_multiple_table in data_from_multiple_tables %}
-                                        <li>{{ data_from_multiple_table }}</li> <br>
-                                {% empty %}
-                                    <li>Nobody has 3 experience!</li>
-                                {% endfor %}
-                            </ul>  {% endcomment %}
-                            
-                               {% comment %} ================================================= {% endcomment %}
 
 {% endblock Contents_Page %} 

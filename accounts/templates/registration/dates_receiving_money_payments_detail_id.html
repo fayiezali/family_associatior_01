@@ -13,7 +13,9 @@
 {% block Page_Title  %}
 
 <div class="row justify-content-center">
- <h1>Step (4) Dates Receiving Money Payments Data - الخطوة 4 تواريخ إستلام الدفعات المالية</h1>
+ <h1>Step (4) Dates Receiving Money Payments Data </h1><h1> - </h1>
+ <h1>الخطوة (4) تواريخ إستلام الدفعات المالية</H1>
+
 </div>
 
 {% endblock Page_Title %}  
@@ -54,7 +56,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>Dates Receiving Money Payments Details By ID - تواريخ إستلام الدفعات المالية - الملف الشخصي</title>
+    <title>Dates Receiving Money Payments Details By ID </title>
+    <title>تواريخ استلام تفاصيل المدفوعات المالية حسب الهوية</title>
+
 
     <meta name="author" content="Codeconvey" />
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet"><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
@@ -113,7 +117,9 @@
 
         <div class="card shadow-sm">
           <div class="card-header bg-transparent border-0">
-            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Dates Receiving Money Payments Information - تواريخ استلام الدفعات المالية</h3>
+            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Dates Receiving Money Payments Information </h3>
+            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>معلومات عن الدفعات المالية المستحقة</h3>
+
           </div>
           <div class="card-body pt-0">
             <table class="table table-bordered">
@@ -135,7 +141,7 @@
               <tr>
                 <th width="30%">Date Receiving Money Payments Short - تاريخ إستلام الدفعات المالية - التاريخ</th>
                 <td width="2%">:</td>
-                <td>{{ My_Object.DRMP_DateReceivingMoneyPayments_Short }}</td>
+                <td>{{ My_Object.DRMP_DateReceivingMoneyPayments_Short  | date:"Y-m-d"}}</td>
               </tr>
               <tr>
                 <th width="30%">Notes - الملاحظات</th>
@@ -156,7 +162,7 @@
   </div>
 		</div>
     </div>
-    <a href="{% url 'SubscribersDesiresURL'                 user.pk  %}" role="button" style="float:lieft" class="btn btn-success">Next - التالي</a> <!-- Go To Home Page  -->
+    <a href="{% url 'SubscribersDesiresDetailIdURL'                 user.pk  %}" role="button" style="float:lieft" class="btn btn-success">Next - التالي</a> <!-- Go To Home Page  -->
 
     {% comment %} <a href="{% url 'DatesReceivingMoneyPamentsUpdateURL'  My_Object.pk %}" class="btn btn-primary">Edite - تعديل</a> {% endcomment %}
     

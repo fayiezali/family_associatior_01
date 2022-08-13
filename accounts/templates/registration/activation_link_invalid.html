@@ -11,7 +11,9 @@
 {% block Page_Title  %}
 
 <div class="row justify-content-center">
-<h1> Confirm Email Unsuccessfully </h1>
+<h1> Confirm Email Unsuccessfully  </h1>
+<h1>  تأكيد البريد الإلكتروني غير ناجح</h1>
+
 </div>
 
 {% endblock Page_Title %}  
@@ -48,8 +50,10 @@
     <div class="card">
     <div class="card-body">
 
-<h4> Confirm Email Activation Link Is Invalid!. -  رابط تأكيد  تنشيط البريد الإلكتروني غير صالح</h4>
-<p>Confirm Email Activation Link Is Invalid!. </p>
+<h4> Confirm Email Activation Link Is Invalid!. </h4>
+<h4>رابط تأكيد  تنشيط البريد الإلكتروني غير صالح</h4>
+
+{% comment %} <p>Confirm Email Activation Link Is Invalid!. </p> {% endcomment %}
 
 <a href="{% url 'SignupURL' %}" role="button" style="float:lieft" class="btn btn-success">Re-Signup</a><!-- Go To Login Page  -->
 
