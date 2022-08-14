@@ -55,6 +55,9 @@ class PersonalsMODEL(models.Model):
     def __str__(self):
         return str(self.P_User) 
     #
+    def __str__(self):
+        return f"{self.P_FirstName}, {self.P_FamilyName}"
+
     # 'Z-A' ترتيب تنازلي
     class Meta:
         ordering = ['P_User']
@@ -73,6 +76,7 @@ class PersonalsMODEL(models.Model):
     def full_name(self):
         return str(self.P_FirstName + ' ' + self.P_FatherName + ' ' + self.P_GrandFatherName + ' ' + self.P_FamilyName)
     full_name.short_description='الإسم رباعيا'  # 'admin'عرض إسم الصورة في صفحة
+
 
 #
     # create_profile: للمستخدم الجديد "profile"دالة تقوم بإنشاء

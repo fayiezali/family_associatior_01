@@ -8,9 +8,6 @@ from accounts.models import * #  استيراد كل المودل/الجداول
 from django_otp.admin import OTPAdminSite
 from django_otp.plugins.otp_totp.models import TOTPDevice
 #
-# Adding The Ability to Access The Admin page Using OTP
-# admin.site.__class__ = OTPAdminSite 
-# admin.site.unregister(User) # first unregister the existing useradmin...
 """Important Note:
 (fields) & (fieldsets) This Properties Can Not Be Put Together
 # Controlling Which fields are Displayed and Laid Out
@@ -31,6 +28,26 @@ from django_otp.plugins.otp_totp.models import TOTPDevice
 #     """Defines format of inline book insertion (used in AuthorAdmin)"""
 #     model = PersonalData_MODEL
 ##########################################################################
+#========== Django Admin – Redesign and Customization ==Start=========================
+#
+# (1) Changing the Django administration header and Titel text
+# Modifying The Site Admin Page
+# admin.site.site_header = "Family Associatior"    # Site Header
+# admin.site.site_title = "Family Associatior"     # Site Tab Title
+# admin.site.index_title = "Administration Portal" # Site Index Page Title
+#
+# (2) Removing the any group
+# from  django.contrib.auth.models  import  Group #  import it then unregister it in admin.py.
+# admin.site.unregister(User) # unregister the existing users
+# admin.site.unregister(Group) # unregister Group From Admin Site
+#
+# (3) Using OTP
+# # Adding The Ability to Access The Admin page Using OTP
+# admin.site.__class__ = OTPAdminSite 
+#
+# (4)change django admin "view site" link to custom absolute url
+# admin.site.site_url = "/mySite"
+#==========Customize the Django Admin Site==End========================================
 #
 # Personal File
 @admin.register(PersonalsMODEL)
@@ -212,6 +229,8 @@ class SubscribersDesiresMODELADMIN(admin.ModelAdmin):  # The class has been inhe
         #
         # Add a Search Box With The Fields Below:
         search_fields = ('SD_User', 'SD_Desire', 'SD_Notes')
+        editable_list = ['SD_User', 'SD_Desire', 'SD_Notes'] 
+
         #
         # Add aFilter Box
         list_filter = (
@@ -255,6 +274,8 @@ class SubscribersDesiresMODELADMIN(admin.ModelAdmin):  # The class has been inhe
         }
         ),
         )
+
+
 
 # 
 # """Admin OTP
@@ -300,92 +321,7 @@ class SubscribersDesiresMODELADMIN(admin.ModelAdmin):  # The class has been inhe
 
 # # Now register the new UserAdmin...
 # admin.site.register(User, UserAdmin)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#
 
 # # Comprehensive Record
 # @admin.register(Association_Months_MODEL)
@@ -513,3 +449,4 @@ class SubscribersDesiresMODELADMIN(admin.ModelAdmin):  # The class has been inhe
 #         'user'  ,
 #         'mobile'
 #         )
+

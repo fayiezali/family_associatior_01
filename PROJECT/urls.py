@@ -28,6 +28,7 @@ from django_otp.admin import OTPAdminSite
 from django_otp.plugins.otp_totp.models import TOTPDevice
 #
 #
+#
 urlpatterns = [
     # path('admin/'            , admin.urls),
     path('admin/'            , admin.site.urls),

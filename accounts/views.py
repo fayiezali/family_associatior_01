@@ -302,64 +302,7 @@ class ProfileListViewSearchCLASS(LoginRequiredMixin , ListView):
         context_CONTEXT = super().get_context_data(**kwargs)
         context_CONTEXT['now'] =  timezone.now()
         return context_CONTEXT # Send This Data To The Required Page HTML
-#
-# # class My_Profile_ListView_Search(LoginRequiredMixin , TemplateView):
-# # #     paginate_by = 4  # if pagination is desired
-# #     template_name = 'registration/my_profile_list.html'# The Page HTML to Display
-# #     context_object_name = 'queryset_users_list'
-# #     #
 
-# #     def get_context_data(self, **kwargs):
-# #         query = self.request.GET.get('q')# Save Searvh Criterian In a Variable
-# #         if query:
-# #             context = super().get_context_data(**kwargs)
-# #             context['queryset_users_list'] = User.objects.filter(id__icontains=query)
-# #             context['queryset_personal_data'] = PersonalData_MODEL.objects.filter(id__icontains=query)
-# #             return context
-# #         else:
-# #             context = super().get_context_data(**kwargs)
-# #             context['queryset_users_list'] = User.objects.all()
-# #             context['queryset_personal_data'] = PersonalData_MODEL.objects.all()
-# #             return context
-
-#     # def get_queryset(self):
-#     #     object_list = User.objects.all()
-#     #     # object_list_personal = PersonalData_MODEL.objects.all()
-#     #     query = self.request.GET.get('q')# Save Searvh Criterian In a Variable
-#     #     if query:
-#     #         # Save Search Results In a Variable
-#     #         object_list = User.objects.filter(
-#     #         Q(id__icontains=query)             # ID Number
-#     #         # Q(id__icontains=query)          |# ID Number
-#     #         # Q(first_name__icontains=query)  |# First Name
-#     #         # Q(last_name__icontains=query)   |# Last Name
-#     #         # Q(email__icontains=query)       | # Email
-#     #         # Q(is_active__icontains=query)    # User Is Active
-
-#     #     )
-#     #     return object_list  # Send Search Results To The Disired  Page HTML
-#         #
-# # # Django - multiple models(table) in one view - Stack Overflow
-# # class My_Profile_ListView_Search_01(LoginRequiredMixin , ListView):
-# #     context_object_name = 'home_list'
-# #     template_name = 'contacts/index.html'
-# #     queryset = Individual.objects.all()
-
-# #     def get_context_data(self, **kwargs):
-# #         context = super(IndexView, self).get_context_data(**kwargs)
-# #         context['roles'] = Role.objects.all()
-# #         context['venue_list'] = Venue.objects.all()
-# #         context['festival_list'] = Festival.objects.all()
-# #         # And so on for more models
-# #         return context
-#
-# # Display Detail Record By: Slug
-# class My_Profile_Detail_Slug(LoginRequiredMixin ,  DetailView):
-#     model = User # Data Table
-#     slug_field = 'ASS_Slug' # Filter Field Use 'Slug'
-#     context_object_name = 'My_Object' # Data To Be Sent To Page HTML
-#     template_name = 'registration/my_profile_detail_slug.html'# The Page HTML to Display
-#
 # Display Detail Record By: ID
 class ProfileDetailIdCLASS(LoginRequiredMixin , DetailView):
     model = User # Data Table
@@ -398,28 +341,7 @@ class ProfileDeleteCLASS(LoginRequiredMixin  , DeleteView):
 class ProfileDeleteDoneCLASS(TemplateView):
     template_name = 'registration/profile_delete_done.html' # The Page HTML to Display
 #
-# class My_Profile_Delete_Multiple_Select(LoginRequiredMixin, ListView):
-#     context_object_name = 'entry_list' # Data List To Send Page HTML
-#     paginate_by =  5
-#     model = User # Table Name In Database
-#     template_name = "portfolios/entry_list.html" # Page HTML Containing The Data List
 
-#     def get_queryset(self):
-#         return User.objects.filter(created_by=self.request.user).order_by('-pk')
-
-#     def post(self, request, *args, **kwargs):
-#         ids = self.request.POST.get('ids', "")
-#         # ids if string like "1,2,3,4"
-#         ids = ids.split(",")
-#         try:
-#             # Check ids are valid numbers
-#             ids = map(int, ids)
-#         except ValueError as e:
-#             return JsonResponse(status=400)
-#         # delete items
-#         self.model.objects.filter(id__in=ids).delete()
-#         return JsonResponse({"status": "ok"}, status=204)
-#
 # ########## Personal Data:-############################################################
 ## Display Detail Record By: ID
 class PersonalDetailIdCLASS(LoginRequiredMixin , DetailView):
@@ -540,8 +462,88 @@ class SubscribersDesiresUdateCLASS(UpdateView):
 # Display Dates Receiving Money Paments Udate Done
 class SubscribersDesiresUdateDoneCLASS(TemplateView):
     template_name = 'registration/subscribers_desires_update_done.html' # The Page HTML to Display
+#
+#
+# class My_Profile_Delete_Multiple_Select(LoginRequiredMixin, ListView):
+#     context_object_name = 'entry_list' # Data List To Send Page HTML
+#     paginate_by =  5
+#     model = User # Table Name In Database
+#     template_name = "portfolios/entry_list.html" # Page HTML Containing The Data List
 
+#     def get_queryset(self):
+#         return User.objects.filter(created_by=self.request.user).order_by('-pk')
 
+#     def post(self, request, *args, **kwargs):
+#         ids = self.request.POST.get('ids', "")
+#         # ids if string like "1,2,3,4"
+#         ids = ids.split(",")
+#         try:
+#             # Check ids are valid numbers
+#             ids = map(int, ids)
+#         except ValueError as e:
+#             return JsonResponse(status=400)
+#         # delete items
+#         self.model.objects.filter(id__in=ids).delete()
+#         return JsonResponse({"status": "ok"}, status=204)
+#
+#
+# # class My_Profile_ListView_Search(LoginRequiredMixin , TemplateView):
+# # #     paginate_by = 4  # if pagination is desired
+# #     template_name = 'registration/my_profile_list.html'# The Page HTML to Display
+# #     context_object_name = 'queryset_users_list'
+# #     #
+
+# #     def get_context_data(self, **kwargs):
+# #         query = self.request.GET.get('q')# Save Searvh Criterian In a Variable
+# #         if query:
+# #             context = super().get_context_data(**kwargs)
+# #             context['queryset_users_list'] = User.objects.filter(id__icontains=query)
+# #             context['queryset_personal_data'] = PersonalData_MODEL.objects.filter(id__icontains=query)
+# #             return context
+# #         else:
+# #             context = super().get_context_data(**kwargs)
+# #             context['queryset_users_list'] = User.objects.all()
+# #             context['queryset_personal_data'] = PersonalData_MODEL.objects.all()
+# #             return context
+
+#     # def get_queryset(self):
+#     #     object_list = User.objects.all()
+#     #     # object_list_personal = PersonalData_MODEL.objects.all()
+#     #     query = self.request.GET.get('q')# Save Searvh Criterian In a Variable
+#     #     if query:
+#     #         # Save Search Results In a Variable
+#     #         object_list = User.objects.filter(
+#     #         Q(id__icontains=query)             # ID Number
+#     #         # Q(id__icontains=query)          |# ID Number
+#     #         # Q(first_name__icontains=query)  |# First Name
+#     #         # Q(last_name__icontains=query)   |# Last Name
+#     #         # Q(email__icontains=query)       | # Email
+#     #         # Q(is_active__icontains=query)    # User Is Active
+
+#     #     )
+#     #     return object_list  # Send Search Results To The Disired  Page HTML
+#         #
+# # # Django - multiple models(table) in one view - Stack Overflow
+# # class My_Profile_ListView_Search_01(LoginRequiredMixin , ListView):
+# #     context_object_name = 'home_list'
+# #     template_name = 'contacts/index.html'
+# #     queryset = Individual.objects.all()
+
+# #     def get_context_data(self, **kwargs):
+# #         context = super(IndexView, self).get_context_data(**kwargs)
+# #         context['roles'] = Role.objects.all()
+# #         context['venue_list'] = Venue.objects.all()
+# #         context['festival_list'] = Festival.objects.all()
+# #         # And so on for more models
+# #         return context
+#
+# # Display Detail Record By: Slug
+# class My_Profile_Detail_Slug(LoginRequiredMixin ,  DetailView):
+#     model = User # Data Table
+#     slug_field = 'ASS_Slug' # Filter Field Use 'Slug'
+#     context_object_name = 'My_Object' # Data To Be Sent To Page HTML
+#     template_name = 'registration/my_profile_detail_slug.html'# The Page HTML to Display
+#
 
 
 

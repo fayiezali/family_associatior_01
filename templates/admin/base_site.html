@@ -1,0 +1,22 @@
+
+
+{% extends 'admin/base.html' %}
+{% load static %}
+
+
+{% comment %} {% block title %}
+{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}
+
+{% endblock %} {% endcomment %}
+
+{% block branding %}
+
+<img class="Family_Associatior" src="{% static 'Project_logo.png/' %}" alt="Family Associatior" width="40px" height="40px">
+
+<h1 id="site-name" style="font-family: cursive;" ><a href="{% url 'admin:index' %}">Family Associatior</a></h1>
+
+
+
+{% endblock %}
+
+{% block nav-global %}{% endblock %} 
