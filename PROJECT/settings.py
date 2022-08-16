@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 # ===================HEROKU============================
 import os
 from pathlib import Path
-import  django_heroku
+import django_heroku
 # ===================HEROKU============================
 
 
