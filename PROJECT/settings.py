@@ -9,6 +9,12 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
+# ===================HEROKU============================
+from pathlib import Path
+import  django_heroku  # HEROKU (1)
+import dj_database_url # HEROKU (2)
+
+# ===================HEROKU============================
 
 from pathlib import Path
 
@@ -25,7 +31,7 @@ SECRET_KEY = 'django-insecure-%_h+d+)q56wif)t6cl9*lbaxtf2)0g+syp)fh6(b#xtqu&1keo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -145,6 +151,10 @@ STATIC_URL = 'static/'
 #
 # To Access "static" Files In Project (All App)
 STATICFILES_DIRS = [ BASE_DIR / "static"]
+# ===================HEROKU============================
+django_heroku.settings(locals()) #HEROKU (3)
+# ===================HEROKU============================
+#
 # '/media/':  الوسائط المتعددة"Media" بإدارة ملفات الـ "static" يقوم مجلد 
 # '/media/': التي يحتاجها المشروع "Documents ,Images , Audio , Video,"هو مجلد  يتحوي على جميع ملفات 
 # '/media/': يتم إستدعائها عن طريق هذا المجلد . هذاالمجلد فيه جميع إعدادت وتنسيقات الصفحة  "app"في التطبيق  "html"أي صفحة 
