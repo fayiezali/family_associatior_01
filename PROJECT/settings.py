@@ -9,14 +9,11 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-import os
+
 # ===================HEROKU============================
+import os
 from pathlib import Path
-import django_on_heroku             # HEROKU
-django_on_heroku.settings(locals()) # HEROKU
-
-import dj_database_url # HEROKU (2)
-
+import  django_heroku
 # ===================HEROKU============================
 
 
@@ -33,7 +30,8 @@ SECRET_KEY = 'django-insecure-%_h+d+)q56wif)t6cl9*lbaxtf2)0g+syp)fh6(b#xtqu&1keo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['project.herokuapp.com']
 
 
 # Application definition
@@ -106,12 +104,27 @@ WSGI_APPLICATION = 'PROJECT.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'd7ttilgtuv7h2',
+            'USER': 'ygpfhgxoqsgpwk',
+            'PASSWORD': 'a0ca1f25e5d2bbf274f855b7e6d6111bb2620a500011503f25861997d25029ee',
+            'HOST': 'ec2-3-224-184-9.compute-1.amazonaws.com',
+            'PORT': '5432',
+            'URL': 'postgres://ygpfhgxoqsgpwk:a0ca1f25e5d2bbf274f855b7e6d6111bb2620a500011503f25861997d25029ee@ec2-3-224-184-9.compute-1.amazonaws.com:5432/d7ttilgtuv7h2',
+            'HEROKU CLI': 'heroku pg:psql postgresql-metric-26543 --app family-associatior-a',
+        }
 }
+
+
 
 
 # Password validation
@@ -152,8 +165,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 #
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# ===================HEROKU============================
+django_heroku.settings(locals())
+# ===================HEROKU============================
 # To Access "static" Files In Project (All App)
-STATICFILES_DIRS = (os.patt.join(BASE_DIR, 'static'),)
 # STATICFILES_DIRS = [ BASE_DIR / "static"]
 #
 # '/media/':  الوسائط المتعددة"Media" بإدارة ملفات الـ "static" يقوم مجلد 
