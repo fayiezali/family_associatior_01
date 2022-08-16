@@ -9,14 +9,16 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
+import os
 # ===================HEROKU============================
 from pathlib import Path
-import  django_heroku  # HEROKU (1)
+import django_on_heroku             # HEROKU
+django_on_heroku.settings(locals()) # HEROKU
+
 import dj_database_url # HEROKU (2)
 
 # ===================HEROKU============================
 
-from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -149,11 +151,10 @@ USE_TZ = True
 # To Access "static" Files In App Only
 STATIC_URL = 'static/'
 #
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # To Access "static" Files In Project (All App)
-STATICFILES_DIRS = [ BASE_DIR / "static"]
-# ===================HEROKU============================
-django_heroku.settings(locals()) #HEROKU (3)
-# ===================HEROKU============================
+STATICFILES_DIRS = (os.patt.join(BASE_DIR, 'static'),)
+# STATICFILES_DIRS = [ BASE_DIR / "static"]
 #
 # '/media/':  الوسائط المتعددة"Media" بإدارة ملفات الـ "static" يقوم مجلد 
 # '/media/': التي يحتاجها المشروع "Documents ,Images , Audio , Video,"هو مجلد  يتحوي على جميع ملفات 
